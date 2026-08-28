@@ -14,6 +14,7 @@ public class InteraksiPemain : MonoBehaviour
 
     private Rigidbody barangDipegang;
     private DataSparepart partDisorot;
+    private Baut bautDisorot;
 
     void Update()
     {
@@ -35,26 +36,45 @@ public class InteraksiPemain : MonoBehaviour
         Ray ray = kameraPemain.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         RaycastHit hit;
 
-        if (barangDipegang == null && Physics.Raycast(ray, out hit, jarakJangkauan))
+        if (barangDipegang == null && Physics.Raycast(ray, out hit, jarakJangkauan, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide))
         {
+            Baut cekBaut = hit.collider.GetComponent<Baut>();
+            if (cekBaut != null)
+            {
+                bautDisorot = cekBaut;
+                partDisorot = null;
+                teksNamaUI.text = bautDisorot.namaObjek;
+                return;
+            }
+
             DataSparepart cekPart = hit.collider.GetComponent<DataSparepart>();
             if (cekPart != null)
             {
                 partDisorot = cekPart;
+                bautDisorot = null;
                 teksNamaUI.text = partDisorot.namaObjek;
                 return;
             }
         }
-        
+
         partDisorot = null;
+        bautDisorot = null;
         teksNamaUI.text = "";
     }
 
     void CekInputPegang()
     {
+        if (Input.GetMouseButton(0) && bautDisorot != null)
+        {
+            bautDisorot.ProsesLepas();
+        }
+
         if (Input.GetMouseButtonDown(0) && partDisorot != null)
         {
-            AmbilBarang(partDisorot.GetComponent<Rigidbody>());
+            if (partDisorot.bisaDiambil)
+            {
+                AmbilBarang(partDisorot.GetComponent<Rigidbody>());
+            }
         }
 
         if (Input.GetMouseButtonUp(0) && barangDipegang != null)
@@ -65,6 +85,7 @@ public class InteraksiPemain : MonoBehaviour
 
     void AmbilBarang(Rigidbody rb)
     {
+        if (rb == null) return;
         barangDipegang = rb;
         barangDipegang.useGravity = false;
         barangDipegang.linearDamping = 10f;
