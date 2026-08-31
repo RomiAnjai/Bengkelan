@@ -809,5 +809,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff5052eabe0d2634088a43cca07dfb7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DataSparepart
-  namaObjek: tes
+  namaObjek: Ban
   bisaDiambil: 1

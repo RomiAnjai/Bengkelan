@@ -460,7 +460,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   currentState: 0
-  SpawnObjek: {fileID: 9205466504565495533, guid: 432fc7bf1804f7e4aa4d9021eb10bb5d, type: 3}
+  SpawnObjek: {fileID: 1392839198083083191, guid: 3754ccaec4088fd46b37ef3b1fac0b25, type: 3}
+  posisiSpawn: {fileID: 1695399074}
 --- !u!4 &557296095
 Transform:
   m_ObjectHideFlags: 0
@@ -470,7 +471,7 @@ Transform:
   m_GameObject: {fileID: 557296093}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 2.93, z: -6.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -995,7 +996,7 @@ Transform:
   m_GameObject: {fileID: 1156795797}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.33698, y: 1.31, z: 0.99714}
+  m_LocalPosition: {x: 0.33698, y: 1.31, z: -12.11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1019,6 +1020,37 @@ MonoBehaviour:
   teksNamaUI: {fileID: 1720328636}
   jarakJangkauan: 3
   kekuatanTarik: 10
+--- !u!1 &1695399073
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1695399074}
+  m_Layer: 0
+  m_Name: PosisiSpawnMotor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1695399074
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1695399073}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.26, y: 2.712, z: -0.97}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1719842264
 GameObject:
   m_ObjectHideFlags: 0
@@ -1338,3 +1370,4 @@ SceneRoots:
   - {fileID: 882606520}
   - {fileID: 557296095}
   - {fileID: 303790926}
+  - {fileID: 1695399074}
