@@ -36,24 +36,32 @@ public class InteraksiPemain : MonoBehaviour
         Ray ray = kameraPemain.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         RaycastHit hit;
 
+        DetailLangkah langkah = SequenceService.instance.GetLangkahSaatIni();
+
         if (barangDipegang == null && Physics.Raycast(ray, out hit, jarakJangkauan, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide))
         {
             Baut cekBaut = hit.collider.GetComponent<Baut>();
             if (cekBaut != null)
             {
-                bautDisorot = cekBaut;
-                partDisorot = null;
-                teksNamaUI.text = bautDisorot.namaObjek;
-                return;
+                if (langkah != null && langkah.jenisAksi == cekBaut.tipeAksiDibutuhkan)
+                {
+                    bautDisorot = cekBaut;
+                    partDisorot = null;
+                    teksNamaUI.text = bautDisorot.namaObjek;
+                    return;
+                }
             }
 
             DataSparepart cekPart = hit.collider.GetComponent<DataSparepart>();
             if (cekPart != null)
             {
-                partDisorot = cekPart;
-                bautDisorot = null;
-                teksNamaUI.text = partDisorot.namaObjek;
-                return;
+                if (langkah != null && cekPart.CompareTag(langkah.targetPartTag))
+                {
+                    partDisorot = cekPart;
+                    bautDisorot = null;
+                    teksNamaUI.text = partDisorot.namaObjek;
+                    return;
+                }
             }
         }
 
@@ -73,7 +81,7 @@ public class InteraksiPemain : MonoBehaviour
         {
             if (partDisorot.bisaDiambil)
             {
-                AmbilBarang(partDisorot.GetComponent<Rigidbody>());
+                AmbilBarang(partDisorot.GetComponent<Rigidbody>(), partDisorot.gameObject.tag);
             }
         }
 
@@ -83,13 +91,19 @@ public class InteraksiPemain : MonoBehaviour
         }
     }
 
-    void AmbilBarang(Rigidbody rb)
+    void AmbilBarang(Rigidbody rb, string partTag)
     {
         if (rb == null) return;
         barangDipegang = rb;
         barangDipegang.useGravity = false;
         barangDipegang.linearDamping = 10f;
         barangDipegang.angularDamping = 10f;
+
+        DetailLangkah langkah = SequenceService.instance.GetLangkahSaatIni();
+        if (langkah != null && langkah.jenisAksi == TipeAksi.LepasBanLuar && partTag == langkah.targetPartTag)
+        {
+            SequenceService.instance.SelesaikanLangkah();
+        }
     }
 
     void LepasBarang()

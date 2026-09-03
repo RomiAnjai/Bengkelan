@@ -7,6 +7,8 @@ public class Baut : MonoBehaviour
     public SphereCollider colliderBan;
     public Rigidbody rbBanDepan;
 
+    public TipeAksi tipeAksiDibutuhkan = TipeAksi.LepasBaut;
+
     [Header("Kustomisasi Gerakan Baut")]
     public float kecepatanPutar = 500f;
     public float jarakKeluar = 0.2f;
@@ -20,24 +22,10 @@ public class Baut : MonoBehaviour
 
     public float progres = 0f;
     private Vector3 posisiAwal;
-    private float rotasiXSaatIni;
-    private float rotasiYSaatIni;
-    private float rotasiZSaatIni;
 
     void Start()
     {
         posisiAwal = transform.localPosition;
-
-        if (arahPutar == 'x')
-        {
-            rotasiXSaatIni = transform.localEulerAngles.x;
-        } else if (arahPutar == 'y')
-        {
-            rotasiXSaatIni = transform.localEulerAngles.y;
-        } else if (arahPutar == 'z')
-        {
-            rotasiXSaatIni = transform.localEulerAngles.z;
-        }
 
         if (partInduk != null)
         {
@@ -51,6 +39,12 @@ public class Baut : MonoBehaviour
 
     public void ProsesLepas()
     {
+        DetailLangkah langkah = SequenceService.instance.GetLangkahSaatIni();
+        if (langkah == null || langkah.jenisAksi != tipeAksiDibutuhkan)
+        {
+            return;
+        }
+
         progres += Time.deltaTime;
 
         Vector3 deltaputar = arahputar * kecepatanPutar * Time.deltaTime;
@@ -67,8 +61,27 @@ public class Baut : MonoBehaviour
 
     void LepasTotal()
     {
-        Baut[] sisaBaut = partInduk.GetComponentsInChildren<Baut>();
-        if (sisaBaut.Length <= 1)
+        Baut[] semuaBaut = partInduk.GetComponentsInChildren<Baut>();
+        
+        int sisaBautTipeIni = 0;
+        foreach (Baut b in semuaBaut)
+        {
+            if (b.tipeAksiDibutuhkan == this.tipeAksiDibutuhkan)
+            {
+                sisaBautTipeIni++;
+            }
+        }
+
+        if (sisaBautTipeIni <= 1)
+        {
+            DetailLangkah langkah = SequenceService.instance.GetLangkahSaatIni();
+            if (langkah != null && langkah.jenisAksi == tipeAksiDibutuhkan)
+            {
+                SequenceService.instance.SelesaikanLangkah();
+            }
+        }
+
+        if (semuaBaut.Length <= 1)
         {
             partInduk.bisaDiambil = true;
             if (colliderBan != null)
@@ -76,9 +89,14 @@ public class Baut : MonoBehaviour
                 colliderBan.enabled = true;
             }
             
-            rbBanDepan.isKinematic = false;
-            rbBanDepan.useGravity = true;
+            if (rbBanDepan != null)
+            {
+                rbBanDepan.isKinematic = false;
+                colliderBan.enabled = true;
+                rbBanDepan.useGravity = true;
+            }
         }
+        
         Destroy(gameObject);
     }
 }

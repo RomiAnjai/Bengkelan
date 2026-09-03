@@ -14,8 +14,6 @@ public class GameManagerScript : MonoBehaviour
     public GameObject SpawnObjek;
     public Transform posisiSpawn;
 
-    private Rigidbody rbBan;
-
     void Awake()
     {
         if (instance == null)
@@ -42,30 +40,16 @@ public class GameManagerScript : MonoBehaviour
                 if (SpawnObjek != null)
                 {
                     Instantiate(SpawnObjek, targetPosisiSpawn, Quaternion.identity);
-                    AmbilDataBan();
+                    SequenceService.instance.MulaiServis(0);
                     currentState = GameState.MotorSedangServis;
                 }
                 break;
 
             case GameState.MotorSedangServis:
-                if (rbBan != null && Input.GetKeyDown(KeyCode.E))
-                {
-                    rbBan.isKinematic = false;
-                    rbBan.useGravity = true;
-                }
                 break;
 
             case GameState.MotorSelesai:
                 break;
-        }
-    }
-
-    void AmbilDataBan()
-    {
-        GameObject ban = GameObject.FindWithTag("Ban");
-        if (ban != null)
-        {
-            rbBan = ban.GetComponent<Rigidbody>();
         }
     }
 }
