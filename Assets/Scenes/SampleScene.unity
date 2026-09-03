@@ -3840,9 +3840,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Baut
   namaObjek: As Depan
   partInduk: {fileID: 1097633260}
-  colliderBan: {fileID: 0}
+  colliderBan: {fileID: 1097633259}
+  rbBanDepan: {fileID: 1097633258}
   kecepatanPutar: 500
-  jarakKeluar: 0.002
+  jarakKeluar: 0.1
   arahKeluar: {x: 0, y: 0, z: -1}
   arahputar: {x: 0, y: 0, z: 1}
   rotasiKunciY: 0
@@ -4494,6 +4495,7 @@ MonoBehaviour:
   namaObjek: Baut
   partInduk: {fileID: 1097633260}
   colliderBan: {fileID: 1097633259}
+  rbBanDepan: {fileID: 1097633258}
   kecepatanPutar: 500
   jarakKeluar: 0.02
   arahKeluar: {x: 0, y: 0, z: 1}

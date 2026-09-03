@@ -5,6 +5,7 @@ public class Baut : MonoBehaviour
     public string namaObjek = "Baut";
     public DataSparepart partInduk;
     public SphereCollider colliderBan;
+    public Rigidbody rbBanDepan;
 
     [Header("Kustomisasi Gerakan Baut")]
     public float kecepatanPutar = 500f;
@@ -52,11 +53,6 @@ public class Baut : MonoBehaviour
     {
         progres += Time.deltaTime;
 
-        //rotasiXSaatIni -= kecepatanPutar * Time.deltaTime;
-        //transform.localEulerAngles = new Vector3(rotasiXSaatIni, rotasiKunciY, rotasiKunciZ);
-
-        //Vector3 arahkunci; 
-
         Vector3 deltaputar = arahputar * kecepatanPutar * Time.deltaTime;
         transform.localEulerAngles = transform.localEulerAngles + deltaputar;
 
@@ -77,8 +73,11 @@ public class Baut : MonoBehaviour
             partInduk.bisaDiambil = true;
             if (colliderBan != null)
             {
-                colliderBan.enabled = true;   
+                colliderBan.enabled = true;
             }
+            
+            rbBanDepan.isKinematic = false;
+            rbBanDepan.useGravity = true;
         }
         Destroy(gameObject);
     }
