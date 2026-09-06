@@ -22,10 +22,12 @@ public class Baut : MonoBehaviour
 
     public float progres = 0f;
     private Vector3 posisiAwal;
+    private Vector3 rotasiSaatIni;
 
     void Start()
     {
         posisiAwal = transform.localPosition;
+        rotasiSaatIni = transform.localEulerAngles;
 
         if (partInduk != null)
         {
@@ -48,7 +50,8 @@ public class Baut : MonoBehaviour
         progres += Time.deltaTime;
 
         Vector3 deltaputar = arahputar * kecepatanPutar * Time.deltaTime;
-        transform.localEulerAngles = transform.localEulerAngles + deltaputar;
+        rotasiSaatIni = rotasiSaatIni + deltaputar;
+        transform.localEulerAngles = rotasiSaatIni;
 
         Vector3 deltaPosisi = arahKeluar * (progres * jarakKeluar);
         transform.localPosition = posisiAwal + deltaPosisi;

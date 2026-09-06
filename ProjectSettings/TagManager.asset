@@ -8,6 +8,7 @@ TagManager:
   - Baut Depan
   - As Depan
   - Ban Luar
+  - PosisiKamera
   layers:
   - Default
   - TransparentFX

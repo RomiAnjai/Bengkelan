@@ -946,6 +946,7 @@ GameObject:
   - component: {fileID: 3505756922734739991}
   - component: {fileID: 9158752621563477619}
   - component: {fileID: 5491633237039292098}
+  - component: {fileID: 7468960763162736027}
   m_Layer: 0
   m_Name: cb 100 draft 1
   m_TagString: Untagged
@@ -995,6 +996,8 @@ Transform:
   - {fileID: 132661319092201134}
   - {fileID: 4571917965968087277}
   - {fileID: 9118956639153185150}
+  - {fileID: 2882596698940883865}
+  - {fileID: 1979783722292613864}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &3505756922734739991
@@ -1063,12 +1066,29 @@ MonoBehaviour:
     - namaLangkah: Copot Baut
       jenisAksi: 0
       targetPartTag: Baut Depan
+      posisiKamera: {fileID: 2882596698940883865}
     - namaLangkah: Copot As
       jenisAksi: 1
       targetPartTag: As Depan
+      posisiKamera: {fileID: 1979783722292613864}
     - namaLangkah: Lepas Ban
       jenisAksi: 2
       targetPartTag: Ban Luar
+      posisiKamera: {fileID: 0}
+  sedangTransisi: 0
+--- !u!114 &7468960763162736027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2855420916814498178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 613450344b66f724f831b303618642e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  jedaPindahKamera: 0.8
 --- !u!1 &3299889214187376479
 GameObject:
   m_ObjectHideFlags: 0
@@ -1857,9 +1877,9 @@ MonoBehaviour:
   rbBanDepan: {fileID: 5258489101249838321}
   tipeAksiDibutuhkan: 0
   kecepatanPutar: 500
-  jarakKeluar: 0.02
+  jarakKeluar: 0.002
   arahKeluar: {x: 0, y: 0, z: 1}
-  arahputar: {x: 0, y: 0, z: 0}
+  arahputar: {x: 0.7, y: 0, z: 0}
   rotasiKunciY: 90
   rotasiKunciZ: 0
   arahPutar: 120
@@ -2157,6 +2177,37 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &6215420023104066724
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1979783722292613864}
+  m_Layer: 0
+  m_Name: Titik Kamera As
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1979783722292613864
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6215420023104066724}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.18301274, y: -0.6830127, z: 0.18301274, w: 0.6830127}
+  m_LocalPosition: {x: 1.223, y: 0.54, z: -1.946}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1443238043360380421}
+  m_LocalEulerAnglesHint: {x: 30, y: -90, z: 0}
 --- !u!1 &6674253739573098397
 GameObject:
   m_ObjectHideFlags: 0
@@ -2450,6 +2501,37 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &7154249660803317325
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2882596698940883865}
+  m_Layer: 0
+  m_Name: Titik Kamera Baut
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2882596698940883865
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7154249660803317325}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.24184473, y: 0.66446304, z: -0.24184473, w: 0.66446304}
+  m_LocalPosition: {x: -0.95, y: 0.54, z: -1.946}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1443238043360380421}
+  m_LocalEulerAnglesHint: {x: 40, y: 90, z: 0}
 --- !u!1 &7734405155289136150
 GameObject:
   m_ObjectHideFlags: 0

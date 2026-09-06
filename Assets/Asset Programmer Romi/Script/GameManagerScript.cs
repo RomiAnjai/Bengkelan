@@ -52,4 +52,15 @@ public class GameManagerScript : MonoBehaviour
                 break;
         }
     }
+
+    public void MulaiServis()
+    {
+        InteraksiMotor.instance.FokusKeMotor();
+        
+        MekanikController mc = FindAnyObjectByType<MekanikController>();
+        if (mc != null)
+        {
+            mc.KunciKursor(true);
+        }
+    }
 }

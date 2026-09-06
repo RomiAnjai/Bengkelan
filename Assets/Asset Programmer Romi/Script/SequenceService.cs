@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public enum TipeAksi
 {
@@ -18,14 +19,14 @@ public class DetailLangkah
     public string namaLangkah;
     public TipeAksi jenisAksi;
     public string targetPartTag; 
+    public Transform posisiKamera; 
+    public bool pakaiCrosshair; 
 }
 
 [System.Serializable]
 public class MasalahMotor
 {
     public string namaKerusakan;
-    
-    [Header("Urutan Langkah Perbaikan")]
     public List<DetailLangkah> urutanLangkah;
 }
 
@@ -33,8 +34,8 @@ public class SequenceService : MonoBehaviour
 {
     public static SequenceService instance;
 
-    [Header("Database Masalah Motor")]
     public List<MasalahMotor> daftarMasalahMotor;
+    public bool sedangTransisi = false;
 
     private int indexLangkahSaatIni = 0;
     private MasalahMotor masalahAktif;
@@ -51,8 +52,7 @@ public class SequenceService : MonoBehaviour
 
         masalahAktif = daftarMasalahMotor[indexMasalah];
         indexLangkahSaatIni = 0;
-
-        Debug.Log("Mulai Servis: " + masalahAktif.namaKerusakan);
+        sedangTransisi = false;
         TampilkanLangkahSaatIni();
     }
 
@@ -64,25 +64,46 @@ public class SequenceService : MonoBehaviour
 
     public void SelesaikanLangkah()
     {
-        if (masalahAktif == null) return;
+        if (masalahAktif == null || sedangTransisi) return;
+        StartCoroutine(ProsesJedaDanGantiLangkah());
+    }
 
-        Debug.Log("Langkah Selesai: " + masalahAktif.urutanLangkah[indexLangkahSaatIni].namaLangkah);
+    private IEnumerator ProsesJedaDanGantiLangkah()
+    {
+        sedangTransisi = true;
+
+        float durasiJeda = 1f;
+        if (InteraksiMotor.instance != null)
+        {
+            durasiJeda = InteraksiMotor.instance.jedaPindahKamera;
+        }
+
+        yield return new WaitForSeconds(durasiJeda);
+
         indexLangkahSaatIni++;
 
         if (indexLangkahSaatIni >= masalahAktif.urutanLangkah.Count)
         {
-            Debug.Log("SERVIS SELESAI! Motor siap diserahkan.");
             GameManagerScript.instance.currentState = GameState.MotorSelesai;
+            if (InteraksiMotor.instance != null)
+            {
+                InteraksiMotor.instance.SelesaiServisBebaskanKamera();
+            }
         }
         else
         {
             TampilkanLangkahSaatIni();
+            if (InteraksiMotor.instance != null)
+            {
+                InteraksiMotor.instance.UpdateFokusKamera();
+            }
         }
+
+        sedangTransisi = false;
     }
 
     void TampilkanLangkahSaatIni()
     {
         DetailLangkah langkah = masalahAktif.urutanLangkah[indexLangkahSaatIni];
-        Debug.Log("Langkah Berikutnya (" + (indexLangkahSaatIni + 1) + "/" + masalahAktif.urutanLangkah.Count + "): " + langkah.namaLangkah);
     }
 }
