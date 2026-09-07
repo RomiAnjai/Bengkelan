@@ -7,6 +7,7 @@ public class InteraksiPemain : MonoBehaviour
     public Camera kameraPemain;
     public Transform titikPegangan;
     public TextMeshProUGUI teksNamaUI;
+    public GameObject crosshairUI; 
 
     [Header("Pengaturan Interaksi")]
     public float jarakJangkauan = 3f;
@@ -18,6 +19,14 @@ public class InteraksiPemain : MonoBehaviour
 
     void Update()
     {
+        if (SequenceService.instance != null && SequenceService.instance.sedangTransisi)
+        {
+            teksNamaUI.text = "";
+            if (crosshairUI != null) crosshairUI.SetActive(false);
+            return;
+        }
+
+        AturModeBidik();
         SorotBarang();
         CekInputPegang();
     }
@@ -31,29 +40,76 @@ public class InteraksiPemain : MonoBehaviour
         }
     }
 
+    void AturModeBidik()
+    {
+        DetailLangkah langkah = SequenceService.instance.GetLangkahSaatIni();
+        bool aktifkanCrosshair = true;
+
+        if (InteraksiMotor.instance != null && InteraksiMotor.instance.sedangFokus && langkah != null)
+        {
+            aktifkanCrosshair = langkah.pakaiCrosshair;
+        }
+
+        if (crosshairUI != null)
+        {
+            crosshairUI.SetActive(aktifkanCrosshair);
+        }
+
+        if (InteraksiMotor.instance != null && InteraksiMotor.instance.sedangFokus)
+        {
+            if (aktifkanCrosshair)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+        }
+    }
+
     void SorotBarang()
     {
-        Ray ray = kameraPemain.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        Ray ray;
+        
+        if (crosshairUI != null && crosshairUI.activeSelf)
+        {
+            ray = kameraPemain.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        }
+        else
+        {
+            ray = kameraPemain.ScreenPointToRay(Input.mousePosition);
+        }
+
         RaycastHit hit;
+        DetailLangkah langkah = SequenceService.instance.GetLangkahSaatIni();
 
         if (barangDipegang == null && Physics.Raycast(ray, out hit, jarakJangkauan, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide))
         {
             Baut cekBaut = hit.collider.GetComponent<Baut>();
             if (cekBaut != null)
             {
-                bautDisorot = cekBaut;
-                partDisorot = null;
-                teksNamaUI.text = bautDisorot.namaObjek;
-                return;
+                if (langkah != null && langkah.jenisAksi == cekBaut.tipeAksiDibutuhkan)
+                {
+                    bautDisorot = cekBaut;
+                    partDisorot = null;
+                    teksNamaUI.text = bautDisorot.namaObjek;
+                    return;
+                }
             }
 
             DataSparepart cekPart = hit.collider.GetComponent<DataSparepart>();
             if (cekPart != null)
             {
-                partDisorot = cekPart;
-                bautDisorot = null;
-                teksNamaUI.text = partDisorot.namaObjek;
-                return;
+                if (langkah != null && cekPart.CompareTag(langkah.targetPartTag))
+                {
+                    partDisorot = cekPart;
+                    bautDisorot = null;
+                    teksNamaUI.text = partDisorot.namaObjek;
+                    return;
+                }
             }
         }
 
@@ -73,7 +129,13 @@ public class InteraksiPemain : MonoBehaviour
         {
             if (partDisorot.bisaDiambil)
             {
-                AmbilBarang(partDisorot.GetComponent<Rigidbody>());
+                Rigidbody rbTarget = partDisorot.GetComponent<Rigidbody>();
+                if (rbTarget == null)
+                {
+                    rbTarget = partDisorot.GetComponentInChildren<Rigidbody>();
+                }
+
+                AmbilBarang(rbTarget, partDisorot.gameObject.tag);
             }
         }
 
@@ -83,13 +145,19 @@ public class InteraksiPemain : MonoBehaviour
         }
     }
 
-    void AmbilBarang(Rigidbody rb)
+    void AmbilBarang(Rigidbody rb, string partTag)
     {
         if (rb == null) return;
         barangDipegang = rb;
         barangDipegang.useGravity = false;
         barangDipegang.linearDamping = 10f;
         barangDipegang.angularDamping = 10f;
+
+        DetailLangkah langkah = SequenceService.instance.GetLangkahSaatIni();
+        if (langkah != null && langkah.jenisAksi == TipeAksi.LepasBanLuar && partTag == langkah.targetPartTag)
+        {
+            SequenceService.instance.SelesaikanLangkah();
+        }
     }
 
     void LepasBarang()

@@ -5,6 +5,9 @@ public class Baut : MonoBehaviour
     public string namaObjek = "Baut";
     public DataSparepart partInduk;
     public SphereCollider colliderBan;
+    public Rigidbody rbBanDepan;
+
+    public TipeAksi tipeAksiDibutuhkan = TipeAksi.LepasBaut;
 
     [Header("Kustomisasi Gerakan Baut")]
     public float kecepatanPutar = 500f;
@@ -19,24 +22,12 @@ public class Baut : MonoBehaviour
 
     public float progres = 0f;
     private Vector3 posisiAwal;
-    private float rotasiXSaatIni;
-    private float rotasiYSaatIni;
-    private float rotasiZSaatIni;
+    private Vector3 rotasiSaatIni;
 
     void Start()
     {
         posisiAwal = transform.localPosition;
-
-        if (arahPutar == 'x')
-        {
-            rotasiXSaatIni = transform.localEulerAngles.x;
-        } else if (arahPutar == 'y')
-        {
-            rotasiXSaatIni = transform.localEulerAngles.y;
-        } else if (arahPutar == 'z')
-        {
-            rotasiXSaatIni = transform.localEulerAngles.z;
-        }
+        rotasiSaatIni = transform.localEulerAngles;
 
         if (partInduk != null)
         {
@@ -50,15 +41,17 @@ public class Baut : MonoBehaviour
 
     public void ProsesLepas()
     {
+        DetailLangkah langkah = SequenceService.instance.GetLangkahSaatIni();
+        if (langkah == null || langkah.jenisAksi != tipeAksiDibutuhkan)
+        {
+            return;
+        }
+
         progres += Time.deltaTime;
 
-        //rotasiXSaatIni -= kecepatanPutar * Time.deltaTime;
-        //transform.localEulerAngles = new Vector3(rotasiXSaatIni, rotasiKunciY, rotasiKunciZ);
-
-        //Vector3 arahkunci; 
-
         Vector3 deltaputar = arahputar * kecepatanPutar * Time.deltaTime;
-        transform.localEulerAngles = transform.localEulerAngles + deltaputar;
+        rotasiSaatIni = rotasiSaatIni + deltaputar;
+        transform.localEulerAngles = rotasiSaatIni;
 
         Vector3 deltaPosisi = arahKeluar * (progres * jarakKeluar);
         transform.localPosition = posisiAwal + deltaPosisi;
@@ -71,15 +64,42 @@ public class Baut : MonoBehaviour
 
     void LepasTotal()
     {
-        Baut[] sisaBaut = partInduk.GetComponentsInChildren<Baut>();
-        if (sisaBaut.Length <= 1)
+        Baut[] semuaBaut = partInduk.GetComponentsInChildren<Baut>();
+        
+        int sisaBautTipeIni = 0;
+        foreach (Baut b in semuaBaut)
+        {
+            if (b.tipeAksiDibutuhkan == this.tipeAksiDibutuhkan)
+            {
+                sisaBautTipeIni++;
+            }
+        }
+
+        if (sisaBautTipeIni <= 1)
+        {
+            DetailLangkah langkah = SequenceService.instance.GetLangkahSaatIni();
+            if (langkah != null && langkah.jenisAksi == tipeAksiDibutuhkan)
+            {
+                SequenceService.instance.SelesaikanLangkah();
+            }
+        }
+
+        if (semuaBaut.Length <= 1)
         {
             partInduk.bisaDiambil = true;
             if (colliderBan != null)
             {
-                colliderBan.enabled = true;   
+                colliderBan.enabled = true;
+            }
+            
+            if (rbBanDepan != null)
+            {
+                rbBanDepan.isKinematic = false;
+                colliderBan.enabled = true;
+                rbBanDepan.useGravity = true;
             }
         }
+        
         Destroy(gameObject);
     }
 }

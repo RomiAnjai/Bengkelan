@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 3
   tags:
   - Ban
+  - Baut Depan
+  - As Depan
+  - Ban Luar
+  - PosisiKamera
   layers:
   - Default
   - TransparentFX
