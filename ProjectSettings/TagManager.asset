@@ -9,6 +9,7 @@ TagManager:
   - As Depan
   - Ban Luar
   - PosisiKamera
+  - FreeCam
   layers:
   - Default
   - TransparentFX

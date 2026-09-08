@@ -42,15 +42,7 @@ public class MekanikController : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            
-            if (InteraksiMotor.instance != null && InteraksiMotor.instance.sedangFokus)
-            {
-                bisaGerak = false;
-            }
-            else
-            {
-                bisaGerak = true;
-            }
+            bisaGerak = true;
         }
         else
         {
@@ -62,6 +54,16 @@ public class MekanikController : MonoBehaviour
 
     public void MulaiGerak()
     {
+        if (GerakanKameraMotor.instance != null && GerakanKameraMotor.instance.canMove == true)
+        {
+            return;
+        }
+
+        if (InteraksiMotor.instance != null && InteraksiMotor.instance.sedangFokus)
+        {
+            return;
+        }
+
         if (bisaGerak == true)
         {
             float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
@@ -73,7 +75,7 @@ public class MekanikController : MonoBehaviour
             playerCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
             transform.Rotate(Vector3.up * mouseX);
 
-            float x = Input.GetAxis("Horizontal");
+            float x = Input.GetAxis("Horizontal");  
             float z = Input.GetAxis("Vertical");
 
             Vector3 move = transform.right * x + transform.forward * z;

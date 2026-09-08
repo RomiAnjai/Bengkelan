@@ -16,6 +16,7 @@ public class InteraksiPemain : MonoBehaviour
     private Rigidbody barangDipegang;
     private DataSparepart partDisorot;
     private Baut bautDisorot;
+    private InteraksiMotor motorDisorot;
 
     void Update()
     {
@@ -88,6 +89,22 @@ public class InteraksiPemain : MonoBehaviour
 
         if (barangDipegang == null && Physics.Raycast(ray, out hit, jarakJangkauan, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide))
         {
+            if (InteraksiMotor.instance != null && !InteraksiMotor.instance.sedangFokus)
+            {
+                if (SequenceService.instance.indexLangkahSaatIni <= 1)
+                {
+                    InteraksiMotor cekMotor = hit.collider.GetComponentInParent<InteraksiMotor>();
+                    if (cekMotor != null)
+                    {
+                        motorDisorot = cekMotor;
+                        bautDisorot = null;
+                        partDisorot = null;
+                        teksNamaUI.text = "Mulai Servis";
+                        return;
+                    }
+                }
+            }
+
             Baut cekBaut = hit.collider.GetComponent<Baut>();
             if (cekBaut != null)
             {
@@ -95,6 +112,7 @@ public class InteraksiPemain : MonoBehaviour
                 {
                     bautDisorot = cekBaut;
                     partDisorot = null;
+                    motorDisorot = null;
                     teksNamaUI.text = bautDisorot.namaObjek;
                     return;
                 }
@@ -107,6 +125,7 @@ public class InteraksiPemain : MonoBehaviour
                 {
                     partDisorot = cekPart;
                     bautDisorot = null;
+                    motorDisorot = null;
                     teksNamaUI.text = partDisorot.namaObjek;
                     return;
                 }
@@ -115,11 +134,19 @@ public class InteraksiPemain : MonoBehaviour
 
         partDisorot = null;
         bautDisorot = null;
+        motorDisorot = null;
         teksNamaUI.text = "";
     }
 
     void CekInputPegang()
     {
+        if (Input.GetMouseButtonDown(0) && motorDisorot != null)
+        {
+            GameManagerScript.instance.MulaiServis();
+            motorDisorot = null;
+            return;
+        }
+
         if (Input.GetMouseButton(0) && bautDisorot != null)
         {
             bautDisorot.ProsesLepas();

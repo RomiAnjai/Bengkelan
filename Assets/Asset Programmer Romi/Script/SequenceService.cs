@@ -37,8 +37,9 @@ public class SequenceService : MonoBehaviour
     public List<MasalahMotor> daftarMasalahMotor;
     public bool sedangTransisi = false;
 
-    private int indexLangkahSaatIni = 0;
+    public int indexLangkahSaatIni = 0;
     private MasalahMotor masalahAktif;
+    public GameObject freeCam;
 
     void Awake()
     {
@@ -51,6 +52,12 @@ public class SequenceService : MonoBehaviour
         if (daftarMasalahMotor.Count == 0) return;
 
         masalahAktif = daftarMasalahMotor[indexMasalah];
+        
+        if (freeCam != null)
+        {
+            freeCam.SetActive(true);
+        }
+
         indexLangkahSaatIni = 0;
         sedangTransisi = false;
         TampilkanLangkahSaatIni();
