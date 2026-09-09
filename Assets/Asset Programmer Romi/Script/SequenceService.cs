@@ -38,8 +38,13 @@ public class SequenceService : MonoBehaviour
     public bool sedangTransisi = false;
 
     public int indexLangkahSaatIni = 0;
+
+    [Header("Jos")]
+    public Rigidbody rbVelg;
+    public Collider colVelg;
+    public DataSparepart dataVelg;
+    public Collider colVelgDalam;
     private MasalahMotor masalahAktif;
-    public GameObject freeCam;
 
     void Awake()
     {
@@ -52,11 +57,6 @@ public class SequenceService : MonoBehaviour
         if (daftarMasalahMotor.Count == 0) return;
 
         masalahAktif = daftarMasalahMotor[indexMasalah];
-        
-        if (freeCam != null)
-        {
-            freeCam.SetActive(true);
-        }
 
         indexLangkahSaatIni = 0;
         sedangTransisi = false;
@@ -112,5 +112,13 @@ public class SequenceService : MonoBehaviour
     void TampilkanLangkahSaatIni()
     {
         DetailLangkah langkah = masalahAktif.urutanLangkah[indexLangkahSaatIni];
+    }
+
+    public void PreteliVelg()
+    {
+        rbVelg.isKinematic = false;
+        colVelg.enabled = true;
+        dataVelg.enabled = true;
+        colVelgDalam.enabled = true;
     }
 }
