@@ -10,6 +10,9 @@ TagManager:
   - Ban Luar
   - PosisiKamera
   - FreeCam
+  - Batas1
+  - Batas2
+  - Velg Depan
   layers:
   - Default
   - TransparentFX

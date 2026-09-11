@@ -7,6 +7,7 @@ public class MekanikController : MonoBehaviour
     public float mouseSensitivity = 200f;
     public Transform playerCamera;
     public bool bisaGerak = true;
+    public bool bisaRotasiKamera = true;
 
     float xRotation = 0f;
     CharacterController controller;
@@ -42,38 +43,42 @@ public class MekanikController : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            bisaGerak = true;
+            
+            if (InteraksiMotor.instance != null && InteraksiMotor.instance.sedangFokus)
+            {
+                bisaGerak = false;
+                bisaRotasiKamera = false;
+            }
+            else
+            {
+                bisaGerak = true;
+                bisaRotasiKamera = true;
+            }
         }
         else
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             bisaGerak = false;
+            bisaRotasiKamera = false;
         }
     }
 
     public void MulaiGerak()
     {
-        if (GerakanKameraMotor.instance != null && GerakanKameraMotor.instance.canMove == true)
-        {
-            return;
-        }
-
-        if (InteraksiMotor.instance != null && InteraksiMotor.instance.sedangFokus)
-        {
-            return;
-        }
-
         if (bisaGerak == true)
         {
-            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+            if (bisaRotasiKamera == true)
+            {
+                float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+                float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-            xRotation -= mouseY;
-            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+                xRotation -= mouseY;
+                xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-            playerCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-            transform.Rotate(Vector3.up * mouseX);
+                playerCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+                transform.Rotate(Vector3.up * mouseX);
+            }
 
             float x = Input.GetAxis("Horizontal");  
             float z = Input.GetAxis("Vertical");

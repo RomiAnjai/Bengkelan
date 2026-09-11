@@ -937,6 +937,7 @@ MonoBehaviour:
   mouseSensitivity: 730.7
   playerCamera: {fileID: 747498136}
   bisaGerak: 0
+  bisaRotasiKamera: 1
 --- !u!143 &1156795799
 CharacterController:
   m_ObjectHideFlags: 0
