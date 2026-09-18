@@ -1223,13 +1223,13 @@ MonoBehaviour:
     urutanLangkah:
     - namaLangkah: Copot Baut
       jenisAksi: 0
-      targetPartTag: Baut Depan
-      posisiKamera: {fileID: 2882596698940883865}
+      targetPartTag: As Depan
+      posisiKamera: {fileID: 1979783722292613864}
       pakaiCrosshair: 0
     - namaLangkah: Copot As
       jenisAksi: 0
-      targetPartTag: As Depan
-      posisiKamera: {fileID: 1979783722292613864}
+      targetPartTag: Baut Depan
+      posisiKamera: {fileID: 2882596698940883865}
       pakaiCrosshair: 0
   sedangTransisi: 0
   indexLangkahSaatIni: 0
