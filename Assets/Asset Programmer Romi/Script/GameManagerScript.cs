@@ -51,11 +51,6 @@ public class GameManagerScript : MonoBehaviour
             case GameState.MotorSelesai:
                 break;
         }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            SequenceService.instance.PreteliVelg();
-        }
     }
 
     public void MulaiServis()

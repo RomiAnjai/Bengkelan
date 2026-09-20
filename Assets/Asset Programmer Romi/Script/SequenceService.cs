@@ -10,7 +10,8 @@ public enum TipeAksi
     GantiBanDalam,
     PompaBan,
     PasangBanLuar,
-    PasangBaut
+    PasangBaut,
+    PasangAsDepan
 }
 
 [System.Serializable]
@@ -39,11 +40,17 @@ public class SequenceService : MonoBehaviour
 
     public int indexLangkahSaatIni = 0;
 
-    [Header("Jos")]
+    [Header("Referensi Velg")]
     public Rigidbody rbVelg;
     public Collider colVelg;
     public DataSparepart dataVelg;
     public Collider colVelgDalam;
+
+    [Header("Referensi Collider Motor")]
+    public Collider colTriggerMotor;
+
+    [Header("Pengaturan Geser Velg")]
+    public Vector3 jarakGeserVelg = new Vector3(0.5f, 0f, 0f);
     private MasalahMotor masalahAktif;
 
     void Awake()
@@ -54,7 +61,7 @@ public class SequenceService : MonoBehaviour
 
     public void MulaiServis(int indexMasalah)
     {
-        if (daftarMasalahMotor.Count == 0) return;
+        if (daftarMasalahMotor.Count == 0 || indexMasalah < 0 || indexMasalah >= daftarMasalahMotor.Count) return;
 
         masalahAktif = daftarMasalahMotor[indexMasalah];
 
@@ -112,6 +119,7 @@ public class SequenceService : MonoBehaviour
     void TampilkanLangkahSaatIni()
     {
         DetailLangkah langkah = masalahAktif.urutanLangkah[indexLangkahSaatIni];
+        Debug.Log("=== STEP SEKARANG: " + indexLangkahSaatIni + " | Nama: " + langkah.namaLangkah + " | Aksi: " + langkah.jenisAksi + " ===");
     }
 
     public void PreteliVelg()
@@ -120,5 +128,12 @@ public class SequenceService : MonoBehaviour
         colVelg.enabled = true;
         dataVelg.enabled = true;
         colVelgDalam.enabled = true;
+
+        rbVelg.transform.position += jarakGeserVelg;
+    }
+
+    public void NyalakanColliderMotor()
+    {
+        colTriggerMotor.enabled = true;
     }
 }

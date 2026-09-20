@@ -6,7 +6,6 @@ public class Baut : MonoBehaviour
     public DataSparepart partInduk;
     public SphereCollider colliderBan;
     public Rigidbody rbBanDepan;
-
     public TipeAksi tipeAksiDibutuhkan = TipeAksi.LepasBaut;
 
     [Header("Kustomisasi Gerakan Baut")]
@@ -14,92 +13,118 @@ public class Baut : MonoBehaviour
     public float jarakKeluar = 0.2f;
     public Vector3 arahKeluar = new Vector3(0, 0, 1);
     public Vector3 arahputar;
+    public bool modePasang = false;
 
     [Header("Rotasi Awal & Dikunci")]
     public float rotasiKunciY = 90f;
     public float rotasiKunciZ = 90f;
     public char arahPutar;
-
     public float progres = 0f;
-    private Vector3 posisiAwal;
+
+    private Vector3 posisiDalam;
+    private Vector3 posisiLuar;
     private Vector3 rotasiSaatIni;
+    private bool selesai = false;
 
     void Start()
     {
-        posisiAwal = transform.localPosition;
+        posisiDalam = transform.localPosition;
+        posisiLuar = posisiDalam + (arahKeluar * jarakKeluar);
         rotasiSaatIni = transform.localEulerAngles;
+        
+        if (modePasang)
+        {
+            transform.localPosition = posisiLuar;
+        }
 
-        if (partInduk != null)
+        if (partInduk != null && !modePasang)
         {
             partInduk.bisaDiambil = false;
             if (colliderBan != null)
             {
-                colliderBan.enabled = false;   
+                colliderBan.enabled = false;
             }
         }
     }
 
-    public void ProsesLepas()
+    public void ProsesInteraksi()
     {
+        if (selesai) return;
+
         DetailLangkah langkah = SequenceService.instance.GetLangkahSaatIni();
-        if (langkah == null || langkah.jenisAksi != tipeAksiDibutuhkan)
-        {
-            return;
-        }
+        if (langkah == null || langkah.jenisAksi != tipeAksiDibutuhkan) return;
 
         progres += Time.deltaTime;
-
-        Vector3 deltaputar = arahputar * kecepatanPutar * Time.deltaTime;
-        rotasiSaatIni = rotasiSaatIni + deltaputar;
-        transform.localEulerAngles = rotasiSaatIni;
-
-        Vector3 deltaPosisi = arahKeluar * (progres * jarakKeluar);
-        transform.localPosition = posisiAwal + deltaPosisi;
+        
+        if (!modePasang)
+        {
+            Vector3 deltaputar = arahputar * kecepatanPutar * Time.deltaTime;
+            rotasiSaatIni = rotasiSaatIni + deltaputar;
+            transform.localEulerAngles = rotasiSaatIni;
+            transform.localPosition = Vector3.Lerp(posisiDalam, posisiLuar, progres);
+        }
+        else
+        {
+            Vector3 deltaputar = -arahputar * kecepatanPutar * Time.deltaTime;
+            rotasiSaatIni = rotasiSaatIni + deltaputar;
+            transform.localEulerAngles = rotasiSaatIni;
+            transform.localPosition = Vector3.Lerp(posisiLuar, posisiDalam, progres);
+        }
 
         if (progres >= 1f)
         {
-            LepasTotal();
+            SelesaiInteraksi();
         }
     }
 
-    void LepasTotal()
+    void SelesaiInteraksi()
     {
-        Baut[] semuaBaut = partInduk.GetComponentsInChildren<Baut>();
-        
-        int sisaBautTipeIni = 0;
-        foreach (Baut b in semuaBaut)
+        selesai = true;
+        transform.localPosition = modePasang ? posisiDalam : posisiLuar;
+
+        DetailLangkah langkah = SequenceService.instance.GetLangkahSaatIni();
+        bool bolehLanjut = false;
+
+        if (modePasang)
         {
-            if (b.tipeAksiDibutuhkan == this.tipeAksiDibutuhkan)
+            bolehLanjut = true; 
+        }
+        else
+        {
+            if (partInduk != null)
             {
-                sisaBautTipeIni++;
+                Baut[] semuaBaut = partInduk.GetComponentsInChildren<Baut>();
+                int sisaBautTipeIni = 0;
+                foreach (Baut b in semuaBaut)
+                {
+                    if (b.tipeAksiDibutuhkan == this.tipeAksiDibutuhkan && !b.selesai) sisaBautTipeIni++;
+                }
+                if (sisaBautTipeIni <= 1) bolehLanjut = true;
+            }
+            else
+            {
+                bolehLanjut = true;
             }
         }
 
-        if (sisaBautTipeIni <= 1)
+        if (bolehLanjut && langkah != null && langkah.jenisAksi == tipeAksiDibutuhkan)
         {
-            DetailLangkah langkah = SequenceService.instance.GetLangkahSaatIni();
-            if (langkah != null && langkah.jenisAksi == tipeAksiDibutuhkan)
-            {
-                SequenceService.instance.SelesaikanLangkah();
-            }
+            SequenceService.instance.SelesaikanLangkah();
         }
 
-        if (semuaBaut.Length <= 1)
+        if (!modePasang)
         {
-            partInduk.bisaDiambil = true;
-            if (colliderBan != null)
+            if (tipeAksiDibutuhkan == TipeAksi.LepasAsDepan)
             {
-                colliderBan.enabled = true;
+                if (partInduk != null) partInduk.bisaDiambil = true;
+                if (colliderBan != null) colliderBan.enabled = true;
+                if (rbBanDepan != null)
+                {
+                    rbBanDepan.isKinematic = false;
+                    rbBanDepan.useGravity = true;
+                }
             }
-            
-            if (rbBanDepan != null)
-            {
-                rbBanDepan.isKinematic = false;
-                colliderBan.enabled = true;
-                rbBanDepan.useGravity = true;
-            }
+            Destroy(gameObject);
         }
-        
-        Destroy(gameObject);
     }
 }

@@ -44,7 +44,10 @@ public class MekanikController : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             
-            if (InteraksiMotor.instance != null && InteraksiMotor.instance.sedangFokus)
+            bool fokusMotor = InteraksiMotor.instance != null && InteraksiMotor.instance.sedangFokus;
+            bool fokusMeja = StationInteraction.instance != null && StationInteraction.instance.sedangFokusMeja;
+
+            if (fokusMotor || fokusMeja)
             {
                 bisaGerak = false;
                 bisaRotasiKamera = false;

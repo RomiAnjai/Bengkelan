@@ -17,6 +17,8 @@ public class InteraksiPemain : MonoBehaviour
     private DataSparepart partDisorot;
     private Baut bautDisorot;
     private InteraksiMotor motorDisorot;
+    private StationInteraction stationDisorot;
+    private IInteraksi objekInteraksiDisorot;
 
     void Update()
     {
@@ -45,10 +47,18 @@ public class InteraksiPemain : MonoBehaviour
     {
         DetailLangkah langkah = SequenceService.instance.GetLangkahSaatIni();
         bool aktifkanCrosshair = true;
+        
+        bool motorFokus = InteraksiMotor.instance != null && InteraksiMotor.instance.sedangFokus;
+        bool mejaFokus = StationInteraction.instance != null && StationInteraction.instance.sedangFokusMeja;
 
-        if (InteraksiMotor.instance != null && InteraksiMotor.instance.sedangFokus && langkah != null)
+        if (motorFokus && langkah != null)
         {
             aktifkanCrosshair = langkah.pakaiCrosshair;
+        }
+        
+        if (mejaFokus)
+        {
+            aktifkanCrosshair = false;
         }
 
         if (crosshairUI != null)
@@ -56,7 +66,7 @@ public class InteraksiPemain : MonoBehaviour
             crosshairUI.SetActive(aktifkanCrosshair);
         }
 
-        if (InteraksiMotor.instance != null && InteraksiMotor.instance.sedangFokus)
+        if (motorFokus)
         {
             if (aktifkanCrosshair)
             {
@@ -68,6 +78,11 @@ public class InteraksiPemain : MonoBehaviour
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
             }
+        }
+        else if (mejaFokus)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 
@@ -89,6 +104,18 @@ public class InteraksiPemain : MonoBehaviour
 
         if (barangDipegang == null && Physics.Raycast(ray, out hit, jarakJangkauan, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide))
         {
+            IInteraksi cekInteraksi = hit.collider.GetComponentInParent<IInteraksi>();
+            if (cekInteraksi != null && !string.IsNullOrEmpty(cekInteraksi.DapatkanNamaPetunjuk()))
+            {
+                objekInteraksiDisorot = cekInteraksi;
+                partDisorot = null;
+                bautDisorot = null;
+                motorDisorot = null;
+                stationDisorot = null;
+                teksNamaUI.text = objekInteraksiDisorot.DapatkanNamaPetunjuk();
+                return;
+            }
+
             if (InteraksiMotor.instance != null && !InteraksiMotor.instance.sedangFokus)
             {
                 if (SequenceService.instance.indexLangkahSaatIni <= 1)
@@ -99,6 +126,8 @@ public class InteraksiPemain : MonoBehaviour
                         motorDisorot = cekMotor;
                         bautDisorot = null;
                         partDisorot = null;
+                        stationDisorot = null;
+                        objekInteraksiDisorot = null;
                         teksNamaUI.text = "Mulai Servis";
                         return;
                     }
@@ -113,6 +142,8 @@ public class InteraksiPemain : MonoBehaviour
                     bautDisorot = cekBaut;
                     partDisorot = null;
                     motorDisorot = null;
+                    stationDisorot = null;
+                    objekInteraksiDisorot = null;
                     teksNamaUI.text = bautDisorot.namaObjek;
                     return;
                 }
@@ -121,12 +152,29 @@ public class InteraksiPemain : MonoBehaviour
             DataSparepart cekPart = hit.collider.GetComponent<DataSparepart>();
             if (cekPart != null)
             {
-                if (langkah != null && cekPart.CompareTag(langkah.targetPartTag))
+                if (cekPart.bisaDiambil)
                 {
                     partDisorot = cekPart;
                     bautDisorot = null;
                     motorDisorot = null;
+                    stationDisorot = null;
+                    objekInteraksiDisorot = null;
                     teksNamaUI.text = partDisorot.namaObjek;
+                    return;
+                }
+            }
+
+            StationInteraction cekStation = hit.collider.GetComponentInParent<StationInteraction>();
+            if (cekStation != null)
+            {
+                if ((cekStation.CompareTag("Station") || hit.collider.CompareTag("Station")) && cekStation.BisaInteraksi())
+                {
+                    partDisorot = null;
+                    bautDisorot = null;
+                    motorDisorot = null;
+                    stationDisorot = cekStation;
+                    objekInteraksiDisorot = null;
+                    teksNamaUI.text = "Meja Kerja";
                     return;
                 }
             }
@@ -135,11 +183,26 @@ public class InteraksiPemain : MonoBehaviour
         partDisorot = null;
         bautDisorot = null;
         motorDisorot = null;
+        stationDisorot = null;
+        objekInteraksiDisorot = null;
         teksNamaUI.text = "";
     }
 
     void CekInputPegang()
     {
+        if (Input.GetMouseButtonDown(0) && objekInteraksiDisorot != null)
+        {
+            objekInteraksiDisorot.EksekusiAksi();
+            return;
+        }
+
+        if (Input.GetMouseButtonDown(0) && stationDisorot != null)
+        {
+            stationDisorot.InteraksiMeja();
+            stationDisorot = null;
+            return;
+        }
+
         if (Input.GetMouseButtonDown(0) && motorDisorot != null)
         {
             GameManagerScript.instance.MulaiServis();
@@ -149,7 +212,7 @@ public class InteraksiPemain : MonoBehaviour
 
         if (Input.GetMouseButton(0) && bautDisorot != null)
         {
-            bautDisorot.ProsesLepas();
+            bautDisorot.ProsesInteraksi();
         }
 
         if (Input.GetMouseButtonDown(0) && partDisorot != null)
@@ -176,6 +239,7 @@ public class InteraksiPemain : MonoBehaviour
     {
         if (rb == null) return;
         barangDipegang = rb;
+        barangDipegang.isKinematic = false;
         barangDipegang.useGravity = false;
         barangDipegang.linearDamping = 10f;
         barangDipegang.angularDamping = 10f;

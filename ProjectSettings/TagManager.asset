@@ -13,6 +13,9 @@ TagManager:
   - Batas1
   - Batas2
   - Velg Depan
+  - Station
+  - BanLuarBaru
+  - Ban Luar Pasang
   layers:
   - Default
   - TransparentFX

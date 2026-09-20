@@ -11,7 +11,6 @@ public class InteraksiMotor : MonoBehaviour
     [Header("Pengaturan FreeCam")]
     public float speedFreeCam = 5f;
     public float sensKamera = 200f;
-
     private GameObject kamera;
     private GameObject kamerapos;
     private MekanikController mc;
