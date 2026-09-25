@@ -22,6 +22,7 @@ public class DetailLangkah
     public string targetPartTag; 
     public Transform posisiKamera; 
     public bool pakaiCrosshair; 
+    public string idObjekTutorial; 
 }
 
 [System.Serializable]
@@ -92,6 +93,9 @@ public class SequenceService : MonoBehaviour
             durasiJeda = InteraksiMotor.instance.jedaPindahKamera;
         }
 
+        DetailLangkah langkahSelesai = masalahAktif.urutanLangkah[indexLangkahSaatIni];
+        TutorialHighlight.MatikanBerdasarkanID(langkahSelesai.idObjekTutorial);
+
         yield return new WaitForSeconds(durasiJeda);
 
         indexLangkahSaatIni++;
@@ -120,6 +124,8 @@ public class SequenceService : MonoBehaviour
     {
         DetailLangkah langkah = masalahAktif.urutanLangkah[indexLangkahSaatIni];
         Debug.Log("=== STEP SEKARANG: " + indexLangkahSaatIni + " | Nama: " + langkah.namaLangkah + " | Aksi: " + langkah.jenisAksi + " ===");
+
+        TutorialHighlight.NyalakanBerdasarkanID(langkah.idObjekTutorial);
     }
 
     public void PreteliVelg()

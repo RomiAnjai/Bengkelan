@@ -119,6 +119,72 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &98223631
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1156795802}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 4dd8c6e1c7413a44e8b152ca37d40059, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.43702
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4dd8c6e1c7413a44e8b152ca37d40059, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.49
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4dd8c6e1c7413a44e8b152ca37d40059, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.5699997
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4dd8c6e1c7413a44e8b152ca37d40059, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5742911
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4dd8c6e1c7413a44e8b152ca37d40059, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4dd8c6e1c7413a44e8b152ca37d40059, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.8186512
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4dd8c6e1c7413a44e8b152ca37d40059, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4dd8c6e1c7413a44e8b152ca37d40059, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4dd8c6e1c7413a44e8b152ca37d40059, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 109.9
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4dd8c6e1c7413a44e8b152ca37d40059, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4dd8c6e1c7413a44e8b152ca37d40059, type: 3}
+      propertyPath: m_Name
+      value: hp
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4dd8c6e1c7413a44e8b152ca37d40059, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4dd8c6e1c7413a44e8b152ca37d40059, type: 3}
+--- !u!4 &98223632 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4dd8c6e1c7413a44e8b152ca37d40059, type: 3}
+  m_PrefabInstance: {fileID: 98223631}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &107113635
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,6 +363,7 @@ GameObject:
   - component: {fileID: 303790923}
   - component: {fileID: 303790922}
   - component: {fileID: 303790921}
+  - component: {fileID: 303790927}
   m_Layer: 0
   m_Name: Station
   m_TagString: Station
@@ -442,6 +509,22 @@ Transform:
   - {fileID: 754948032}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &303790927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303790920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35b741290f35a594eab49f862adf72b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TutorialHighlight
+  idTutorial: MejaKerja
+  targetRenderer: {fileID: 0}
+  warnaHighlight: {r: 1, g: 0.5803922, b: 0.7843102, a: 1}
+  kecepatanKedip: 4
 --- !u!1 &329698706
 GameObject:
   m_ObjectHideFlags: 0
@@ -757,8 +840,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   currentState: 0
-  SpawnObjek: {fileID: 2855420916814498178, guid: 85b3dfcdf0a331f4d986f5fac2c7eaf1, type: 3}
+  SpawnObjek: {fileID: 2855420916814498178, guid: 9cfa75fe5955c5f46ad247e09917a9a3, type: 3}
   posisiSpawn: {fileID: 1695399074}
+  tutorLight:
+  - {fileID: 303790927}
 --- !u!4 &557296095
 Transform:
   m_ObjectHideFlags: 0
@@ -1006,7 +1091,7 @@ Camera:
   m_ShutterSpeed: 0.005
   m_Aperture: 16
   m_FocusDistance: 10
-  m_FocalLength: 50
+  m_FocalLength: 20.78461
   m_BladeCount: 5
   m_Curvature: {x: 2, y: 11}
   m_BarrelClipping: 0.25
@@ -1019,9 +1104,9 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.5
   far clip plane: 1000
-  field of view: 60
+  field of view: 60.000004
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -1495,6 +1580,7 @@ Transform:
   m_Children:
   - {fileID: 747498136}
   - {fileID: 1014186729}
+  - {fileID: 98223632}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1156795803

@@ -13,6 +13,7 @@ public class GameManagerScript : MonoBehaviour
     public GameState currentState;
     public GameObject SpawnObjek;
     public Transform posisiSpawn;
+    public TutorialHighlight[] tutorLight;
 
     void Awake()
     {
