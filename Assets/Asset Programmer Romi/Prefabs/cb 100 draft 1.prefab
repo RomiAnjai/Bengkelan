@@ -765,6 +765,7 @@ GameObject:
   - component: {fileID: 7844842310717477388}
   - component: {fileID: 4945080964674691361}
   - component: {fileID: 8317704724761724275}
+  - component: {fileID: 30125973475895218}
   m_Layer: 0
   m_Name: as depan (1)
   m_TagString: As Depan
@@ -891,6 +892,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.020621618, y: 0.02062162, z: 0.17085041}
   m_Center: {x: 0.0000064584683, y: 0.00003793963, z: 0.06945029}
+--- !u!114 &30125973475895218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1871247816294078705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35b741290f35a594eab49f862adf72b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TutorialHighlight
+  idTutorial: AsDepanPasang
+  targetRenderer: {fileID: 7844842310717477388}
+  warnaHighlight: {r: 1, g: 0.6392157, b: 0.85882354, a: 1}
+  kecepatanKedip: 4
 --- !u!1 &1906995038590622165
 GameObject:
   m_ObjectHideFlags: 0
@@ -1347,21 +1364,22 @@ MonoBehaviour:
       targetPartTag: As Depan
       posisiKamera: {fileID: 1979783722292613864}
       pakaiCrosshair: 0
-      idObjekTutorial: 
+      idObjekTutorial: AsDepanPasang
     - namaLangkah: Copot As
       jenisAksi: 0
       targetPartTag: Baut Depan
       posisiKamera: {fileID: 2882596698940883865}
       pakaiCrosshair: 0
-      idObjekTutorial: 
+      idObjekTutorial: BautDepanPasang
   sedangTransisi: 0
   indexLangkahSaatIni: 0
   rbVelg: {fileID: 1290014508910785326}
   colVelg: {fileID: 8560759355546382705}
   dataVelg: {fileID: 3237730261605948863}
   colVelgDalam: {fileID: 91669839036431640}
+  colTambahanPemental: {fileID: 140043850529681597}
   colTriggerMotor: {fileID: 2889235716066986450}
-  jarakGeserVelg: {x: 0.55, y: 0, z: 0}
+  jarakGeserVelg: {x: 0.55, y: 10, z: 0}
 --- !u!114 &7468960763162736027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2460,6 +2478,7 @@ GameObject:
   - component: {fileID: 2628059826870525808}
   - component: {fileID: 8612365663178106064}
   - component: {fileID: 6659256269254657705}
+  - component: {fileID: 5039150782754169651}
   m_Layer: 0
   m_Name: baut depan (1)
   m_TagString: Baut Depan
@@ -2588,6 +2607,22 @@ CapsuleCollider:
   m_Height: 0.0036415895
   m_Direction: 1
   m_Center: {x: 0.0010482251, y: 0.00000005996212, z: -0.000086388194}
+--- !u!114 &5039150782754169651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5238285991624365066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35b741290f35a594eab49f862adf72b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TutorialHighlight
+  idTutorial: BautDepanPasang
+  targetRenderer: {fileID: 2628059826870525808}
+  warnaHighlight: {r: 1, g: 0.6392157, b: 0.85882354, a: 1}
+  kecepatanKedip: 4
 --- !u!1 &5464639095605496044
 GameObject:
   m_ObjectHideFlags: 0
@@ -2744,7 +2779,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TutorialHighlight
   idTutorial: BautDepan
   targetRenderer: {fileID: 9107443898423520627}
-  warnaHighlight: {r: 1, g: 0.74509805, b: 0.86492234, a: 0.3882353}
+  warnaHighlight: {r: 1, g: 0.6392157, b: 0.85882354, a: 0.3882353}
   kecepatanKedip: 4
 --- !u!1 &5980201418646440948
 GameObject:
@@ -3481,6 +3516,7 @@ GameObject:
   - component: {fileID: 2840697860326193617}
   - component: {fileID: 7501845776550354135}
   - component: {fileID: 91669839036431640}
+  - component: {fileID: 140043850529681597}
   m_Layer: 0
   m_Name: velg depan
   m_TagString: Untagged
@@ -3582,6 +3618,27 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4523099739792856891, guid: c4f740337d8dc9746953cbe627095db1, type: 3}
+--- !u!65 &140043850529681597
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7844548173436519384}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 0.0010664194, y: 0.001001142, z: 0.0040963036}
+  m_Center: {x: 0.006753929, y: -0.00015606168, z: 0.0000000030172553}
 --- !u!1 &8069857117647624971
 GameObject:
   m_ObjectHideFlags: 0
@@ -3923,7 +3980,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8617367276805576025}
-  m_Mesh: {fileID: -2155199565527330652, guid: eea84ca97cdcbd24999063cc7399b735, type: 3}
+  m_Mesh: {fileID: -2155199565527330652, guid: 991f02d054805ae458cacddf864ef745, type: 3}
 --- !u!23 &6672009668610317527
 MeshRenderer:
   m_ObjectHideFlags: 0

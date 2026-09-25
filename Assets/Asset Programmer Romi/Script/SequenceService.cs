@@ -46,6 +46,7 @@ public class SequenceService : MonoBehaviour
     public Collider colVelg;
     public DataSparepart dataVelg;
     public Collider colVelgDalam;
+    public BoxCollider colTambahanPemental;
 
     [Header("Referensi Collider Motor")]
     public Collider colTriggerMotor;
@@ -134,8 +135,9 @@ public class SequenceService : MonoBehaviour
         colVelg.enabled = true;
         dataVelg.enabled = true;
         colVelgDalam.enabled = true;
+        colTambahanPemental.enabled = true;
 
-        rbVelg.transform.position += jarakGeserVelg;
+        rbVelg.AddForce(jarakGeserVelg, ForceMode.Impulse);
     }
 
     public void NyalakanColliderMotor()
