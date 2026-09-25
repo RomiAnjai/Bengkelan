@@ -9,6 +9,11 @@ public class TombolBeliBan : MonoBehaviour, IInteraksi
 
     public string DapatkanNamaPetunjuk()
     {
+        if (SequenceService.instance == null || SequenceService.instance.indexLangkahSaatIni <= 2)
+        {
+            return "";
+        }
+
         if (beliSaatIni >= batasBeli)
         {
             return "Stok Ban Habis";
@@ -21,10 +26,13 @@ public class TombolBeliBan : MonoBehaviour, IInteraksi
     {
         if (prefabBanLuarBaru == null || titikMunculBan == null) return;
 
-        if (beliSaatIni < batasBeli)
+        if (SequenceService.instance != null && SequenceService.instance.indexLangkahSaatIni > 2)
         {
-            Instantiate(prefabBanLuarBaru, titikMunculBan.position, titikMunculBan.rotation);
-            beliSaatIni++;
+            if (beliSaatIni < batasBeli)
+            {
+                Instantiate(prefabBanLuarBaru, titikMunculBan.position, titikMunculBan.rotation);
+                beliSaatIni++;
+            }
         }
     }
 }

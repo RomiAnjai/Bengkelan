@@ -4,19 +4,17 @@ using System.Collections;
 public class StationInteraction : MonoBehaviour
 {
     public static StationInteraction instance;
-
     public Transform titikKameraMeja;
-    public GameObject grupTitikMinigame; 
+    public GameObject grupTitikMinigame;
     public float waktuPerpindahan = 1f;
 
     [Header("Fase Pasang Ban")]
     public GameObject prefabBanMenyatu;
     public bool fasePasangBan = false;
-
     public bool adaBan = false;
     public bool sedangFokusMeja = false;
     public bool minigameSelesai = false;
-    
+
     public GameObject velgDiMeja;
     public GameObject banBaruDiMeja;
 
@@ -25,7 +23,6 @@ public class StationInteraction : MonoBehaviour
     private GameObject banAktif;
     private GameObject kamera;
     private MekanikController mc;
-    
     private Vector3 posisiAwalKamera;
     private Quaternion rotasiAwalKamera;
     private Coroutine transisiRoutine;
@@ -48,10 +45,10 @@ public class StationInteraction : MonoBehaviour
         if (other.CompareTag("Ban Luar") && !adaBan && !minigameSelesai && !fasePasangBan)
         {
             if (other.attachedRigidbody == null) return;
-
             adaBan = true;
             banAktif = other.attachedRigidbody.gameObject;
             KunciKeMeja(banAktif);
+            MatikanHighlightSaatIni();
             return;
         }
 
@@ -64,15 +61,17 @@ public class StationInteraction : MonoBehaviour
         {
             velgDiMeja = other.attachedRigidbody != null ? other.attachedRigidbody.gameObject : other.gameObject;
             KunciKeMeja(velgDiMeja);
+            MatikanHighlightSaatIni();
         }
 
         if (other.CompareTag("BanLuarBaru") && banBaruDiMeja == null)
         {
             banBaruDiMeja = other.attachedRigidbody != null ? other.attachedRigidbody.gameObject : other.gameObject;
             KunciKeMeja(banBaruDiMeja);
+            MatikanHighlightSaatIni();
         }
     }
-    
+
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Ban Luar") && banAktif != null && !fasePasangBan)
@@ -106,13 +105,25 @@ public class StationInteraction : MonoBehaviour
             obj.transform.position = transform.position + new Vector3(0, 0.85f, 0);
         }
         obj.transform.rotation = Quaternion.Euler(90, 0, 0);
-        
+
         Rigidbody[] rbs = obj.GetComponentsInChildren<Rigidbody>();
         foreach (Rigidbody r in rbs)
         {
             r.isKinematic = true;
             r.linearVelocity = Vector3.zero;
             r.angularVelocity = Vector3.zero;
+        }
+    }
+
+    void MatikanHighlightSaatIni()
+    {
+        if (SequenceService.instance != null)
+        {
+            DetailLangkah langkah = SequenceService.instance.GetLangkahSaatIni();
+            if (langkah != null)
+            {
+                TutorialHighlight.MatikanBerdasarkanID(langkah.idObjekTutorial);
+            }
         }
     }
 
@@ -146,22 +157,19 @@ public class StationInteraction : MonoBehaviour
     {
         posisiAwalKamera = kamera.transform.position;
         rotasiAwalKamera = kamera.transform.rotation;
-
         mc.bisaGerak = false;
         mc.bisaRotasiKamera = false;
 
         if (transisiRoutine != null) StopCoroutine(transisiRoutine);
         transisiRoutine = StartCoroutine(PindahKameraSmooth(titikKameraMeja.position, titikKameraMeja.rotation));
-        
+
         sedangFokusMeja = true;
-        
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        
+
         if (grupTitikMinigame != null) 
         {
             grupTitikMinigame.SetActive(true);
-            
             sisaTitik = grupTitikMinigame.transform.childCount;
             indexTitikSaatIni = 0;
 
@@ -181,7 +189,7 @@ public class StationInteraction : MonoBehaviour
     {
         titik.SetActive(false);
         sisaTitik--;
-        
+
         if (sisaTitik > 0)
         {
             indexTitikSaatIni++;
@@ -199,18 +207,15 @@ public class StationInteraction : MonoBehaviour
     void SelesaiMinigame()
     {
         if (grupTitikMinigame != null) grupTitikMinigame.SetActive(false);
-        
         minigameSelesai = true;
 
         if (!fasePasangBan)
         {
             SequenceService.instance.PreteliVelg();
-
             if (SequenceService.instance.rbVelg != null)
             {
                 SequenceService.instance.rbVelg.isKinematic = false;
             }
-
             if (banAktif != null)
             {
                 Rigidbody[] rbs = banAktif.GetComponentsInChildren<Rigidbody>();
@@ -219,7 +224,6 @@ public class StationInteraction : MonoBehaviour
                     r.isKinematic = false;
                 }
             }
-
             velgDiMeja = null;
         }
         else
@@ -230,13 +234,11 @@ public class StationInteraction : MonoBehaviour
             if (prefabBanMenyatu != null)
             {
                 Instantiate(prefabBanMenyatu, transform.position + new Vector3(0, 0.7f, 0), Quaternion.Euler(90, 0, 0));
-
                 SequenceService.instance.NyalakanColliderMotor();
             }
-            
             fasePasangBan = false;
         }
-        
+
         if (transisiRoutine != null) StopCoroutine(transisiRoutine);
         transisiRoutine = StartCoroutine(PindahKameraSmooth(posisiAwalKamera, rotasiAwalKamera, true));
     }
@@ -251,10 +253,8 @@ public class StationInteraction : MonoBehaviour
         {
             elapsed += Time.deltaTime;
             float t = elapsed / waktuPerpindahan;
-            
             kamera.transform.position = Vector3.Lerp(startPos, targetPos, t);
             kamera.transform.rotation = Quaternion.Slerp(startRot, targetRot, t);
-
             yield return null;
         }
 
@@ -266,7 +266,6 @@ public class StationInteraction : MonoBehaviour
             mc.bisaGerak = true;
             mc.bisaRotasiKamera = true;
             sedangFokusMeja = false;
-            
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }

@@ -1469,6 +1469,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0, y: 3.262243, z: 0.31698468}
   m_Center: {x: -0.041229386, y: 0.47131196, z: 0.013785202}
+--- !u!1 &3295775053218814078
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1940226697663117348}
+  m_Layer: 0
+  m_Name: TItik Muncul
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1940226697663117348
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3295775053218814078}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.014998069, y: -0.0074046645, z: -0.7410828, w: 0.6712053}
+  m_LocalPosition: {x: 0.32, y: 0.386, z: 0.0069}
+  m_LocalScale: {x: 0.33049121, y: 0.19885059, z: 0.03240433}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4425512846739922620}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3395733515638083540
 GameObject:
   m_ObjectHideFlags: 0
@@ -1546,7 +1577,7 @@ Transform:
   m_GameObject: {fileID: 3682560155411423452}
   serializedVersion: 2
   m_LocalRotation: {x: -0.00000013767877, y: 0.7071068, z: 0.70710677, w: 0.00000013767878}
-  m_LocalPosition: {x: -0.045456436, y: 1.9285997, z: -0.218781}
+  m_LocalPosition: {x: -0.045456436, y: 1.9331, z: -0.218781}
   m_LocalScale: {x: 100.31878, y: 2.4917555, z: 13.910643}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1982,6 +2013,7 @@ GameObject:
   - component: {fileID: 3641682132984865438}
   - component: {fileID: 7517527818050344368}
   - component: {fileID: 7828197514516685041}
+  - component: {fileID: 2916389610839862315}
   m_Layer: 0
   m_Name: rak ban
   m_TagString: Untagged
@@ -2001,7 +2033,8 @@ Transform:
   m_LocalPosition: {x: 3.4692993, y: 0.9918562, z: 0.931914}
   m_LocalScale: {x: 3.0141764, y: 1.8011796, z: 18.53351}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1940226697663117348}
   m_Father: {fileID: 4441048725749974716}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3641682132984865438
@@ -2083,6 +2116,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.73945296, y: 0.5891115, z: 0.1021182}
   m_Center: {x: 0.008329399, y: -0.0012051017, z: -0.000106381245}
+--- !u!114 &2916389610839862315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7109313087118131187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3dcd902988a99747957fbf7e80275fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  prefabBanLuarBaru: {fileID: 4721456053097520098, guid: 68e2b672d97d7204ca0606952fca5b7b, type: 3}
+  titikMunculBan: {fileID: 1940226697663117348}
+  batasBeli: 1
+  beliSaatIni: 0
 --- !u!1 &7199768983479041073
 GameObject:
   m_ObjectHideFlags: 0

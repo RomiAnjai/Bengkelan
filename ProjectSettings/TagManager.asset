@@ -16,6 +16,7 @@ TagManager:
   - Station
   - BanLuarBaru
   - Ban Luar Pasang
+  - Motor
   layers:
   - Default
   - TransparentFX
