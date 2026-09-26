@@ -41,6 +41,8 @@ public class SequenceService : MonoBehaviour
 
     public int indexLangkahSaatIni = 0;
 
+    public JenisMotor motorYangSedangDiservis;
+
     [Header("Referensi Velg")]
     public Rigidbody rbVelg;
     public Collider colVelg;
@@ -104,6 +106,7 @@ public class SequenceService : MonoBehaviour
         if (indexLangkahSaatIni >= masalahAktif.urutanLangkah.Count)
         {
             GameManagerScript.instance.currentState = GameState.MotorSelesai;
+            if (ObjectiveHUD.instance != null) ObjectiveHUD.instance.SembunyikanHUD();
             if (InteraksiMotor.instance != null)
             {
                 InteraksiMotor.instance.SelesaiServisBebaskanKamera();
@@ -125,6 +128,11 @@ public class SequenceService : MonoBehaviour
     {
         DetailLangkah langkah = masalahAktif.urutanLangkah[indexLangkahSaatIni];
         Debug.Log("=== STEP SEKARANG: " + indexLangkahSaatIni + " | Nama: " + langkah.namaLangkah + " | Aksi: " + langkah.jenisAksi + " ===");
+        
+        if (ObjectiveHUD.instance != null)
+        {
+            ObjectiveHUD.instance.UpdateHUD(motorYangSedangDiservis, masalahAktif.namaKerusakan, indexLangkahSaatIni);
+        }
 
         TutorialHighlight.NyalakanBerdasarkanID(langkah.idObjekTutorial);
     }
