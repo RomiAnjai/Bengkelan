@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: DataObjektifBaru
+  m_EditorClassIdentifier: Assembly-CSharp::DatabaseObjektif
+  databaseMotor:
+  - jenisMotor: 1
+    daftarMasalah:
+    - namaMasalah: Ban Bocor
+      daftarLangkah:
+      - namaLangkah: 
+        teksObjektifDiLayar: Awali pekerjaan dengan melakukan inspeksi pada motor.
+          Dekati motor dan click untuk memasuki mode inspeksi.
+      - namaLangkah: 
+        teksObjektifDiLayar: Lakukan pembongkaran bagian yang bermasalah dengan melakukan
+          click dan hold.
+      - namaLangkah: 
+        teksObjektifDiLayar: Bawa roda tersebut ke meja kerja di bengkelmu dan perbaiki
+          lebih lanjut.
+      - namaLangkah: 
+        teksObjektifDiLayar: Bawa roda tersebut ke meja kerja di bengkelmu dan perbaiki
+          lebih lanjut.
+      - namaLangkah: 
+        teksObjektifDiLayar: Ambil ban baru dari rak ban lalu pasang.
+      - namaLangkah: 
+        teksObjektifDiLayar: Pasang ban luar yang baru di roda motor, lalu rakit
+          kembali bagian roda yang sudah diperbaiki ke motor dengan kembali memasuki
+          mode inspeksi.

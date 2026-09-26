@@ -192,6 +192,7 @@ GameObject:
   - component: {fileID: 5258489101249838321}
   - component: {fileID: 157670812161261018}
   - component: {fileID: 2994992560829701610}
+  - component: {fileID: 4666210317203137457}
   m_Layer: 0
   m_Name: ParentBanDepan
   m_TagString: Ban Luar
@@ -280,6 +281,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DataSparepart
   namaObjek: Ban Depan
   bisaDiambil: 1
+--- !u!114 &4666210317203137457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401222127821485810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fbf0ed54eacc9f4bb9e454d7b7eae44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  isBanBekas: 0
 --- !u!1 &780821382861549240
 GameObject:
   m_ObjectHideFlags: 0
@@ -1294,9 +1308,9 @@ Rigidbody:
     serializedVersion: 2
     m_Bits: 0
   m_ImplicitCom: 1
-  m_ImplicitTensor: 0
+  m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -1333,27 +1347,45 @@ MonoBehaviour:
       posisiKamera: {fileID: 0}
       pakaiCrosshair: 0
       idObjekTutorial: MejaKerja
-    - namaLangkah: Lepas Velg
-      jenisAksi: 3
+    - namaLangkah: beli ban
+      jenisAksi: 4
       targetPartTag: Velg Depan
       posisiKamera: {fileID: 0}
       pakaiCrosshair: 0
-      idObjekTutorial: MejaKerja
-    - namaLangkah: Lepas Ban
+      idObjekTutorial: 
+    - namaLangkah: pasang ban
       jenisAksi: 5
-      targetPartTag: Ban Luar Pasang
+      targetPartTag: Velg Depan
       posisiKamera: {fileID: 0}
       pakaiCrosshair: 0
       idObjekTutorial: 
-    - namaLangkah: Pasang Baut
-      jenisAksi: 6
-      targetPartTag: 
+    - namaLangkah: pasang ban
+      jenisAksi: 5
+      targetPartTag: Velg Depan
       posisiKamera: {fileID: 0}
       pakaiCrosshair: 0
       idObjekTutorial: 
-    - namaLangkah: Pasang As
-      jenisAksi: 7
-      targetPartTag: 
+    - namaLangkah: pasang ban
+      jenisAksi: 5
+      targetPartTag: Velg Depan
+      posisiKamera: {fileID: 0}
+      pakaiCrosshair: 0
+      idObjekTutorial: 
+    - namaLangkah: pasang ban
+      jenisAksi: 5
+      targetPartTag: Velg Depan
+      posisiKamera: {fileID: 0}
+      pakaiCrosshair: 0
+      idObjekTutorial: 
+    - namaLangkah: pasang ban
+      jenisAksi: 5
+      targetPartTag: Velg Depan
+      posisiKamera: {fileID: 0}
+      pakaiCrosshair: 0
+      idObjekTutorial: 
+    - namaLangkah: pasang ban
+      jenisAksi: 5
+      targetPartTag: Velg Depan
       posisiKamera: {fileID: 0}
       pakaiCrosshair: 0
       idObjekTutorial: 
@@ -1373,13 +1405,14 @@ MonoBehaviour:
       idObjekTutorial: BautDepanPasang
   sedangTransisi: 0
   indexLangkahSaatIni: 0
+  motorYangSedangDiservis: 1
   rbVelg: {fileID: 1290014508910785326}
   colVelg: {fileID: 8560759355546382705}
   dataVelg: {fileID: 3237730261605948863}
   colVelgDalam: {fileID: 91669839036431640}
   colTambahanPemental: {fileID: 140043850529681597}
   colTriggerMotor: {fileID: 2889235716066986450}
-  jarakGeserVelg: {x: 0.55, y: 10, z: 0}
+  jarakGeserVelg: {x: 0.55, y: 5, z: 0}
 --- !u!114 &7468960763162736027
 MonoBehaviour:
   m_ObjectHideFlags: 0

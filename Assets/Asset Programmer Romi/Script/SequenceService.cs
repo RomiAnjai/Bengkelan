@@ -106,7 +106,7 @@ public class SequenceService : MonoBehaviour
         if (indexLangkahSaatIni >= masalahAktif.urutanLangkah.Count)
         {
             GameManagerScript.instance.currentState = GameState.MotorSelesai;
-            if (ObjectiveHUD.instance != null) ObjectiveHUD.instance.SembunyikanHUD();
+
             if (InteraksiMotor.instance != null)
             {
                 InteraksiMotor.instance.SelesaiServisBebaskanKamera();
@@ -129,9 +129,11 @@ public class SequenceService : MonoBehaviour
         DetailLangkah langkah = masalahAktif.urutanLangkah[indexLangkahSaatIni];
         Debug.Log("=== STEP SEKARANG: " + indexLangkahSaatIni + " | Nama: " + langkah.namaLangkah + " | Aksi: " + langkah.jenisAksi + " ===");
         
+        ObjectiveHUD.instance.UpdateHUD(motorYangSedangDiservis, masalahAktif.namaKerusakan, indexLangkahSaatIni);
         if (ObjectiveHUD.instance != null)
         {
             ObjectiveHUD.instance.UpdateHUD(motorYangSedangDiservis, masalahAktif.namaKerusakan, indexLangkahSaatIni);
+            Debug.Log("sdsd");
         }
 
         TutorialHighlight.NyalakanBerdasarkanID(langkah.idObjekTutorial);
@@ -139,12 +141,16 @@ public class SequenceService : MonoBehaviour
 
     public void PreteliVelg()
     {
+        if (rbVelg != null)
+        {
+            rbVelg.transform.SetParent(null);
+        }
+
         rbVelg.isKinematic = false;
         colVelg.enabled = true;
         dataVelg.enabled = true;
         colVelgDalam.enabled = true;
         colTambahanPemental.enabled = true;
-
         rbVelg.AddForce(jarakGeserVelg, ForceMode.Impulse);
     }
 

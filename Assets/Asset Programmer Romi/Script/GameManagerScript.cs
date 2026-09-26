@@ -54,6 +54,7 @@ public class GameManagerScript : MonoBehaviour
             case GameState.MotorSedangServis:
                 break;
             case GameState.MotorSelesai:
+                ObjectiveHUD.instance.SetBalance(60000);
                 break;
         }
     }

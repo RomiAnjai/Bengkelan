@@ -45,6 +45,15 @@ public class StationInteraction : MonoBehaviour
         if (other.CompareTag("Ban Luar") && !adaBan && !minigameSelesai && !fasePasangBan)
         {
             if (other.attachedRigidbody == null) return;
+
+            KondisiBan statusBan = other.GetComponent<KondisiBan>();
+            if (statusBan == null) statusBan = other.GetComponentInParent<KondisiBan>();
+
+            if (statusBan != null && statusBan.isBanBekas)
+            {
+                return;
+            }
+
             adaBan = true;
             banAktif = other.attachedRigidbody.gameObject;
             KunciKeMeja(banAktif);
@@ -206,18 +215,30 @@ public class StationInteraction : MonoBehaviour
 
     void SelesaiMinigame()
     {
+        SequenceService.instance.SelesaikanLangkah();
         if (grupTitikMinigame != null) grupTitikMinigame.SetActive(false);
+        
         minigameSelesai = true;
 
         if (!fasePasangBan)
         {
             SequenceService.instance.PreteliVelg();
+
             if (SequenceService.instance.rbVelg != null)
             {
                 SequenceService.instance.rbVelg.isKinematic = false;
             }
+
             if (banAktif != null)
             {
+                KondisiBan statusBan = banAktif.GetComponent<KondisiBan>();
+                if (statusBan == null) statusBan = banAktif.GetComponentInParent<KondisiBan>();
+                
+                if (statusBan != null)
+                {
+                    statusBan.isBanBekas = true;
+                }
+
                 Rigidbody[] rbs = banAktif.GetComponentsInChildren<Rigidbody>();
                 foreach (Rigidbody r in rbs)
                 {
@@ -236,6 +257,7 @@ public class StationInteraction : MonoBehaviour
                 Instantiate(prefabBanMenyatu, transform.position + new Vector3(0, 0.7f, 0), Quaternion.Euler(90, 0, 0));
                 SequenceService.instance.NyalakanColliderMotor();
             }
+            
             fasePasangBan = false;
         }
 

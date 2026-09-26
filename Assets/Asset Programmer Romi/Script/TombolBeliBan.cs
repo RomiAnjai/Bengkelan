@@ -32,6 +32,7 @@ public class TombolBeliBan : MonoBehaviour, IInteraksi
             {
                 Instantiate(prefabBanLuarBaru, titikMunculBan.position, titikMunculBan.rotation);
                 beliSaatIni++;
+                SequenceService.instance.SelesaikanLangkah();
             }
         }
     }

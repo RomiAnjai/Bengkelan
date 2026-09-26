@@ -18,22 +18,38 @@ public class ObjectiveHUD : MonoBehaviour
 
     private int balance = 0;
 
+    bool banBaru;
+
     private const string BalanceKey = "CTAS_Balance";
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {
         UpdateBalanceUI();
+        SetObjective();
+        banBaru = false;
     }
 
     // =========================================================
     // OBJECTIVE
     // =========================================================
 
-    public void SetObjective(string objective)
+    public void SetObjective()
     {
         if (objectiveText != null)
         {
-            objectiveText.text = objective;
+            objectiveText.text = "objective cuy";
         }
     }
 
@@ -92,14 +108,20 @@ public class ObjectiveHUD : MonoBehaviour
 
     public void UpdateHUD(JenisMotor jenisMotor, string namaMasalah, int indexLangkah)
     {
-        if (databaseObjektif == null)
+        if(indexLangkah == 6)
         {
-            Debug.LogError("Database Objektif belum dimasukkan ke HUD!");
-            return;
+            banBaru = true;
         }
+        if(banBaru == false){
+            if (databaseObjektif == null)
+            {
+                Debug.LogError("Database Objektif belum dimasukkan ke HUD!");
+                return;
+            }
 
-        string teksBaru = databaseObjektif.AmbilTeksObjektif(jenisMotor, namaMasalah, indexLangkah);
-        objectiveText.text = "- " + teksBaru;
+            string teksBaru = databaseObjektif.AmbilTeksObjektif(jenisMotor, namaMasalah, indexLangkah);
+            objectiveText.text = "- " + teksBaru;
+        }
     }
     public void SembunyikanHUD()
     {
