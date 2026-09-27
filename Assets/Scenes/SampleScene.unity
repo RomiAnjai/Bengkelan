@@ -485,7 +485,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   titikKameraMeja: {fileID: 1451526680}
-  grupTitikMinigame: {fileID: 754948031}
+  grupTitikMinigame: {fileID: 0}
   waktuPerpindahan: 1
   prefabBanMenyatu: {fileID: 7500285076508638422, guid: e85d3012443a3b94c958b322501ba806, type: 3}
   fasePasangBan: 0
@@ -1239,11 +1239,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!1 &754948031 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3878974003196383989, guid: 19bd82324cc8c964b81cf44465289a1e, type: 3}
-  m_PrefabInstance: {fileID: 5930702240882861197}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &766410304 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2900095880598031951, guid: 9e71bb46e90bb114e921610e89813b9b, type: 3}
@@ -16167,17 +16162,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1714635695250041237, guid: 19bd82324cc8c964b81cf44465289a1e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.93355
-      objectReference: {fileID: 0}
-    - target: {fileID: 1791537388261001868, guid: 19bd82324cc8c964b81cf44465289a1e, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: -5540083029607196640, guid: c80c473c08f755e4c9080339ce07ce66, type: 3}
     - target: {fileID: 3395733515638083540, guid: 19bd82324cc8c964b81cf44465289a1e, type: 3}
       propertyPath: m_Name
       value: bengkeldraft1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4052339900553734789, guid: 19bd82324cc8c964b81cf44465289a1e, type: 3}
+      propertyPath: grupTitikMinigame
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4441048725749974716, guid: 19bd82324cc8c964b81cf44465289a1e, type: 3}
       propertyPath: m_LocalPosition.x
