@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class ObjectiveHUD : MonoBehaviour
 {
@@ -9,6 +9,10 @@ public class ObjectiveHUD : MonoBehaviour
 
     [Header("Objective")]
     [SerializeField] private TMP_Text objectiveText;
+    [SerializeField] private RectTransform panelObjektif;
+    [SerializeField] private float jarakSlide = 600f;
+    [SerializeField] private float durasiSlide = 0.4f;
+    [SerializeField] private float jedaSebelumMasukAwal = 0.5f;
 
     [Header("Balance")]
     [SerializeField] private TMP_Text balanceText;
@@ -17,10 +21,10 @@ public class ObjectiveHUD : MonoBehaviour
     public DatabaseObjektif databaseObjektif;
 
     private int balance = 0;
-
-    bool banBaru;
-
     private const string BalanceKey = "CTAS_Balance";
+    private bool sudahSelesai = false;
+    private Vector2 posisiNormalLayar;
+    private Coroutine animasiRoutine;
 
     private void Awake()
     {
@@ -37,30 +41,25 @@ public class ObjectiveHUD : MonoBehaviour
     private void Start()
     {
         UpdateBalanceUI();
-        SetObjective();
-        banBaru = false;
-    }
 
-    // =========================================================
-    // OBJECTIVE
-    // =========================================================
-
-    public void SetObjective()
-    {
-        if (objectiveText != null)
+        if (panelObjektif == null && objectiveText != null)
         {
-            objectiveText.text = "objective cuy";
+            panelObjektif = objectiveText.GetComponentInParent<RectTransform>();
+        }
+
+        if (panelObjektif != null)
+        {
+            posisiNormalLayar = panelObjektif.anchoredPosition;
+            panelObjektif.anchoredPosition = posisiNormalLayar + new Vector2(-jarakSlide, 0f);
+
+            if (animasiRoutine != null) StopCoroutine(animasiRoutine);
+            animasiRoutine = StartCoroutine(ProsesSlideMasukAwal());
         }
     }
-
-    // =========================================================
-    // BALANCE
-    // =========================================================
 
     public void SetBalance(int amount)
     {
         balance = amount;
-
         UpdateBalanceUI();
         SaveBalance();
     }
@@ -68,7 +67,6 @@ public class ObjectiveHUD : MonoBehaviour
     public void AddMoney(int amount)
     {
         balance += amount;
-
         UpdateBalanceUI();
         SaveBalance();
     }
@@ -76,12 +74,10 @@ public class ObjectiveHUD : MonoBehaviour
     public void RemoveMoney(int amount)
     {
         balance -= amount;
-
         if (balance < 0)
         {
             balance = 0;
         }
-
         UpdateBalanceUI();
         SaveBalance();
     }
@@ -98,33 +94,140 @@ public class ObjectiveHUD : MonoBehaviour
             balanceText.text = "Rp " + balance.ToString("N0");
         }
     }
+
     private void SaveBalance()
     {
         PlayerPrefs.SetInt(BalanceKey, balance);
         PlayerPrefs.Save();
     }
 
+    public void TampilkanPesanManual(string pesan)
+    {
+        if (sudahSelesai) return;
 
+        string teksFormat = "- " + pesan;
+
+        if (panelObjektif != null)
+        {
+            if (animasiRoutine != null) StopCoroutine(animasiRoutine);
+            animasiRoutine = StartCoroutine(ProsesGantiTeksDenganSlide(teksFormat));
+        }
+        else if (objectiveText != null)
+        {
+            objectiveText.text = teksFormat;
+        }
+    }
 
     public void UpdateHUD(JenisMotor jenisMotor, string namaMasalah, int indexLangkah)
     {
-        if(indexLangkah == 6)
-        {
-            banBaru = true;
-        }
-        if(banBaru == false){
-            if (databaseObjektif == null)
-            {
-                Debug.LogError("Database Objektif belum dimasukkan ke HUD!");
-                return;
-            }
+        if (sudahSelesai) return;
 
-            string teksBaru = databaseObjektif.AmbilTeksObjektif(jenisMotor, namaMasalah, indexLangkah);
-            objectiveText.text = "- " + teksBaru;
+        if (databaseObjektif == null)
+        {
+            return;
+        }
+
+        string teksBaru = databaseObjektif.AmbilTeksObjektif(jenisMotor, namaMasalah, indexLangkah);
+
+        if (teksBaru == "Objektif Selesai!")
+        {
+            SembunyikanHUD();
+            return;
+        }
+
+        string teksFormat = "- " + teksBaru;
+
+        if (panelObjektif != null)
+        {
+            if (animasiRoutine != null) StopCoroutine(animasiRoutine);
+            animasiRoutine = StartCoroutine(ProsesGantiTeksDenganSlide(teksFormat));
+        }
+        else if (objectiveText != null)
+        {
+            objectiveText.text = teksFormat;
         }
     }
+
     public void SembunyikanHUD()
     {
-        objectiveText.text = "Servis Selesai";
+        if (sudahSelesai) return;
+        sudahSelesai = true;
+
+        if (panelObjektif != null)
+        {
+            if (animasiRoutine != null) StopCoroutine(animasiRoutine);
+            animasiRoutine = StartCoroutine(ProsesSlideKeluarPermanen());
+        }
+    }
+
+    private IEnumerator ProsesSlideMasukAwal()
+    {
+        yield return new WaitForSeconds(jedaSebelumMasukAwal);
+
+        Vector2 posisiAwalLuar = panelObjektif.anchoredPosition;
+        float elapsed = 0f;
+
+        while (elapsed < durasiSlide)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.SmoothStep(0f, 1f, elapsed / durasiSlide);
+            panelObjektif.anchoredPosition = Vector2.Lerp(posisiAwalLuar, posisiNormalLayar, t);
+            yield return null;
+        }
+
+        panelObjektif.anchoredPosition = posisiNormalLayar;
+    }
+
+    private IEnumerator ProsesGantiTeksDenganSlide(string teksBaru)
+    {
+        Vector2 posisiAwal = panelObjektif.anchoredPosition;
+        Vector2 posisiLuar = posisiNormalLayar + new Vector2(-jarakSlide, 0f);
+        float elapsed = 0f;
+
+        while (elapsed < durasiSlide)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.SmoothStep(0f, 1f, elapsed / durasiSlide);
+            panelObjektif.anchoredPosition = Vector2.Lerp(posisiAwal, posisiLuar, t);
+            yield return null;
+        }
+
+        panelObjektif.anchoredPosition = posisiLuar;
+
+        if (objectiveText != null)
+        {
+            objectiveText.text = teksBaru;
+        }
+
+        yield return new WaitForSeconds(0.1f);
+
+        elapsed = 0f;
+        while (elapsed < durasiSlide)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.SmoothStep(0f, 1f, elapsed / durasiSlide);
+            panelObjektif.anchoredPosition = Vector2.Lerp(posisiLuar, posisiNormalLayar, t);
+            yield return null;
+        }
+
+        panelObjektif.anchoredPosition = posisiNormalLayar;
+    }
+
+    private IEnumerator ProsesSlideKeluarPermanen()
+    {
+        Vector2 posisiAwal = panelObjektif.anchoredPosition;
+        Vector2 posisiLuar = posisiNormalLayar + new Vector2(-jarakSlide, 0f);
+        float elapsed = 0f;
+
+        while (elapsed < durasiSlide)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.SmoothStep(0f, 1f, elapsed / durasiSlide);
+            panelObjektif.anchoredPosition = Vector2.Lerp(posisiAwal, posisiLuar, t);
+            yield return null;
+        }
+
+        panelObjektif.anchoredPosition = posisiLuar;
+        panelObjektif.gameObject.SetActive(false);
     }
 }

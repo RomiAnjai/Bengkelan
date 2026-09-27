@@ -17,61 +17,42 @@ public class MekanikController : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        KunciKursor(true);
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            if (Cursor.lockState == CursorLockMode.Locked)
-            {
-                KunciKursor(false);
-            }
-            else
-            {
-                KunciKursor(true);
-            }
-        }
-
+        UpdateStatusGerak();
         MulaiGerak();
+    }
+
+    void UpdateStatusGerak()
+    {
+        bool fokusMotor = InteraksiMotor.instance != null && InteraksiMotor.instance.sedangFokus;
+        bool fokusMeja = StationInteraction.instance != null && StationInteraction.instance.sedangFokusMeja;
+        bool hpBuka = GameManagerScript.instance != null && GameManagerScript.instance.hpSedangBuka;
+
+        if (fokusMotor || fokusMeja || hpBuka)
+        {
+            bisaGerak = false;
+            bisaRotasiKamera = false;
+        }
+        else
+        {
+            bisaGerak = true;
+            bisaRotasiKamera = true;
+        }
     }
 
     public void KunciKursor(bool dikunci)
     {
-        if (dikunci)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            
-            bool fokusMotor = InteraksiMotor.instance != null && InteraksiMotor.instance.sedangFokus;
-            bool fokusMeja = StationInteraction.instance != null && StationInteraction.instance.sedangFokusMeja;
 
-            if (fokusMotor || fokusMeja)
-            {
-                bisaGerak = false;
-                bisaRotasiKamera = false;
-            }
-            else
-            {
-                bisaGerak = true;
-                bisaRotasiKamera = true;
-            }
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            bisaGerak = false;
-            bisaRotasiKamera = false;
-        }
     }
 
     public void MulaiGerak()
     {
-        if (bisaGerak == true)
+        if (bisaGerak)
         {
-            if (bisaRotasiKamera == true)
+            if (bisaRotasiKamera)
             {
                 float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
                 float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
@@ -83,19 +64,19 @@ public class MekanikController : MonoBehaviour
                 transform.Rotate(Vector3.up * mouseX);
             }
 
-            float x = Input.GetAxis("Horizontal");  
+            float x = Input.GetAxis("Horizontal");
             float z = Input.GetAxis("Vertical");
 
             Vector3 move = transform.right * x + transform.forward * z;
             controller.Move(move * speed * Time.deltaTime);
+        }
 
-            velocity.y += gravity * Time.deltaTime;
-            controller.Move(velocity * Time.deltaTime);
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
 
-            if (controller.isGrounded && velocity.y < 0)
-            {
-                velocity.y = -2f;
-            }
+        if (controller.isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f;
         }
     }
 }

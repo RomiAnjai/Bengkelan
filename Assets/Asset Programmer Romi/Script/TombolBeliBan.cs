@@ -6,6 +6,8 @@ public class TombolBeliBan : MonoBehaviour, IInteraksi
     public Transform titikMunculBan;
     public int batasBeli = 1;
     public int beliSaatIni = 0;
+    
+    public string idHighlightMeja = "Meja Kerja";
 
     public string DapatkanNamaPetunjuk()
     {
@@ -13,25 +15,25 @@ public class TombolBeliBan : MonoBehaviour, IInteraksi
         {
             return "";
         }
-
         if (beliSaatIni >= batasBeli)
         {
             return "Stok Ban Habis";
         }
-
         return "Beli Ban Luar";
     }
 
     public void EksekusiAksi()
     {
         if (prefabBanLuarBaru == null || titikMunculBan == null) return;
-
         if (SequenceService.instance != null && SequenceService.instance.indexLangkahSaatIni > 2)
         {
             if (beliSaatIni < batasBeli)
             {
                 Instantiate(prefabBanLuarBaru, titikMunculBan.position, titikMunculBan.rotation);
                 beliSaatIni++;
+                
+                TutorialHighlight.NyalakanBerdasarkanID(idHighlightMeja);
+                
                 SequenceService.instance.SelesaikanLangkah();
             }
         }
