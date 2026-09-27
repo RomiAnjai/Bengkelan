@@ -13,6 +13,9 @@ public class MainMenuController : MonoBehaviour
     [Header("Options Panel")]
     [SerializeField] private GameObject optionsPanel;
 
+    [Header("New Game Panel")]
+    [SerializeField] private GameObject newGamePanel;
+
     [Header("Load Game Panel")]
     [SerializeField] private GameObject loadGamePanel;
 
@@ -45,6 +48,7 @@ public class MainMenuController : MonoBehaviour
     {
         mainMenuPanel.SetActive(true);
         optionsPanel.SetActive(false);
+        newGamePanel.SetActive(false);
         loadGamePanel.SetActive(false);
         exitConfirmPanel.SetActive(false);
     }
@@ -52,13 +56,30 @@ public class MainMenuController : MonoBehaviour
     // =========================
     // NEW GAME
     // =========================
+    public void OpenNewGame()
+    {
+        if (PlayerPrefs.HasKey(SaveKey))
+        {
+            mainMenuPanel.SetActive(false);
+            newGamePanel.SetActive(true);
+        }
+        else
+        {
+            // Masuk ke game
+            SceneManager.LoadScene(gameSceneName);
+        }
+    }
 
+    public void CloseNew()
+    {
+        newGamePanel.SetActive(false);
+        mainMenuPanel.SetActive(true);
+    }
     public void NewGame()
     {
         // Hapus save lama
         PlayerPrefs.DeleteKey(SaveKey);
         PlayerPrefs.Save();
-
         // Masuk ke game
         SceneManager.LoadScene(gameSceneName);
     }
