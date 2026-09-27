@@ -45,29 +45,31 @@ public class InteraksiPemain : MonoBehaviour
 
     void AturModeBidik()
     {
-        DetailLangkah langkah = SequenceService.instance.GetLangkahSaatIni();
-        bool aktifkanCrosshair = true;
-        
+        DetailLangkah langkah = null;
+        if (SequenceService.instance != null)
+        {
+            langkah = SequenceService.instance.GetLangkahSaatIni();
+        }
+
         bool motorFokus = InteraksiMotor.instance != null && InteraksiMotor.instance.sedangFokus;
         bool mejaFokus = StationInteraction.instance != null && StationInteraction.instance.sedangFokusMeja;
+        bool hpBuka = GameManagerScript.instance != null && GameManagerScript.instance.hpSedangBuka;
 
-        if (motorFokus && langkah != null)
-        {
-            aktifkanCrosshair = langkah.pakaiCrosshair;
-        }
-        
-        if (mejaFokus)
+        bool aktifkanCrosshair = true;
+
+        if (hpBuka)
         {
             aktifkanCrosshair = false;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
-
-        if (crosshairUI != null)
+        else if (motorFokus)
         {
-            crosshairUI.SetActive(aktifkanCrosshair);
-        }
+            if (langkah != null)
+            {
+                aktifkanCrosshair = langkah.pakaiCrosshair;
+            }
 
-        if (motorFokus)
-        {
             if (aktifkanCrosshair)
             {
                 Cursor.lockState = CursorLockMode.Locked;
@@ -81,15 +83,27 @@ public class InteraksiPemain : MonoBehaviour
         }
         else if (mejaFokus)
         {
+            aktifkanCrosshair = false;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+        }
+        else
+        {
+            aktifkanCrosshair = true;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+
+        if (crosshairUI != null)
+        {
+            crosshairUI.SetActive(aktifkanCrosshair);
         }
     }
 
     void SorotBarang()
     {
         Ray ray;
-        
+
         if (crosshairUI != null && crosshairUI.activeSelf)
         {
             ray = kameraPemain.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
@@ -100,7 +114,11 @@ public class InteraksiPemain : MonoBehaviour
         }
 
         RaycastHit hit;
-        DetailLangkah langkah = SequenceService.instance.GetLangkahSaatIni();
+        DetailLangkah langkah = null;
+        if (SequenceService.instance != null)
+        {
+            langkah = SequenceService.instance.GetLangkahSaatIni();
+        }
 
         if (barangDipegang == null && Physics.Raycast(ray, out hit, jarakJangkauan, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide))
         {
@@ -112,13 +130,13 @@ public class InteraksiPemain : MonoBehaviour
                 bautDisorot = null;
                 motorDisorot = null;
                 stationDisorot = null;
-                teksNamaUI.text = objekInteraksiDisorot.DapatkanNamaPetunjuk();
+                if (teksNamaUI != null) teksNamaUI.text = objekInteraksiDisorot.DapatkanNamaPetunjuk();
                 return;
             }
 
             if (InteraksiMotor.instance != null && !InteraksiMotor.instance.sedangFokus)
             {
-                if (SequenceService.instance.indexLangkahSaatIni <= 1)
+                if (SequenceService.instance != null && SequenceService.instance.indexLangkahSaatIni <= 1)
                 {
                     InteraksiMotor cekMotor = hit.collider.GetComponentInParent<InteraksiMotor>();
                     if (cekMotor != null)
@@ -128,7 +146,7 @@ public class InteraksiPemain : MonoBehaviour
                         partDisorot = null;
                         stationDisorot = null;
                         objekInteraksiDisorot = null;
-                        teksNamaUI.text = "Mulai Servis";
+                        if (teksNamaUI != null) teksNamaUI.text = "Mulai Servis";
                         return;
                     }
                 }
@@ -144,7 +162,7 @@ public class InteraksiPemain : MonoBehaviour
                     motorDisorot = null;
                     stationDisorot = null;
                     objekInteraksiDisorot = null;
-                    teksNamaUI.text = bautDisorot.namaObjek;
+                    if (teksNamaUI != null) teksNamaUI.text = bautDisorot.namaObjek;
                     return;
                 }
             }
@@ -159,7 +177,7 @@ public class InteraksiPemain : MonoBehaviour
                     motorDisorot = null;
                     stationDisorot = null;
                     objekInteraksiDisorot = null;
-                    teksNamaUI.text = partDisorot.namaObjek;
+                    if (teksNamaUI != null) teksNamaUI.text = partDisorot.namaObjek;
                     return;
                 }
             }
@@ -174,7 +192,7 @@ public class InteraksiPemain : MonoBehaviour
                     motorDisorot = null;
                     stationDisorot = cekStation;
                     objekInteraksiDisorot = null;
-                    teksNamaUI.text = "Meja Kerja";
+                    if (teksNamaUI != null) teksNamaUI.text = "Meja Kerja";
                     return;
                 }
             }
@@ -185,7 +203,7 @@ public class InteraksiPemain : MonoBehaviour
         motorDisorot = null;
         stationDisorot = null;
         objekInteraksiDisorot = null;
-        teksNamaUI.text = "";
+        if (teksNamaUI != null) teksNamaUI.text = "";
     }
 
     void CekInputPegang()
