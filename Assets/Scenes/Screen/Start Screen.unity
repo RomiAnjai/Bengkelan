@@ -408,7 +408,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 558024249}
         m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
-        m_MethodName: NewGame
+        m_MethodName: OpenNewGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -768,7 +768,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7604aea560ba10446a962973cb8d9dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuController
-  gameSceneName: Game
+  gameSceneName: test
   mainMenuPanel: {fileID: 1931819758}
   optionsPanel: {fileID: 951322427}
   newGamePanel: {fileID: 1788528884}
