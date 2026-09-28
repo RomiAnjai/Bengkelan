@@ -16,6 +16,11 @@ public class StationInteraction : MonoBehaviour
     public bool sedangFokusMeja = false;
     public bool minigameSelesai = false;
 
+    [Header("Audio Meja Kerja")]
+    public AudioSource audioMeja;
+    public AudioClip sfxTaruhMeja;
+    public AudioClip sfxCongkel;
+
     public GameObject velgDiMeja;
     public GameObject banBaruDiMeja;
 
@@ -125,6 +130,7 @@ public class StationInteraction : MonoBehaviour
 
     void KunciKeMeja(GameObject obj)
     {
+        if (audioMeja != null && sfxTaruhMeja != null) audioMeja.PlayOneShot(sfxTaruhMeja); // SFX MEJA
         obj.transform.position = transform.position + new Vector3(0, 0.7f, 0);
         if(obj.CompareTag("Velg Depan"))
         {
@@ -213,6 +219,7 @@ public class StationInteraction : MonoBehaviour
 
     public void TitikDitekan(GameObject titik)
     {
+        if (audioMeja != null && sfxCongkel != null) audioMeja.PlayOneShot(sfxCongkel); // SFX CONGKEL
         titik.SetActive(false);
         sisaTitik--;
 

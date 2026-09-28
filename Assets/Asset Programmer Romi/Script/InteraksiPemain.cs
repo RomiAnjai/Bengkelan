@@ -13,6 +13,11 @@ public class InteraksiPemain : MonoBehaviour
     public float jarakJangkauan = 3f;
     public float kekuatanTarik = 10f;
 
+    [Header("Audio Interaksi")]
+    public AudioSource audioInteraksi;
+    public AudioClip sfxPickup;
+    public AudioClip sfxDrop;
+
     private Rigidbody barangDipegang;
     private DataSparepart partDisorot;
     private Baut bautDisorot;
@@ -262,6 +267,8 @@ public class InteraksiPemain : MonoBehaviour
         barangDipegang.linearDamping = 10f;
         barangDipegang.angularDamping = 10f;
 
+        if (audioInteraksi != null && sfxPickup != null) audioInteraksi.PlayOneShot(sfxPickup); // SFX AMBIL
+
         DetailLangkah langkah = SequenceService.instance.GetLangkahSaatIni();
         if (langkah != null && langkah.jenisAksi == TipeAksi.LepasBanLuar && partTag == langkah.targetPartTag)
         {
@@ -271,6 +278,8 @@ public class InteraksiPemain : MonoBehaviour
 
     void LepasBarang()
     {
+        if (audioInteraksi != null && sfxDrop != null) audioInteraksi.PlayOneShot(sfxDrop); // SFX LEPAS
+        
         barangDipegang.useGravity = true;
         barangDipegang.linearDamping = 0f;
         barangDipegang.angularDamping = 0.05f;

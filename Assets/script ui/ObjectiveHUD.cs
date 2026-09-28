@@ -20,6 +20,10 @@ public class ObjectiveHUD : MonoBehaviour
     [Header("Database")]
     public DatabaseObjektif databaseObjektif;
 
+    [Header("Audio")]
+    public AudioSource audioUI;
+    public AudioClip sfxObjektifBaru;
+
     private int balance = 0;
     private const string BalanceKey = "CTAS_Balance";
     private bool sudahSelesai = false;
@@ -134,6 +138,8 @@ public class ObjectiveHUD : MonoBehaviour
             SembunyikanHUD();
             return;
         }
+
+        if (audioUI != null && sfxObjektifBaru != null) audioUI.PlayOneShot(sfxObjektifBaru);
 
         string teksFormat = "- " + teksBaru;
 

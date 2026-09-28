@@ -9,6 +9,12 @@ public class MekanikController : MonoBehaviour
     public bool bisaGerak = true;
     public bool bisaRotasiKamera = true;
 
+    [Header("Audio Langkah Kaki")]
+    public AudioSource audioLangkah;
+    public AudioClip sfxFootstep;
+    public float jedaLangkah = 0.5f;
+    private float timerLangkah = 0f;
+
     float xRotation = 0f;
     CharacterController controller;
     Vector3 velocity;
@@ -69,6 +75,18 @@ public class MekanikController : MonoBehaviour
 
             Vector3 move = transform.right * x + transform.forward * z;
             controller.Move(move * speed * Time.deltaTime);
+
+            // SFX FOOTSTEP
+            if (controller.isGrounded && move.magnitude > 0.1f)
+            {
+                timerLangkah -= Time.deltaTime;
+                if (timerLangkah <= 0f)
+                {
+                    if (audioLangkah != null && sfxFootstep != null) audioLangkah.PlayOneShot(sfxFootstep);
+                    timerLangkah = jedaLangkah;
+                }
+            }
+            else { timerLangkah = 0f; }
         }
 
         velocity.y += gravity * Time.deltaTime;

@@ -46,6 +46,11 @@ public class GameManagerScript : MonoBehaviour
     public float jarakSlideHP = 1000f;
     public float durasiSlideHP = 0.4f;
 
+    [Header("Audio General")]
+    public AudioSource audioBGM; // Set looping = true di Inspector untuk BGM
+    public AudioSource audioHP;
+    public AudioClip sfxOrderMasuk;
+
     public bool hpSedangBuka = false;
     private bool rewardSudahDiberikan = false;
     private Vector2 posisiHPTengah;
@@ -205,6 +210,7 @@ public class GameManagerScript : MonoBehaviour
     {
         if (currentState == GameState.TungguPesanan)
         {
+            if (audioHP != null && sfxOrderMasuk != null) audioHP.PlayOneShot(sfxOrderMasuk); // SFX ORDER
             if (dropdownPesananUI != null && daftarPesanan.Count > 0)
             {
                 pesananAktif = daftarPesanan[dropdownPesananUI.value];
