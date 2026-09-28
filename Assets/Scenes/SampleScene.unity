@@ -1340,9 +1340,9 @@ MonoBehaviour:
   hpUIPanel: {fileID: 1568013515}
   jarakSlideHP: 1000
   durasiSlideHP: 0.25
-  audioBGM: {fileID: 0}
-  audioHP: {fileID: 0}
-  sfxOrderMasuk: {fileID: 0}
+  audioBGM: {fileID: 2078211398}
+  audioHP: {fileID: 857980850}
+  sfxOrderMasuk: {fileID: 8300000, guid: 71b30742d1154d94f9f6f90cf3ea0fe7, type: 3}
   hpSedangBuka: 0
 --- !u!4 &557296095
 Transform:
@@ -2247,6 +2247,135 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 828648251}
   m_CullTransparentMesh: 1
+--- !u!1 &857980848
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 857980849}
+  - component: {fileID: 857980850}
+  m_Layer: 0
+  m_Name: hpAudio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &857980849
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 857980848}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 543450653644005860}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &857980850
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 857980848}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &882606517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2812,9 +2941,9 @@ MonoBehaviour:
   playerCamera: {fileID: 747498136}
   bisaGerak: 0
   bisaRotasiKamera: 1
-  audioLangkah: {fileID: 0}
-  sfxFootstep: {fileID: 0}
-  jedaLangkah: 0.5
+  audioLangkah: {fileID: 2078211398}
+  sfxFootstep: {fileID: 8300000, guid: aad63f45a2706574fbd8c38b042d66db, type: 3}
+  jedaLangkah: 5
 --- !u!143 &1156795799
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2913,6 +3042,7 @@ Transform:
   - {fileID: 747498136}
   - {fileID: 1014186729}
   - {fileID: 543450653644005860}
+  - {fileID: 2078211399}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1156795803
@@ -2933,9 +3063,9 @@ MonoBehaviour:
   crosshairUI: {fileID: 197326951}
   jarakJangkauan: 3
   kekuatanTarik: 10
-  audioInteraksi: {fileID: 0}
-  sfxPickup: {fileID: 0}
-  sfxDrop: {fileID: 0}
+  audioInteraksi: {fileID: 2078211398}
+  sfxPickup: {fileID: 8300000, guid: 1b26bcc8096bcb746817ec575b679a4f, type: 3}
+  sfxDrop: {fileID: 8300000, guid: 6bcb6978038945943925bddf40875257, type: 3}
 --- !u!1 &1166610133
 GameObject:
   m_ObjectHideFlags: 0
@@ -5341,12 +5471,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2078211397}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.56449, y: 0.14445, z: -0.14551}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 4.22751, y: -1.16555, z: 11.96449}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1156795802}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2127534878
 GameObject:
@@ -6677,6 +6807,7 @@ Transform:
   m_Children:
   - {fileID: 4083501151503425442}
   - {fileID: 5680519944391935542}
+  - {fileID: 857980849}
   m_Father: {fileID: 1156795802}
   m_LocalEulerAnglesHint: {x: 0, y: 109.9, z: 0}
 --- !u!4 &544290234176539434
@@ -25828,4 +25959,3 @@ SceneRoots:
   - {fileID: 3613396818383250010}
   - {fileID: 1629078036}
   - {fileID: 1440385845}
-  - {fileID: 2078211399}
