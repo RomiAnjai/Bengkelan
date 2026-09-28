@@ -129,11 +129,9 @@ public class SequenceService : MonoBehaviour
         DetailLangkah langkah = masalahAktif.urutanLangkah[indexLangkahSaatIni];
         Debug.Log("=== STEP SEKARANG: " + indexLangkahSaatIni + " | Nama: " + langkah.namaLangkah + " | Aksi: " + langkah.jenisAksi + " ===");
         
-        ObjectiveHUD.instance.UpdateHUD(motorYangSedangDiservis, masalahAktif.namaKerusakan, indexLangkahSaatIni);
         if (ObjectiveHUD.instance != null)
         {
             ObjectiveHUD.instance.UpdateHUD(motorYangSedangDiservis, masalahAktif.namaKerusakan, indexLangkahSaatIni);
-            Debug.Log("sdsd");
         }
 
         TutorialHighlight.NyalakanBerdasarkanID(langkah.idObjekTutorial);

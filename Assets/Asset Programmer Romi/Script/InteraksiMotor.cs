@@ -14,6 +14,10 @@ public class InteraksiMotor : MonoBehaviour
     private GameObject kamera;
     private GameObject kamerapos;
     private MekanikController mc;
+
+    [Header("Audio Mode Inspeksi")]
+    public AudioSource audioMotor;
+    public AudioClip sfxInspeksi;
     
     private Transform batas1;
     private Transform batas2;
@@ -101,6 +105,8 @@ public class InteraksiMotor : MonoBehaviour
 
         posisiAwalKamera = kamerapos.transform.position;
         rotasiAwalKamera = kamerapos.transform.rotation;
+
+        if (audioMotor != null && sfxInspeksi != null) audioMotor.PlayOneShot(sfxInspeksi); // SFX INSPEKSI
 
         mc.bisaGerak = false;
         mc.bisaRotasiKamera = false;

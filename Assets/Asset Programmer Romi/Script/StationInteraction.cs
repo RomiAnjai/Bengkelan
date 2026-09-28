@@ -7,6 +7,7 @@ public class StationInteraction : MonoBehaviour
     public Transform titikKameraMeja;
     public GameObject grupTitikMinigame;
     public float waktuPerpindahan = 1f;
+    public string idHighlightMeja = "Meja Kerja";
 
     [Header("Fase Pasang Ban")]
     public GameObject prefabBanMenyatu;
@@ -14,6 +15,11 @@ public class StationInteraction : MonoBehaviour
     public bool adaBan = false;
     public bool sedangFokusMeja = false;
     public bool minigameSelesai = false;
+
+    [Header("Audio Meja Kerja")]
+    public AudioSource audioMeja;
+    public AudioClip sfxTaruhMeja;
+    public AudioClip sfxCongkel;
 
     public GameObject velgDiMeja;
     public GameObject banBaruDiMeja;
@@ -29,15 +35,30 @@ public class StationInteraction : MonoBehaviour
 
     void Awake()
     {
-        if (instance == null) instance = this;
-        else Destroy(gameObject);
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        if (grupTitikMinigame != null)
+        {
+            for (int i = 0; i < grupTitikMinigame.transform.childCount; i++)
+            {
+                grupTitikMinigame.transform.GetChild(i).gameObject.SetActive(false);
+            }
+            grupTitikMinigame.SetActive(false);
+        }
     }
 
     void Start()
     {
         kamera = GameObject.FindWithTag("MainCamera");
         mc = FindAnyObjectByType<MekanikController>();
-        if (grupTitikMinigame != null) grupTitikMinigame.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -77,6 +98,7 @@ public class StationInteraction : MonoBehaviour
         {
             banBaruDiMeja = other.attachedRigidbody != null ? other.attachedRigidbody.gameObject : other.gameObject;
             KunciKeMeja(banBaruDiMeja);
+            TutorialHighlight.MatikanBerdasarkanID(idHighlightMeja);
             MatikanHighlightSaatIni();
         }
     }
@@ -108,6 +130,7 @@ public class StationInteraction : MonoBehaviour
 
     void KunciKeMeja(GameObject obj)
     {
+        if (audioMeja != null && sfxTaruhMeja != null) audioMeja.PlayOneShot(sfxTaruhMeja); // SFX MEJA
         obj.transform.position = transform.position + new Vector3(0, 0.7f, 0);
         if(obj.CompareTag("Velg Depan"))
         {
@@ -196,6 +219,7 @@ public class StationInteraction : MonoBehaviour
 
     public void TitikDitekan(GameObject titik)
     {
+        if (audioMeja != null && sfxCongkel != null) audioMeja.PlayOneShot(sfxCongkel); // SFX CONGKEL
         titik.SetActive(false);
         sisaTitik--;
 
@@ -215,14 +239,13 @@ public class StationInteraction : MonoBehaviour
 
     void SelesaiMinigame()
     {
-        SequenceService.instance.SelesaikanLangkah();
         if (grupTitikMinigame != null) grupTitikMinigame.SetActive(false);
-        
         minigameSelesai = true;
 
         if (!fasePasangBan)
         {
             SequenceService.instance.PreteliVelg();
+            SequenceService.instance.SelesaikanLangkah();
 
             if (SequenceService.instance.rbVelg != null)
             {
@@ -257,7 +280,6 @@ public class StationInteraction : MonoBehaviour
                 Instantiate(prefabBanMenyatu, transform.position + new Vector3(0, 0.7f, 0), Quaternion.Euler(90, 0, 0));
                 SequenceService.instance.NyalakanColliderMotor();
             }
-            
             fasePasangBan = false;
         }
 

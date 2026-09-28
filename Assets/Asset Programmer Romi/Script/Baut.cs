@@ -21,6 +21,10 @@ public class Baut : MonoBehaviour
     public char arahPutar;
     public float progres = 0f;
 
+    [Header("Audio Baut")]
+    public AudioSource audioBaut;
+    public AudioClip sfxLepasBaut;
+
     private Vector3 posisiDalam;
     private Vector3 posisiLuar;
     private Vector3 rotasiSaatIni;
@@ -51,6 +55,14 @@ public class Baut : MonoBehaviour
     {
         if (selesai) return;
 
+        // SFX BAUT PUTAR
+        if (audioBaut != null && sfxLepasBaut != null && !audioBaut.isPlaying) 
+        {
+            audioBaut.clip = sfxLepasBaut;
+            audioBaut.loop = true;
+            audioBaut.Play();
+        }
+
         DetailLangkah langkah = SequenceService.instance.GetLangkahSaatIni();
         if (langkah == null || langkah.jenisAksi != tipeAksiDibutuhkan) return;
 
@@ -79,6 +91,7 @@ public class Baut : MonoBehaviour
 
     void SelesaiInteraksi()
     {
+        if (audioBaut != null) audioBaut.Stop(); // HENTIKAN SUARA
         selesai = true;
         transform.localPosition = modePasang ? posisiDalam : posisiLuar;
 

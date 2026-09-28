@@ -9,6 +9,12 @@ public class MekanikController : MonoBehaviour
     public bool bisaGerak = true;
     public bool bisaRotasiKamera = true;
 
+    [Header("Audio Langkah Kaki")]
+    public AudioSource audioLangkah;
+    public AudioClip sfxFootstep;
+    public float jedaLangkah = 0.5f;
+    private float timerLangkah = 0f;
+
     float xRotation = 0f;
     CharacterController controller;
     Vector3 velocity;
@@ -17,61 +23,42 @@ public class MekanikController : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        KunciKursor(true);
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            if (Cursor.lockState == CursorLockMode.Locked)
-            {
-                KunciKursor(false);
-            }
-            else
-            {
-                KunciKursor(true);
-            }
-        }
-
+        UpdateStatusGerak();
         MulaiGerak();
+    }
+
+    void UpdateStatusGerak()
+    {
+        bool fokusMotor = InteraksiMotor.instance != null && InteraksiMotor.instance.sedangFokus;
+        bool fokusMeja = StationInteraction.instance != null && StationInteraction.instance.sedangFokusMeja;
+        bool hpBuka = GameManagerScript.instance != null && GameManagerScript.instance.hpSedangBuka;
+
+        if (fokusMotor || fokusMeja || hpBuka)
+        {
+            bisaGerak = false;
+            bisaRotasiKamera = false;
+        }
+        else
+        {
+            bisaGerak = true;
+            bisaRotasiKamera = true;
+        }
     }
 
     public void KunciKursor(bool dikunci)
     {
-        if (dikunci)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            
-            bool fokusMotor = InteraksiMotor.instance != null && InteraksiMotor.instance.sedangFokus;
-            bool fokusMeja = StationInteraction.instance != null && StationInteraction.instance.sedangFokusMeja;
 
-            if (fokusMotor || fokusMeja)
-            {
-                bisaGerak = false;
-                bisaRotasiKamera = false;
-            }
-            else
-            {
-                bisaGerak = true;
-                bisaRotasiKamera = true;
-            }
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            bisaGerak = false;
-            bisaRotasiKamera = false;
-        }
     }
 
     public void MulaiGerak()
     {
-        if (bisaGerak == true)
+        if (bisaGerak)
         {
-            if (bisaRotasiKamera == true)
+            if (bisaRotasiKamera)
             {
                 float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
                 float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
@@ -83,19 +70,31 @@ public class MekanikController : MonoBehaviour
                 transform.Rotate(Vector3.up * mouseX);
             }
 
-            float x = Input.GetAxis("Horizontal");  
+            float x = Input.GetAxis("Horizontal");
             float z = Input.GetAxis("Vertical");
 
             Vector3 move = transform.right * x + transform.forward * z;
             controller.Move(move * speed * Time.deltaTime);
 
-            velocity.y += gravity * Time.deltaTime;
-            controller.Move(velocity * Time.deltaTime);
-
-            if (controller.isGrounded && velocity.y < 0)
+            // SFX FOOTSTEP
+            if (controller.isGrounded && move.magnitude > 0.1f)
             {
-                velocity.y = -2f;
+                timerLangkah -= Time.deltaTime;
+                if (timerLangkah <= 0f)
+                {
+                    if (audioLangkah != null && sfxFootstep != null) audioLangkah.PlayOneShot(sfxFootstep);
+                    timerLangkah = jedaLangkah;
+                }
             }
+            else { timerLangkah = 0f; }
+        }
+
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
+
+        if (controller.isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f;
         }
     }
 }
