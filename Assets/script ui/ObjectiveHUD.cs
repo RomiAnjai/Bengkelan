@@ -23,6 +23,7 @@ public class ObjectiveHUD : MonoBehaviour
     [Header("Audio")]
     public AudioSource audioUI;
     public AudioClip sfxObjektifBaru;
+    public AudioClip sfxWin;
 
     private int balance = 0;
     private const string BalanceKey = "CTAS_Balance";
@@ -71,6 +72,7 @@ public class ObjectiveHUD : MonoBehaviour
     public void AddMoney(int amount)
     {
         balance += amount;
+        if (audioUI != null && sfxObjektifBaru != null) audioUI.PlayOneShot(sfxWin); // PUTAR SFX
         UpdateBalanceUI();
         SaveBalance();
     }
@@ -125,13 +127,23 @@ public class ObjectiveHUD : MonoBehaviour
     public void UpdateHUD(JenisMotor jenisMotor, string namaMasalah, int indexLangkah)
     {
         if (sudahSelesai) return;
+        bool banBaru = false;
+        string teksBaru = "";
 
         if (databaseObjektif == null)
         {
             return;
         }
 
-        string teksBaru = databaseObjektif.AmbilTeksObjektif(jenisMotor, namaMasalah, indexLangkah);
+        if (banBaru == false)
+        {
+            teksBaru = databaseObjektif.AmbilTeksObjektif(jenisMotor, namaMasalah, indexLangkah);
+        }
+
+        if (indexLangkah == 5)
+        {
+            banBaru = true;
+        }
 
         if (teksBaru == "Objektif Selesai!")
         {

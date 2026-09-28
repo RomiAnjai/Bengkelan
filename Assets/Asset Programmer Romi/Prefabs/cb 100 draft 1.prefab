@@ -1230,6 +1230,7 @@ Transform:
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 7706706314014321644}
   - {fileID: 3804925835830493565}
   - {fileID: 28255881109227104}
   - {fileID: 5647926021952576786}
@@ -1267,7 +1268,6 @@ Transform:
   - {fileID: 288122507249969377}
   - {fileID: 3974353279318564337}
   - {fileID: 5692056529132254718}
-  - {fileID: 7706706314014321644}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &3505756922734739991
@@ -1353,12 +1353,6 @@ MonoBehaviour:
       idObjekTutorial: MejaKerja
     - namaLangkah: beli ban
       jenisAksi: 4
-      targetPartTag: Velg Depan
-      posisiKamera: {fileID: 0}
-      pakaiCrosshair: 0
-      idObjekTutorial: 
-    - namaLangkah: pasang ban
-      jenisAksi: 5
       targetPartTag: Velg Depan
       posisiKamera: {fileID: 0}
       pakaiCrosshair: 0
@@ -1714,8 +1708,8 @@ MonoBehaviour:
   rotasiKunciZ: 0
   arahPutar: 122
   progres: 0
-  audioBaut: {fileID: 0}
-  sfxLepasBaut: {fileID: 0}
+  audioBaut: {fileID: 3175574463181835377}
+  sfxLepasBaut: {fileID: 8300000, guid: 8dde1d293f3ce814097abdd0a631c227, type: 3}
 --- !u!65 &6992238281642313550
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2787,8 +2781,8 @@ MonoBehaviour:
   rotasiKunciZ: 0
   arahPutar: 120
   progres: 0
-  audioBaut: {fileID: 0}
-  sfxLepasBaut: {fileID: 0}
+  audioBaut: {fileID: 3175574463181835377}
+  sfxLepasBaut: {fileID: 8300000, guid: b817fee7ec7e14b4c96a39cc83efa268, type: 3}
 --- !u!136 &174825051459391998
 CapsuleCollider:
   m_ObjectHideFlags: 0

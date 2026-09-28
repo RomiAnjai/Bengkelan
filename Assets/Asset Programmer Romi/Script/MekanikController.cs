@@ -77,16 +77,27 @@ public class MekanikController : MonoBehaviour
             controller.Move(move * speed * Time.deltaTime);
 
             // SFX FOOTSTEP
-            if (controller.isGrounded && move.magnitude > 0.1f)
+            // SFX FOOTSTEP
+        if (controller.isGrounded && move.magnitude > 0.1f)
+        {
+            timerLangkah -= Time.deltaTime;
+            
+            if (timerLangkah <= 0f)
             {
-                timerLangkah -= Time.deltaTime;
-                if (timerLangkah <= 0f)
+                if (audioLangkah != null && sfxFootstep != null)
                 {
-                    if (audioLangkah != null && sfxFootstep != null) audioLangkah.PlayOneShot(sfxFootstep);
-                    timerLangkah = jedaLangkah;
+                    audioLangkah.PlayOneShot(sfxFootstep);
                 }
+                // Set ulang timer
+                timerLangkah = jedaLangkah;
             }
-            else { timerLangkah = 0f; }
+        }
+        else if (move.magnitude < 0.1f)
+        {
+            // Reset timer HANYA saat pemain melepaskan tombol jalan.
+            // Mencegah reset paksa akibat bug 'flicker' isGrounded dari Unity.
+            timerLangkah = 0f;
+        }
         }
 
         velocity.y += gravity * Time.deltaTime;

@@ -144,7 +144,8 @@ public class GameManagerScript : MonoBehaviour
                 {
                     if (ObjectiveHUD.instance != null)
                     {
-                        ObjectiveHUD.instance.SetBalance(60000);
+                        ObjectiveHUD.instance.AddMoney(60000);
+                        ObjectiveHUD.instance.TampilkanPesanManual("Selamat! Anda mendapatkan Rp 60.000 sebagai reward servis motor");
                     }
                     rewardSudahDiberikan = true;
                 }
@@ -210,7 +211,11 @@ public class GameManagerScript : MonoBehaviour
     {
         if (currentState == GameState.TungguPesanan)
         {
-            if (audioHP != null && sfxOrderMasuk != null) audioHP.PlayOneShot(sfxOrderMasuk); // SFX ORDER
+            if (audioHP != null && sfxOrderMasuk != null)
+            {
+                audioHP.PlayOneShot(sfxOrderMasuk); // SFX ORDER
+                Debug.Log("aweksd");
+            }
             if (dropdownPesananUI != null && daftarPesanan.Count > 0)
             {
                 pesananAktif = daftarPesanan[dropdownPesananUI.value];

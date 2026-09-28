@@ -19,7 +19,8 @@ MonoBehaviour:
       daftarLangkah:
       - namaLangkah: 
         teksObjektifDiLayar: Awali pekerjaan dengan melakukan inspeksi pada motor.
-          Dekati motor dan click untuk memasuki mode inspeksi.
+          Dekati motor dan click untuk memasuki mode inspeksi. click dan tahan untuk
+          interact dengan baut.
       - namaLangkah: 
         teksObjektifDiLayar: Lakukan pembongkaran bagian yang bermasalah dengan melakukan
           click dan hold.
@@ -30,7 +31,8 @@ MonoBehaviour:
         teksObjektifDiLayar: Bawa roda tersebut ke meja kerja di bengkelmu dan perbaiki
           lebih lanjut.
       - namaLangkah: 
-        teksObjektifDiLayar: Ambil ban baru dari rak ban lalu pasang.
+        teksObjektifDiLayar: buang ban luar, Ambil ban baru dari rak ban lalu pasang
+          pada velg di meja.
       - namaLangkah: 
         teksObjektifDiLayar: Pasang ban luar yang baru di roda motor, lalu rakit
           kembali bagian roda yang sudah diperbaiki ke motor dengan kembali memasuki

@@ -176,7 +176,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ini objektif
+  m_text: Gunakan WASD untuk bergerak dan mouse untuk kamera, klik kiri untuk interact.
+    Cari HP di bengkel untuk mulai menerima order.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1341,7 +1342,7 @@ MonoBehaviour:
   jarakSlideHP: 1000
   durasiSlideHP: 0.25
   audioBGM: {fileID: 2078211398}
-  audioHP: {fileID: 857980850}
+  audioHP: {fileID: 2078211398}
   sfxOrderMasuk: {fileID: 8300000, guid: 71b30742d1154d94f9f6f90cf3ea0fe7, type: 3}
   hpSedangBuka: 0
 --- !u!4 &557296095
@@ -4414,6 +4415,7 @@ MonoBehaviour:
   databaseObjektif: {fileID: 11400000, guid: a8217c11707a11e45b2037c98438a967, type: 2}
   audioUI: {fileID: 2078211398}
   sfxObjektifBaru: {fileID: 8300000, guid: 4a7484a3c82958f4485f99cd6b92c1a2, type: 3}
+  sfxWin: {fileID: 8300000, guid: 0f578be8e02a7a34cae1bb846f79f2e6, type: 3}
 --- !u!4 &1629078036
 Transform:
   m_ObjectHideFlags: 0
@@ -5377,15 +5379,15 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_Resource: {fileID: 8300000, guid: 71b30742d1154d94f9f6f90cf3ea0fe7, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -5472,7 +5474,7 @@ Transform:
   m_GameObject: {fileID: 2078211397}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.22751, y: -1.16555, z: 11.96449}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
