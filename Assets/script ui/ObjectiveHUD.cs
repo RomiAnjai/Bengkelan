@@ -126,6 +126,7 @@ public class ObjectiveHUD : MonoBehaviour
 
     public void UpdateHUD(JenisMotor jenisMotor, string namaMasalah, int indexLangkah)
     {
+        if (indexLangkah == 2) return;
         if (sudahSelesai) return;
         bool banBaru = false;
         string teksBaru = "";
