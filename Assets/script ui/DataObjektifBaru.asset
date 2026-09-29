@@ -13,7 +13,26 @@ MonoBehaviour:
   m_Name: DataObjektifBaru
   m_EditorClassIdentifier: Assembly-CSharp::DatabaseObjektif
   databaseMotor:
-  - jenisMotor: 0
+  - jenisMotor: 1
     daftarMasalah:
-    - namaMasalah: 
-      daftarLangkah: []
+    - namaMasalah: Ban Bocor
+      daftarLangkah:
+      - namaLangkah: 
+        teksObjektifDiLayar: Klik motor untuk inspect. klik dan tahan untuk melepas
+          baut. Mulai Servis!
+      - namaLangkah: 
+        teksObjektifDiLayar: Lakukan pembongkaran bagian yang bermasalah dengan melakukan
+          click dan hold.
+      - namaLangkah: 
+        teksObjektifDiLayar: 
+      - namaLangkah: 
+        teksObjektifDiLayar: Bawa roda tersebut ke meja. klik meja dan mulai lepas
+          bannya!
+      - namaLangkah: 
+        teksObjektifDiLayar: singkirkan ban lama dan ambil ban baru di rak ban. rakit
+          kembali velg dengan ban baru di meja
+      - namaLangkah: 
+        teksObjektifDiLayar: rakit ban baru dengan velg di meja.
+      - namaLangkah: 
+        teksObjektifDiLayar: pasang ban pada motor dan masuk ke inspect pada motor
+          untukk memasang baut.

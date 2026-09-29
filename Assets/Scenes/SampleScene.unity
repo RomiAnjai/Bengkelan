@@ -4284,7 +4284,7 @@ MonoBehaviour:
   durasiSlide: 0.5
   jedaSebelumMasukAwal: 0.5
   balanceText: {fileID: 966870087}
-  databaseObjektif: {fileID: 11400000, guid: a8217c11707a11e45b2037c98438a967, type: 2}
+  databaseObjektif: {fileID: 11400000, guid: 927a53baaf728cf43ab1c3a5aeb1cb8c, type: 2}
   audioUI: {fileID: 2078211398}
   sfxObjektifBaru: {fileID: 8300000, guid: 4a7484a3c82958f4485f99cd6b92c1a2, type: 3}
   sfxWin: {fileID: 8300000, guid: 0f578be8e02a7a34cae1bb846f79f2e6, type: 3}
