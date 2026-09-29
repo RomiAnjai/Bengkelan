@@ -768,7 +768,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7604aea560ba10446a962973cb8d9dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuController
-  gameSceneName: test
+  gameSceneName: BengkelMainScene
   mainMenuPanel: {fileID: 1931819758}
   optionsPanel: {fileID: 951322427}
   newGamePanel: {fileID: 1788528884}

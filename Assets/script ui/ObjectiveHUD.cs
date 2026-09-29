@@ -30,6 +30,7 @@ public class ObjectiveHUD : MonoBehaviour
     private bool sudahSelesai = false;
     private Vector2 posisiNormalLayar;
     private Coroutine animasiRoutine;
+    private bool banBaru = false;
 
     private void Awake()
     {
@@ -128,7 +129,7 @@ public class ObjectiveHUD : MonoBehaviour
     {
         if (indexLangkah == 2) return;
         if (sudahSelesai) return;
-        bool banBaru = false;
+        
         string teksBaru = "";
 
         if (databaseObjektif == null)
@@ -139,9 +140,22 @@ public class ObjectiveHUD : MonoBehaviour
         if (banBaru == false)
         {
             teksBaru = databaseObjektif.AmbilTeksObjektif(jenisMotor, namaMasalah, indexLangkah);
+            if (audioUI != null && sfxObjektifBaru != null) audioUI.PlayOneShot(sfxObjektifBaru);
+
+            string teksFormat = "- " + teksBaru;
+
+            if (panelObjektif != null)
+            {
+                if (animasiRoutine != null) StopCoroutine(animasiRoutine);
+                animasiRoutine = StartCoroutine(ProsesGantiTeksDenganSlide(teksFormat));
+            }
+            else if (objectiveText != null)
+            {
+                objectiveText.text = teksFormat;
+            }
         }
 
-        if (indexLangkah == 5)
+        if (indexLangkah == 6)
         {
             banBaru = true;
         }
@@ -152,19 +166,7 @@ public class ObjectiveHUD : MonoBehaviour
             return;
         }
 
-        if (audioUI != null && sfxObjektifBaru != null) audioUI.PlayOneShot(sfxObjektifBaru);
-
-        string teksFormat = "- " + teksBaru;
-
-        if (panelObjektif != null)
-        {
-            if (animasiRoutine != null) StopCoroutine(animasiRoutine);
-            animasiRoutine = StartCoroutine(ProsesGantiTeksDenganSlide(teksFormat));
-        }
-        else if (objectiveText != null)
-        {
-            objectiveText.text = teksFormat;
-        }
+        
     }
 
     public void SembunyikanHUD()

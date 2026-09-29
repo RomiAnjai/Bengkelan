@@ -55,7 +55,7 @@ public class SequenceService : MonoBehaviour
 
     [Header("Pengaturan Geser Velg")]
     public Vector3 jarakGeserVelg = new Vector3(0.5f, 0f, 0f);
-    private MasalahMotor masalahAktif;
+    public MasalahMotor masalahAktif;
 
     void Awake()
     {
@@ -132,6 +132,14 @@ public class SequenceService : MonoBehaviour
         if (ObjectiveHUD.instance != null)
         {
             ObjectiveHUD.instance.UpdateHUD(motorYangSedangDiservis, masalahAktif.namaKerusakan, indexLangkahSaatIni);
+
+            if (indexLangkahSaatIni == 4)
+            {
+                TutorialHighlight.NyalakanBerdasarkanID("RakBan");
+            } else
+            {
+                TutorialHighlight.MatikanBerdasarkanID("RakBan");
+            }
         }
 
         TutorialHighlight.NyalakanBerdasarkanID(langkah.idObjekTutorial);

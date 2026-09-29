@@ -280,6 +280,8 @@ public class StationInteraction : MonoBehaviour
                 Instantiate(prefabBanMenyatu, transform.position + new Vector3(0, 0.7f, 0), Quaternion.Euler(90, 0, 0));
                 SequenceService.instance.NyalakanColliderMotor();
             }
+
+            ObjectiveHUD.instance.UpdateHUD(SequenceService.instance.motorYangSedangDiservis, SequenceService.instance.masalahAktif.namaKerusakan, 6);
             fasePasangBan = false;
         }
 
