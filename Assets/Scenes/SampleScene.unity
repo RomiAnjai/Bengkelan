@@ -176,8 +176,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Gunakan WASD untuk bergerak dan mouse untuk kamera, klik kiri untuk interact.
-    Cari HP di bengkel untuk mulai menerima order.
+  m_text: 'Gunakan WASD untuk bergerak Mouse untuk kamera
+
+    Klik kiri untuk interact
+
+    Cari
+    HP di bengkel untuk mulai menerima order.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -839,6 +843,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 371978689}
   m_CullTransparentMesh: 1
+--- !u!1001 &385972060
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 27f29a5b1ae7c32458ef895693e2b45c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.9
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 27f29a5b1ae7c32458ef895693e2b45c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.29
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 27f29a5b1ae7c32458ef895693e2b45c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.3008168
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 27f29a5b1ae7c32458ef895693e2b45c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 27f29a5b1ae7c32458ef895693e2b45c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 27f29a5b1ae7c32458ef895693e2b45c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 27f29a5b1ae7c32458ef895693e2b45c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 27f29a5b1ae7c32458ef895693e2b45c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 27f29a5b1ae7c32458ef895693e2b45c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 27f29a5b1ae7c32458ef895693e2b45c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 27f29a5b1ae7c32458ef895693e2b45c, type: 3}
+      propertyPath: m_Name
+      value: credit
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 27f29a5b1ae7c32458ef895693e2b45c, type: 3}
 --- !u!1 &404143842
 GameObject:
   m_ObjectHideFlags: 0
@@ -25771,3 +25832,4 @@ SceneRoots:
   - {fileID: 3613396818383250010}
   - {fileID: 1629078036}
   - {fileID: 1440385845}
+  - {fileID: 385972060}

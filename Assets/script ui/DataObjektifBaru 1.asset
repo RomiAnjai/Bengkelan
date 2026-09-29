@@ -10,5 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: DataObjektifBaru
+  m_Name: DataObjektifBaru 1
   m_EditorClassIdentifier: Assembly-CSharp::DatabaseObjektif
+  databaseMotor:
+  - jenisMotor: 0
+    daftarMasalah: []
