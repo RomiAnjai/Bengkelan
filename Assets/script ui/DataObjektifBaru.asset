@@ -18,21 +18,33 @@ MonoBehaviour:
     - namaMasalah: Ban Bocor
       daftarLangkah:
       - namaLangkah: 
-        teksObjektifDiLayar: Klik motor untuk inspect. klik dan tahan untuk melepas
-          baut. Mulai Servis!
+        teksObjektifDiLayar: 'Klik motor untuk inspect.
+
+          klik dan tahan
+          untuk melepas baut. Mulai Servis!'
       - namaLangkah: 
-        teksObjektifDiLayar: Lakukan pembongkaran bagian yang bermasalah dengan melakukan
-          click dan hold.
+        teksObjektifDiLayar: 'Lakukan pembongkaran dengan melakukan click dan hold.
+
+          Motor
+          ini perlu ganti ban luar'
       - namaLangkah: 
-        teksObjektifDiLayar: 
+        teksObjektifDiLayar: 'Bawa ban dengan klik tahan.
+
+          Bawa ban ke
+          meja.'
       - namaLangkah: 
-        teksObjektifDiLayar: Bawa roda tersebut ke meja. klik meja dan mulai lepas
-          bannya!
+        teksObjektifDiLayar: 'Bawa roda tersebut ke meja.
+
+          klik meja dan
+          mulai lepas bannya!'
       - namaLangkah: 
-        teksObjektifDiLayar: singkirkan ban lama dan ambil ban baru di rak ban. rakit
-          kembali velg dengan ban baru di meja
+        teksObjektifDiLayar: "Singkirkan ban lama dan ambil ban baru di rak ban.
+          \nRakit kembali velg dengan ban baru di meja."
       - namaLangkah: 
-        teksObjektifDiLayar: rakit ban baru dengan velg di meja.
+        teksObjektifDiLayar: 'rakit ban baru dengan velg di meja.
+
+          Klik
+          meja untuk merakit.'
       - namaLangkah: 
         teksObjektifDiLayar: pasang ban pada motor dan masuk ke inspect pada motor
           untukk memasang baut.

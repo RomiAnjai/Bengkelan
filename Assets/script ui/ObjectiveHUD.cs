@@ -127,15 +127,11 @@ public class ObjectiveHUD : MonoBehaviour
 
     public void UpdateHUD(JenisMotor jenisMotor, string namaMasalah, int indexLangkah)
     {
-        if (indexLangkah == 2) return;
         if (sudahSelesai) return;
         
         string teksBaru = "";
 
-        if (databaseObjektif == null)
-        {
-            return;
-        }
+        if (databaseObjektif == null) return;
 
         if (banBaru == false)
         {
@@ -155,17 +151,13 @@ public class ObjectiveHUD : MonoBehaviour
             }
         }
 
-        if (indexLangkah == 6)
-        {
-            banBaru = true;
-        }
+        if (indexLangkah == 6) banBaru = true;
 
         if (teksBaru == "Objektif Selesai!")
         {
             SembunyikanHUD();
             return;
         }
-
         
     }
 

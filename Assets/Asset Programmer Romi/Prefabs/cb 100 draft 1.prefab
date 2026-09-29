@@ -263,7 +263,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.13
   m_Center: {x: 0, y: 0, z: 0}
@@ -1411,6 +1411,9 @@ MonoBehaviour:
   colTambahanPemental: {fileID: 140043850529681597}
   colTriggerMotor: {fileID: 2889235716066986450}
   jarakGeserVelg: {x: 0.55, y: 5, z: 0}
+  masalahAktif:
+    namaKerusakan: 
+    urutanLangkah: []
 --- !u!114 &7468960763162736027
 MonoBehaviour:
   m_ObjectHideFlags: 0
