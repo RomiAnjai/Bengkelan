@@ -73,7 +73,7 @@ public class ObjectiveHUD : MonoBehaviour
     public void AddMoney(int amount)
     {
         balance += amount;
-        if (audioUI != null && sfxObjektifBaru != null) audioUI.PlayOneShot(sfxWin); // PUTAR SFX
+        PlaySFX(sfxWin); // PUTAR SFX
         UpdateBalanceUI();
         SaveBalance();
     }
@@ -108,6 +108,14 @@ public class ObjectiveHUD : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+    private void PlaySFX(AudioClip clip)
+    {
+        if (audioUI != null && clip != null)
+        {
+            audioUI.PlayOneShot(clip);
+        }
+    }
+
     public void TampilkanPesanManual(string pesan)
     {
         if (sudahSelesai) return;
@@ -127,19 +135,14 @@ public class ObjectiveHUD : MonoBehaviour
 
     public void UpdateHUD(JenisMotor jenisMotor, string namaMasalah, int indexLangkah)
     {
-        if (sudahSelesai) return;
-        
         string teksBaru = "";
-
+        if (sudahSelesai) return;
         if (databaseObjektif == null) return;
-
         if (banBaru == false)
         {
             teksBaru = databaseObjektif.AmbilTeksObjektif(jenisMotor, namaMasalah, indexLangkah);
-            if (audioUI != null && sfxObjektifBaru != null) audioUI.PlayOneShot(sfxObjektifBaru);
-
             string teksFormat = "- " + teksBaru;
-
+            PlaySFX(sfxObjektifBaru);
             if (panelObjektif != null)
             {
                 if (animasiRoutine != null) StopCoroutine(animasiRoutine);
@@ -150,7 +153,6 @@ public class ObjectiveHUD : MonoBehaviour
                 objectiveText.text = teksFormat;
             }
         }
-
         if (indexLangkah == 6) banBaru = true;
 
         if (teksBaru == "Objektif Selesai!")
@@ -158,7 +160,6 @@ public class ObjectiveHUD : MonoBehaviour
             SembunyikanHUD();
             return;
         }
-        
     }
 
     public void SembunyikanHUD()

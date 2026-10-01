@@ -25,7 +25,7 @@ AudioMixerController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: NewAudioMixer
+  m_Name: AudioMixer
   m_OutputGroup: {fileID: 0}
   m_MasterGroup: {fileID: 24300002}
   m_Snapshots:
@@ -36,11 +36,11 @@ AudioMixerController:
   m_UpdateMode: 0
   m_ExposedParameters:
   - guid: b1493536e87b3b64bb6098694c1f62ca
-    name: MyExposedParam 2
+    name: MasterVolume
   - guid: 6b8e79dab8c02194a8bbc2180e21774c
-    name: MyExposedParam 1
+    name: SFXVolume
   - guid: 3c2a35ee939dddd4593bc645b9345107
-    name: MyExposedParam
+    name: MusicVolume
   m_AudioMixerGroupViews:
   - guids:
     - 12a42447027b59a468a019fba4ca0211
