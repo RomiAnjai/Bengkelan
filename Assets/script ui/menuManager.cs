@@ -14,9 +14,6 @@ public class MainMenuController : MonoBehaviour
     [Header("Options Panel")]
     [SerializeField] private GameObject optionsPanel;
 
-    [Header("New Game Panel")]
-    [SerializeField] private GameObject newGamePanel;
-
     [Header("Load Game Panel")]
     [SerializeField] private GameObject loadGamePanel;
 
@@ -52,7 +49,6 @@ public class MainMenuController : MonoBehaviour
     {
         mainMenuPanel.SetActive(true);
         optionsPanel.SetActive(false);
-        newGamePanel.SetActive(false);
         loadGamePanel.SetActive(false);
         exitConfirmPanel.SetActive(false);
     }
@@ -60,25 +56,6 @@ public class MainMenuController : MonoBehaviour
     // =========================
     // NEW GAME
     // =========================
-    public void OpenNewGame()
-    {
-        if (PlayerPrefs.HasKey(SaveKey))
-        {
-            mainMenuPanel.SetActive(false);
-            newGamePanel.SetActive(true);
-        }
-        else
-        {
-            // Masuk ke game
-            SceneManager.LoadScene(gameSceneName);
-        }
-    }
-
-    public void CloseNew()
-    {
-        newGamePanel.SetActive(false);
-        mainMenuPanel.SetActive(true);
-    }
     public void NewGame()
     {
         // Hapus save lama
@@ -94,10 +71,7 @@ public class MainMenuController : MonoBehaviour
 
     public void OpenLoadGame()
     {
-        mainMenuPanel.SetActive(false);
-        optionsPanel.SetActive(false);
         loadGamePanel.SetActive(true);
-        exitConfirmPanel.SetActive(false);
     }
 
     public void LoadGame()
@@ -117,7 +91,6 @@ public class MainMenuController : MonoBehaviour
     public void CloseLoad()
     {
         loadGamePanel.SetActive(false);
-        mainMenuPanel.SetActive(true);
     }
 
     // =========================
@@ -126,17 +99,13 @@ public class MainMenuController : MonoBehaviour
 
     public void OpenOptions()
     {
-        mainMenuPanel.SetActive(false);
         optionsPanel.SetActive(true);
-        loadGamePanel.SetActive(false);
-        exitConfirmPanel.SetActive(false);
     }
 
     public void CloseOptions()
     {
         PlayerPrefs.Save();
         optionsPanel.SetActive(false);
-        mainMenuPanel.SetActive(true);
     }
 
     // =========================
@@ -145,22 +114,17 @@ public class MainMenuController : MonoBehaviour
 
     public void OpenExitConfirmation()
     {
-        mainMenuPanel.SetActive(false);
-        optionsPanel.SetActive(false);
-        loadGamePanel.SetActive(false);
         exitConfirmPanel.SetActive(true);
     }
 
     public void CancelExit()
     {
         exitConfirmPanel.SetActive(false);
-        mainMenuPanel.SetActive(true);
     }
 
     public void ExitGame()
     {
         Debug.Log("Keluar dari game.");
-
         Application.Quit();
     }
 
