@@ -34,14 +34,12 @@ public class ObjectiveHUD : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
+        if (instance != null && instance != this)
         {
             Destroy(gameObject);
+            return; 
         }
+        instance = this;
     }
 
     private void Start()
@@ -174,74 +172,45 @@ public class ObjectiveHUD : MonoBehaviour
         }
     }
 
-    private IEnumerator ProsesSlideMasukAwal()
+    private IEnumerator LakukanSlide(Vector2 posisiAwal, Vector2 posisiTujuan)
     {
-        yield return new WaitForSeconds(jedaSebelumMasukAwal);
-
-        Vector2 posisiAwalLuar = panelObjektif.anchoredPosition;
         float elapsed = 0f;
-
         while (elapsed < durasiSlide)
         {
             elapsed += Time.deltaTime;
             float t = Mathf.SmoothStep(0f, 1f, elapsed / durasiSlide);
-            panelObjektif.anchoredPosition = Vector2.Lerp(posisiAwalLuar, posisiNormalLayar, t);
+            panelObjektif.anchoredPosition = Vector2.Lerp(posisiAwal, posisiTujuan, t);
             yield return null;
         }
+        panelObjektif.anchoredPosition = posisiTujuan;
+    }
 
-        panelObjektif.anchoredPosition = posisiNormalLayar;
+    private IEnumerator ProsesSlideMasukAwal()
+    {
+        yield return new WaitForSeconds(jedaSebelumMasukAwal);
+        Vector2 posisiLuar = posisiNormalLayar + new Vector2(-jarakSlide, 0f);
+        yield return StartCoroutine(LakukanSlide(posisiLuar, posisiNormalLayar));
     }
 
     private IEnumerator ProsesGantiTeksDenganSlide(string teksBaru)
     {
-        Vector2 posisiAwal = panelObjektif.anchoredPosition;
         Vector2 posisiLuar = posisiNormalLayar + new Vector2(-jarakSlide, 0f);
-        float elapsed = 0f;
-
-        while (elapsed < durasiSlide)
-        {
-            elapsed += Time.deltaTime;
-            float t = Mathf.SmoothStep(0f, 1f, elapsed / durasiSlide);
-            panelObjektif.anchoredPosition = Vector2.Lerp(posisiAwal, posisiLuar, t);
-            yield return null;
-        }
-
-        panelObjektif.anchoredPosition = posisiLuar;
-
+        
+        yield return StartCoroutine(LakukanSlide(posisiNormalLayar, posisiLuar));
+        
         if (objectiveText != null)
         {
             objectiveText.text = teksBaru;
         }
-
         yield return new WaitForSeconds(0.1f);
-
-        elapsed = 0f;
-        while (elapsed < durasiSlide)
-        {
-            elapsed += Time.deltaTime;
-            float t = Mathf.SmoothStep(0f, 1f, elapsed / durasiSlide);
-            panelObjektif.anchoredPosition = Vector2.Lerp(posisiLuar, posisiNormalLayar, t);
-            yield return null;
-        }
-
-        panelObjektif.anchoredPosition = posisiNormalLayar;
+        
+        yield return StartCoroutine(LakukanSlide(posisiLuar, posisiNormalLayar));
     }
 
     private IEnumerator ProsesSlideKeluarPermanen()
     {
-        Vector2 posisiAwal = panelObjektif.anchoredPosition;
         Vector2 posisiLuar = posisiNormalLayar + new Vector2(-jarakSlide, 0f);
-        float elapsed = 0f;
-
-        while (elapsed < durasiSlide)
-        {
-            elapsed += Time.deltaTime;
-            float t = Mathf.SmoothStep(0f, 1f, elapsed / durasiSlide);
-            panelObjektif.anchoredPosition = Vector2.Lerp(posisiAwal, posisiLuar, t);
-            yield return null;
-        }
-
-        panelObjektif.anchoredPosition = posisiLuar;
+        yield return StartCoroutine(LakukanSlide(posisiNormalLayar, posisiLuar));
         panelObjektif.gameObject.SetActive(false);
     }
 }
