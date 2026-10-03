@@ -163,5 +163,6 @@ public class SequenceService : MonoBehaviour
     public void NyalakanColliderMotor()
     {
         colTriggerMotor.enabled = true;
+        Debug.Log("as");
     }
 }
