@@ -214,8 +214,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2750941980674938954}
-  - {fileID: 3669821300209362403}
   - {fileID: 3276337239731840992}
+  - {fileID: 3669821300209362403}
   - {fileID: 7175218451727857907}
   m_Father: {fileID: 1443238043360380421}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1732,8 +1732,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.020621618, y: 0.02062162, z: 0.17085041}
-  m_Center: {x: 0.0000064584683, y: 0.00003793963, z: 0.06945029}
+  m_Size: {x: 0.020621615, y: 0.02062162, z: 0.034187753}
+  m_Center: {x: 0.000006458696, y: 0.000037939855, z: 0.0011189728}
 --- !u!114 &6716138262854010615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2677,8 +2677,8 @@ GameObject:
   - component: {fileID: 2545726600341311540}
   - component: {fileID: 9107443898423520627}
   - component: {fileID: 7738712959291591111}
-  - component: {fileID: 174825051459391998}
   - component: {fileID: 7206994391042516084}
+  - component: {fileID: 8715031923145390543}
   m_Layer: 0
   m_Name: baut depan
   m_TagString: Baut Depan
@@ -2786,29 +2786,6 @@ MonoBehaviour:
   progres: 0
   audioBaut: {fileID: 3175574463181835377}
   sfxLepasBaut: {fileID: 8300000, guid: b817fee7ec7e14b4c96a39cc83efa268, type: 3}
---- !u!136 &174825051459391998
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5464639095605496044}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.0019565814
-  m_Height: 0.003913163
-  m_Direction: 1
-  m_Center: {x: 0.001048225, y: 0.00000006001263, z: 0.000049398423}
 --- !u!114 &7206994391042516084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2826,6 +2803,27 @@ MonoBehaviour:
   warnaHighlight: {r: 1, g: 0.6392157, b: 0.85882354, a: 0.3882353}
   intensitasGlow: 2.5
   kecepatanKedip: 4
+--- !u!65 &8715031923145390543
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5464639095605496044}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0005557525, y: 0.001089164, z: 0.0010891751}
+  m_Center: {x: 0.00010023532, y: 0.00000005420721, z: -0.00000002915513}
 --- !u!1 &5980201418646440948
 GameObject:
   m_ObjectHideFlags: 0

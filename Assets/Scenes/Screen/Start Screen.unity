@@ -2652,6 +2652,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 558024249}
+    - target: {fileID: 9110181475741312068, guid: 0693a30e06d077543bd3ad4178503aeb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: NewGame
+      objectReference: {fileID: 0}
     - target: {fileID: 9212135790197080761, guid: 0693a30e06d077543bd3ad4178503aeb, type: 3}
       propertyPath: m_Sprite
       value: 

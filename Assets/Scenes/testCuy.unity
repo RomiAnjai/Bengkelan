@@ -2223,6 +2223,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 649812904}
   m_CullTransparentMesh: 1
+--- !u!1 &694964459 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3682560155411423452, guid: 19bd82324cc8c964b81cf44465289a1e, type: 3}
+  m_PrefabInstance: {fileID: 5930702240882861197}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &694964464
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694964459}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &694964465
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694964459}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.10374676, y: 4.358073, z: 0.044938676}
+  m_Center: {x: 0.0008092403, y: 0.08780215, z: -0.16111133}
 --- !u!1 &706019396
 GameObject:
   m_ObjectHideFlags: 0
@@ -5586,6 +5639,76 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1489835604}
   m_CullTransparentMesh: 1
+--- !u!1 &1498681800
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1498681802}
+  - component: {fileID: 1498681801}
+  m_Layer: 0
+  m_Name: OilChangeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1498681801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1498681800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce4ba4a22f8073f47b4bb96543b5d3c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OilChangeManager
+  isDrainTrayPlaced: 0
+  isOilCapRemoved: 0
+  isFunnelPlaced: 0
+  isDrainBoltRemoved: 0
+  isOldOilDrained: 0
+  isNewOilFilled: 0
+  maxOilCapacity: 1
+  currentCleanOil: 0
+  OnOilServiceCompleted:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9017543936111361540, guid: 6314cbe193af25b42aa2ebbf9be32a46, type: 3}
+        m_TargetAssemblyTypeName: SequenceService, Assembly-CSharp
+        m_MethodName: SelesaikanLangkah
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnStepUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!4 &1498681802
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1498681800}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.91864, y: 0.14495, z: -8.00997}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1525944666
 GameObject:
   m_ObjectHideFlags: 0
@@ -6245,7 +6368,7 @@ Transform:
   m_GameObject: {fileID: 1695399073}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.12, y: 0.809, z: -10.567}
+  m_LocalPosition: {x: 6.12, y: 1, z: -10.567}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7652,6 +7775,14 @@ PrefabInstance:
       propertyPath: sfxTaruhMeja
       value: 
       objectReference: {fileID: 8300000, guid: 9c7b419b80612b34ca3c7b3173766685, type: 3}
+    - target: {fileID: 4052339900553734789, guid: 19bd82324cc8c964b81cf44465289a1e, type: 3}
+      propertyPath: fasePasangBan
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4052339900553734789, guid: 19bd82324cc8c964b81cf44465289a1e, type: 3}
+      propertyPath: prefabBanMenyatu
+      value: 
+      objectReference: {fileID: 4949157929108016148, guid: edde49137e2c6cf488befdd7df048392, type: 3}
     - target: {fileID: 4441048725749974716, guid: 19bd82324cc8c964b81cf44465289a1e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.9893556
@@ -7699,6 +7830,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 706019397}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3682560155411423452, guid: 19bd82324cc8c964b81cf44465289a1e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 694964464}
+    - targetCorrespondingSourceObject: {fileID: 3682560155411423452, guid: 19bd82324cc8c964b81cf44465289a1e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 694964465}
     - targetCorrespondingSourceObject: {fileID: 7109313087118131187, guid: 19bd82324cc8c964b81cf44465289a1e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5930702240882861201}
@@ -7891,3 +8028,4 @@ SceneRoots:
   - {fileID: 1629078036}
   - {fileID: 1440385845}
   - {fileID: 385972060}
+  - {fileID: 1498681802}
