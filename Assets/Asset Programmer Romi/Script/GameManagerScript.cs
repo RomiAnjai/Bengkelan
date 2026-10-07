@@ -30,6 +30,8 @@ public class GameManagerScript : MonoBehaviour
     [Header("Sistem Pesanan HP")]
     public List<DataPesanan> daftarPesanan;
     public TMP_Dropdown dropdownPesananUI;
+    public GameObject acceptbutton;
+    public GameObject dropdown;
     private DataPesanan pesananAktif;
 
     [Header("Spawn & Posisi")]
@@ -145,7 +147,10 @@ public class GameManagerScript : MonoBehaviour
                     if (ObjectiveHUD.instance != null)
                     {
                         ObjectiveHUD.instance.AddMoney(60000);
-                        ObjectiveHUD.instance.TampilkanPesanManual("Selamat! Anda mendapatkan Rp 60.000 sebagai reward servis motor");
+                        
+                        ObjectiveHUD.instance.TampilkanPesanManual("Selamat! Anda mendapatkan Rp 60.000 sebagai reward servis motor \nTAB untuk keluar game");
+                        dropdown.SetActive(false);
+                        acceptbutton.SetActive(false);
                     }
                     rewardSudahDiberikan = true;
                 }
