@@ -1,84 +1,144 @@
 using UnityEngine;
 using UnityEngine.Events;
+using System.Collections;
 
 public class OilChangeManager : MonoBehaviour
 {
-    [Header("Status Persiapan (Bebas)")]
+    [Header("Status Langkah (Terbaca Otomatis)")]
     public bool isDrainTrayPlaced = false;
     public bool isOilCapRemoved = false;
-    public bool isFunnelPlaced = false;
-
-    [Header("Status Kritis (Terkunci)")]
     public bool isDrainBoltRemoved = false;
+    public bool isFunnelPlaced = false;
     public bool isOldOilDrained = false;
     public bool isNewOilFilled = false;
 
-    [Header("Volume Oli")]
-    public float maxOilCapacity = 1.0f; // 1 Liter
-    public float currentCleanOil = 0f;
+    [Header("Pengaturan Oli")]
+    [Tooltip("Waktu yang dibutuhkan (detik) sampai oli kotor habis terkuras")]
+    [SerializeField] private float waktuKurasOli = 5.0f;
+    [Tooltip("Kapasitas penuh oli baru (liter)")]
+    public float kapasitasOliMaksimal = 1.0f;
+    public float volumeOliBaruSaatIni = 0f;
 
-    [Header("Events (Koneksi ke Sistem Lama)")]
-    // Event ini yang akan kita hubungkan ke SequenceService di Inspector!
-    public UnityEvent OnOilServiceCompleted; 
-    public UnityEvent OnStepUpdated; // Berguna jika ingin memicu highlight tutorial
+    [Header("Referensi Komponen (Wajib Diisi)")]
+    [Tooltip("Masukkan AreaPenempatanItem untuk corong di sini")]
+    [SerializeField] private penempatanItem areaCorong;
+    [Tooltip("Masukkan BautOli untuk baut tap bawah di sini")]
+    [SerializeField] private BautOli bautTapBawah;
 
-    // --- FUNGSI UNTUK DIPANGGIL OLEH OBJEK 3D ---
+    [Header("Events (Efek Visual & Integrasi)")]
+    [Tooltip("Dipanggil saat baut bawah terbuka dan oli kotor mulai menetes. (Nyalakan partikel oli hitam di sini)")]
+    public UnityEvent OnOliKotorMulaiKeluar;
+    
+    [Tooltip("Dipanggil saat oli kotor sudah habis. (Matikan partikel oli hitam di sini)")]
+    public UnityEvent OnOliKotorHabis;
+    
+    [Tooltip("Sinyal Utama: Hubungkan ke SequenceService -> FungsiLanjutStep() untuk menyelesaikan misi!")]
+    public UnityEvent OnOilServiceCompleted;
 
-    public void PlaceDrainTray()
+    private void Start()
     {
-        isDrainTrayPlaced = true;
-        Debug.Log("Wadah oli telah diletakkan.");
-        CheckCompletion();
-    }
-
-    // Fungsi ini dipanggil saat pemain mengklik Baut Tap Bawah
-    public bool TryRemoveDrainBolt()
-    {
-        // HARD LOCK: Cek apakah wadah sudah ada
-        if (!isDrainTrayPlaced)
+        // MENGUNCI PRASYARAT (Sistem Modular / Decoupled)
+        // 1. Corong HANYA BISA dipasang jika Tutup Oli Atas sudah dibuka.
+        if (areaCorong != null)
         {
-            Debug.LogWarning("TIDAK BISA BUKA BAUT: Wadah oli belum dipasang!");
-            // Di sini kamu bisa tambahkan suara error atau notifikasi UI
-            return false; 
+            areaCorong.CekSyaratPasang = () => { return isOilCapRemoved; };
         }
 
+        // 2. Baut Tap Bawah HANYA BISA dibuka jika Wadah Oli (Drain Tray) sudah dipasang.
+        if (bautTapBawah != null)
+        {
+            bautTapBawah.CekSyaratBuka = () => { return isDrainTrayPlaced; };
+        }
+    }
+
+    // ==========================================
+    // FUNGSI UNTUK DIPANGGIL DARI INSPECTOR (UNITY EVENT)
+    // ==========================================
+
+    // --- WADAH OLI (DRAIN TRAY) ---
+    public void PasangDrainTray() { isDrainTrayPlaced = true; CekSelesai(); }
+    public void AmbilDrainTray() { isDrainTrayPlaced = false; }
+
+    // --- TUTUP OLI ATAS (OIL CAP) ---
+    public void BukaTutupAtas() { isOilCapRemoved = true; }
+    public void TutupTutupAtas() { isOilCapRemoved = false; CekSelesai(); }
+
+    // --- BAUT TAP BAWAH ---
+    public void BukaBautBawah()
+    {
         isDrainBoltRemoved = true;
-        Debug.Log("Baut tap bawah berhasil dibuka. Oli mulai mengalir...");
-        
-        // Panggil fungsi simulasi menguras oli
-        StartDrainingOil(); 
-        return true;
-    }
-
-    private void StartDrainingOil()
-    {
-        // Logika menguras oli kotor (misal pakai Coroutine/Timer)
-        // Setelah selesai:
-        isOldOilDrained = true;
-        Debug.Log("Oli kotor habis.");
-        CheckCompletion();
-    }
-
-    public void CloseDrainBolt()
-    {
-        if (isOldOilDrained)
+        // Begitu baut bawah terbuka, otomatis mulai kuras oli
+        if (!isOldOilDrained)
         {
-            isDrainBoltRemoved = false;
-            Debug.Log("Baut tap bawah ditutup rapat.");
-            CheckCompletion();
+            StartCoroutine(ProsesKurasOliKotor());
+        }
+    }
+    public void TutupBautBawah() { isDrainBoltRemoved = false; CekSelesai(); }
+
+    // --- CORONG (FUNNEL) ---
+    public void PasangCorong() { isFunnelPlaced = true; }
+    public void AmbilCorong() { isFunnelPlaced = false; CekSelesai(); }
+
+    // ==========================================
+    // LOGIKA INTERNAL SIMULASI
+    // ==========================================
+
+    // Coroutine untuk mensimulasikan waktu tunggu oli keluar
+    private IEnumerator ProsesKurasOliKotor()
+    {
+        Debug.Log("Oli kotor mulai mengalir...");
+        OnOliKotorMulaiKeluar?.Invoke();
+
+        // Tunggu beberapa detik sesuai pengaturan
+        yield return new WaitForSeconds(waktuKurasOli);
+
+        isOldOilDrained = true;
+        Debug.Log("Oli kotor sudah habis terkuras!");
+        OnOliKotorHabis?.Invoke();
+    }
+
+    /// <summary>
+    /// Fungsi ini akan terus dipanggil oleh BotolOli.cs saat pemain menuangkan oli.
+    /// </summary>
+    public void TambahVolumeOli(float jumlahTuang)
+    {
+        // Pengaman: Jangan tuang jika corong tidak ada atau baut bawah masih bocor!
+        if (!isFunnelPlaced) return;
+        if (isDrainBoltRemoved)
+        {
+            Debug.LogWarning("BAHAYA: Menuang oli tapi baut bawah belum ditutup! Oli tumpah!");
+            return; // (Opsional: Tambahkan logika pengurangan skor di sini)
+        }
+
+        if (!isNewOilFilled)
+        {
+            volumeOliBaruSaatIni += jumlahTuang;
+            if (volumeOliBaruSaatIni >= kapasitasOliMaksimal)
+            {
+                volumeOliBaruSaatIni = kapasitasOliMaksimal;
+                isNewOilFilled = true;
+                Debug.Log("Oli baru sudah terisi penuh!");
+                CekSelesai();
+            }
         }
     }
 
-    // --- PENGECEKAN FINAL ---
-    private void CheckCompletion()
+    // ==========================================
+    // PENGECEKAN FINAL
+    // ==========================================
+    
+    private void CekSelesai()
     {
-        OnStepUpdated?.Invoke();
+        // Game mengecek: Apakah semua hal sudah dikembalikan ke kondisi aman?
+        bool kondisiAman = isOldOilDrained       // Oli lama sudah habis
+                        && isNewOilFilled        // Oli baru sudah terisi
+                        && !isDrainBoltRemoved   // Baut bawah sudah DITUTUP
+                        && !isOilCapRemoved      // Tutup atas sudah DITUTUP
+                        && !isFunnelPlaced;      // Corong sudah DIAMBIL
 
-        // Cek apakah semua kondisi akhir yang aman sudah terpenuhi
-        if (!isDrainBoltRemoved && !isOilCapRemoved && isOldOilDrained && isNewOilFilled && !isFunnelPlaced)
+        if (kondisiAman)
         {
-            Debug.Log("SISTEM GANTI OLI SELESAI SECARA SEMPURNA!");
-            // Memicu sinyal ke SequenceService bahwa misi ganti oli kelar
+            Debug.Log("--- SISTEM GANTI OLI SELESAI DENGAN SEMPURNA! ---");
             OnOilServiceCompleted?.Invoke(); 
         }
     }
