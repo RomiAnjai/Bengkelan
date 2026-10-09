@@ -24,6 +24,9 @@ public class InteraksiPemain : MonoBehaviour
     private InteraksiMotor motorDisorot;
     private StationInteraction stationDisorot;
     private IInteraksi objekInteraksiDisorot;
+    private BautOli bautOliDisorot;
+    private botolOli botolOliDisorot;
+    private penempatanItem areaItemDisorot;
 
     void Update()
     {
@@ -201,6 +204,34 @@ public class InteraksiPemain : MonoBehaviour
                     return;
                 }
             }
+
+            BautOli cekBautOli = hit.collider.GetComponent<BautOli>();
+            if (cekBautOli != null)
+            {
+                bautOliDisorot = cekBautOli;
+                partDisorot = null; bautDisorot = null; motorDisorot = null; stationDisorot = null; objekInteraksiDisorot = null; botolOliDisorot = null; areaItemDisorot = null;
+                if (teksNamaUI != null) teksNamaUI.text = "Tahan untuk Putar Baut";
+                return;
+            }
+
+            botolOli cekbotolOli = hit.collider.GetComponent<botolOli>();
+            if (cekbotolOli == null) cekbotolOli = hit.collider.GetComponentInParent<botolOli>();
+            if (cekbotolOli != null)
+            {
+                botolOliDisorot = cekbotolOli;
+                partDisorot = null; bautDisorot = null; motorDisorot = null; stationDisorot = null; objekInteraksiDisorot = null; bautOliDisorot = null; areaItemDisorot = null;
+                if (teksNamaUI != null) teksNamaUI.text = "Tahan untuk Tuang Oli";
+                return;
+            }
+
+            penempatanItem cekAreaItem = hit.collider.GetComponent<penempatanItem>();
+            if (cekAreaItem != null)
+            {
+                areaItemDisorot = cekAreaItem;
+                partDisorot = null; bautDisorot = null; motorDisorot = null; stationDisorot = null; objekInteraksiDisorot = null; bautOliDisorot = null; botolOliDisorot = null;
+                if (teksNamaUI != null) teksNamaUI.text = "Klik untuk Pasang/Ambil Item";
+                return;
+            }
         }
 
         partDisorot = null;
@@ -208,6 +239,9 @@ public class InteraksiPemain : MonoBehaviour
         motorDisorot = null;
         stationDisorot = null;
         objekInteraksiDisorot = null;
+        bautOliDisorot = null;     // Tambahan baru
+        botolOliDisorot = null;    // Tambahan baru
+        areaItemDisorot = null;    // Tambahan baru
         if (teksNamaUI != null) teksNamaUI.text = "";
     }
 
@@ -256,6 +290,37 @@ public class InteraksiPemain : MonoBehaviour
         {
             LepasBarang();
         }
+
+        if (Input.GetMouseButton(0) && bautOliDisorot != null)
+        {
+            bautOliDisorot.ProsesInteraksi();
+        }
+
+        if (Input.GetMouseButton(0) && botolOliDisorot != null)
+        {
+            botolOliDisorot.ProsesInteraksi();
+        }
+        if (Input.GetMouseButtonDown(0) && areaItemDisorot != null)
+        {
+            areaItemDisorot.PasangItem(); 
+            // Catatan: Jika ingin membuat sistem ambil/pasang satu tombol, 
+            // kamu bisa memodifikasi logika if/else sederhana di sini nantinya.
+            return;
+        }
+        // --- INPUT LEPAS KLIK (SISTEM OLI & LAMA) ---
+        if (Input.GetMouseButtonUp(0))
+        {
+            // Hentikan animasi/suara baut oli dan botol oli jika klik dilepas
+            if (bautOliDisorot != null) bautOliDisorot.HentikanInteraksiManual();
+            if (botolOliDisorot != null) botolOliDisorot.HentikanInteraksi();
+
+            // Kode lamamu untuk melepas barang yang dipegang dengan Rigidbody
+            if (barangDipegang != null)
+            {
+                LepasBarang();
+            }
+        }
+
     }
 
     void AmbilBarang(Rigidbody rb, string partTag)

@@ -3090,6 +3090,14 @@ MonoBehaviour:
       posisiKamera: {fileID: 2882596698940883865, guid: 9cfa75fe5955c5f46ad247e09917a9a3, type: 3}
       pakaiCrosshair: 0
       idObjekTutorial: BautDepanPasang
+  - namaKerusakan: Ganti Oli
+    urutanLangkah:
+    - namaLangkah: Copot Baut
+      jenisAksi: 0
+      targetPartTag: As Depan
+      posisiKamera: {fileID: 1979783722292613864, guid: 9cfa75fe5955c5f46ad247e09917a9a3, type: 3}
+      pakaiCrosshair: 0
+      idObjekTutorial: AsDepanPasang
   sedangTransisi: 0
   indexLangkahSaatIni: 0
   motorYangSedangDiservis: 1
