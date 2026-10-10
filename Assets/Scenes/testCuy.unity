@@ -5086,8 +5086,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::menu2
   optionsPanel: {fileID: 1339008432}
   masterVolumeSlider: {fileID: 1800075078}
-  musicVolumeSlider: {fileID: 0}
-  sfxVolumeSlider: {fileID: 0}
+  musicVolumeSlider: {fileID: 471114439}
+  sfxVolumeSlider: {fileID: 322446532}
   fullscreenToggle: {fileID: 707913646}
   exitConfirmPanel: {fileID: 0}
   audioMixer: {fileID: 24100000, guid: e9c7e03461b789e45ad0fad4c288242c, type: 2}

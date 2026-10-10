@@ -11,7 +11,18 @@ public enum TipeAksi
     PompaBan,
     PasangBanLuar,
     PasangBaut,
-    PasangAsDepan
+    PasangAsDepan,
+
+    
+    PasangDrainTray,
+    BukaTutupOliAtas,
+    BukaBautBawah,
+    PasangCorong,
+    TuangOliBaru,
+    TutupBautBawah,
+    TutupTutupOliAtas,
+    AmbilCorong,
+    AmbilDrainTray
 }
 
 [System.Serializable]

@@ -24,6 +24,8 @@ public class OilChangeManager : MonoBehaviour
     [SerializeField] private penempatanItem areaCorong;
     [Tooltip("Masukkan BautOli untuk baut tap bawah di sini")]
     [SerializeField] private BautOli bautTapBawah;
+    [Tooltip("Masukkan GameObject yang memiliki script AreaPenempatanItem untuk corong")]
+    [SerializeField] private GameObject objekAreaCorong;
 
     [Header("Events (Efek Visual & Integrasi)")]
     [Tooltip("Dipanggil saat baut bawah terbuka dan oli kotor mulai menetes. (Nyalakan partikel oli hitam di sini)")]
@@ -49,6 +51,8 @@ public class OilChangeManager : MonoBehaviour
         {
             bautTapBawah.CekSyaratBuka = () => { return isDrainTrayPlaced; };
         }
+
+        if (objekAreaCorong != null) objekAreaCorong.SetActive(false);
     }
 
     // ==========================================
@@ -60,7 +64,11 @@ public class OilChangeManager : MonoBehaviour
     public void AmbilDrainTray() { isDrainTrayPlaced = false; }
 
     // --- TUTUP OLI ATAS (OIL CAP) ---
-    public void BukaTutupAtas() { isOilCapRemoved = true; }
+    public void BukaTutupAtas() 
+    {
+        isOilCapRemoved = true;
+        if (objekAreaCorong != null) objekAreaCorong.SetActive(true);
+    }
     public void TutupTutupAtas() { isOilCapRemoved = false; CekSelesai(); }
 
     // --- BAUT TAP BAWAH ---
@@ -95,6 +103,11 @@ public class OilChangeManager : MonoBehaviour
         isOldOilDrained = true;
         Debug.Log("Oli kotor sudah habis terkuras!");
         OnOliKotorHabis?.Invoke();
+
+        if (bautTapBawah != null)
+        {
+            bautTapBawah.SiapkanModePasang();
+        }
     }
 
     /// <summary>

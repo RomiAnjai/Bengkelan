@@ -302,7 +302,14 @@ public class InteraksiPemain : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(0) && areaItemDisorot != null)
         {
-            areaItemDisorot.PasangItem(); 
+            if (!areaItemDisorot.isTerpasang)
+            {
+                areaItemDisorot.PasangItem();
+            }
+            if (areaItemDisorot.isTerpasang && SequenceService.instance.indexLangkahSaatIni > 4)
+            {
+                areaItemDisorot.AmbilItem();    
+            } 
             // Catatan: Jika ingin membuat sistem ambil/pasang satu tombol, 
             // kamu bisa memodifikasi logika if/else sederhana di sini nantinya.
             return;

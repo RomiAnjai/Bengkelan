@@ -19,7 +19,7 @@ public class penempatanItem : MonoBehaviour
     public UnityEvent OnPasangDitolak;
 
     // --- Variabel Internal ---
-    private bool isTerpasang = false;
+    public bool isTerpasang = false;
     private Collider areaCollider;
 
     // Delegate untuk mengecek prasyarat dari script luar (Decoupled)
@@ -29,11 +29,11 @@ public class penempatanItem : MonoBehaviour
     private void Start()
     {
         areaCollider = GetComponent<Collider>();
-
+        objekItemTarget.SetActive(false);
         // Pastikan saat game mulai, objek fisiknya disembunyikan terlebih dahulu
         if (objekItemTarget != null)
         {
-            objekItemTarget.SetActive(false);
+            
         }
         else
         {
@@ -61,10 +61,13 @@ public class penempatanItem : MonoBehaviour
         if (objekItemTarget != null)
         {
             objekItemTarget.SetActive(true);
+            Debug.Log("taruh");
         }
 
         isTerpasang = true;
-        areaCollider.enabled = false; // Matikan area klik agar tidak bisa diklik berulang kali
+        areaCollider.enabled = false; 
+        
+        // Matikan area klik agar tidak bisa diklik berulang kali
 
         // Beritahu OilChangeManager bahwa item sudah dipasang
         OnItemTerpasang?.Invoke();
@@ -76,11 +79,13 @@ public class penempatanItem : MonoBehaviour
     public void AmbilItem()
     {
         if (!isTerpasang) return;
+        Debug.Log("ambil");
 
         // Sembunyikan objek fisik
         if (objekItemTarget != null)
         {
             objekItemTarget.SetActive(false);
+            Debug.Log("disembunyikan");
         }
 
         isTerpasang = false;

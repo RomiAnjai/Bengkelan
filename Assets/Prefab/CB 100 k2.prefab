@@ -55,6 +55,7 @@ MonoBehaviour:
   volumeOliBaruSaatIni: 0
   areaCorong: {fileID: 6378325116342362688}
   bautTapBawah: {fileID: 6630075265504163022}
+  objekAreaCorong: {fileID: 8614176125880842652}
   OnOliKotorMulaiKeluar:
     m_PersistentCalls:
       m_Calls: []
@@ -64,6 +65,37 @@ MonoBehaviour:
   OnOilServiceCompleted:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &718337477314691417
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 593547513693453093}
+  m_Layer: 0
+  m_Name: 3 tutup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &593547513693453093
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 718337477314691417}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.041314233, y: 0.6803724, z: -0.060066022, w: 0.72923154}
+  m_LocalPosition: {x: -0.539, y: 0.087, z: 1.073}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3296647235805956459}
+  m_LocalEulerAnglesHint: {x: 8.163, y: 85.9, z: -1.817}
 --- !u!1 &968382114373808727
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,6 +197,8 @@ GameObject:
   - component: {fileID: 6849970676795254074}
   - component: {fileID: 4298684235155282121}
   - component: {fileID: 1712176840708639682}
+  - component: {fileID: 5106236921260021850}
+  - component: {fileID: 5940476051521045783}
   m_Layer: 0
   m_Name: oliMesin
   m_TagString: Untagged
@@ -180,7 +214,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1210653194905723846}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
+  m_LocalRotation: {x: -0.18206468, y: -0.1458846, z: 0.006037468, w: 0.9723856}
   m_LocalPosition: {x: 0.3952155, y: -0.083038, z: 0.90262586}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
@@ -220,7 +254,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6922793697723135513, guid: 991f02d054805ae458cacddf864ef745, type: 3}
+  - {fileID: -3846018093981099296, guid: 991f02d054805ae458cacddf864ef745, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -244,6 +278,104 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &5106236921260021850
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210653194905723846}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0009996739, y: 0.0010437876, z: 0.0025794401}
+  m_Center: {x: 0.00004083023, y: -0.00005777928, z: -0.00081808865}
+--- !u!114 &5940476051521045783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210653194905723846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fab4471c966cebb4ea01e1cfa6994f1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BautOli
+  durasiBuka: 1.5
+  jarakKeluar: 0.1
+  arahKeluar: {x: 0, y: 0, z: 1}
+  sumbuPutar: {x: 0, y: 0, z: 1}
+  kecepatanPutar: 500
+  modePasang: 0
+  audioBaut: {fileID: 0}
+  sfxPutar: {fileID: 0}
+  OnBautSelesaiDilepas:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9017543936111361540}
+        m_TargetAssemblyTypeName: SequenceService, Assembly-CSharp
+        m_MethodName: SelesaikanLangkah
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4584869373692359552}
+        m_TargetAssemblyTypeName: OilChangeManager, Assembly-CSharp
+        m_MethodName: BukaTutupAtas
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnBautSelesaiDipasang:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9017543936111361540}
+        m_TargetAssemblyTypeName: SequenceService, Assembly-CSharp
+        m_MethodName: SelesaikanLangkah
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4584869373692359552}
+        m_TargetAssemblyTypeName: OilChangeManager, Assembly-CSharp
+        m_MethodName: TutupTutupAtas
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnInteraksiDitolak:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1271307494651131456
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,9 +685,21 @@ MonoBehaviour:
   OnItemTerpasang:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 9017543936111361540}
+        m_TargetAssemblyTypeName: SequenceService, Assembly-CSharp
+        m_MethodName: SelesaikanLangkah
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 4584869373692359552}
         m_TargetAssemblyTypeName: OilChangeManager, Assembly-CSharp
-        m_MethodName: PlaceDrainTray
+        m_MethodName: PasangDrainTray
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -567,10 +711,35 @@ MonoBehaviour:
         m_CallState: 2
   OnItemDiambil:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 9017543936111361540}
+        m_TargetAssemblyTypeName: SequenceService, Assembly-CSharp
+        m_MethodName: SelesaikanLangkah
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4584869373692359552}
+        m_TargetAssemblyTypeName: OilChangeManager, Assembly-CSharp
+        m_MethodName: AmbilDrainTray
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnPasangDitolak:
     m_PersistentCalls:
       m_Calls: []
+  isTerpasang: 0
 --- !u!1 &2032819073230807325
 GameObject:
   m_ObjectHideFlags: 0
@@ -697,6 +866,9 @@ Transform:
   - {fileID: 3821055818000104637}
   - {fileID: 6900763463812950024}
   - {fileID: 237625210652802370}
+  - {fileID: 8446746204938944379}
+  - {fileID: 6834197742347043956}
+  - {fileID: 593547513693453093}
   m_Father: {fileID: 5598997139868044307}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2564226884595887468
@@ -1609,6 +1781,37 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &4574566781393451937
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6834197742347043956}
+  m_Layer: 0
+  m_Name: 2 tap
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6834197742347043956
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4574566781393451937}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.27861524, y: -0, z: -0, w: 0.9604028}
+  m_LocalPosition: {x: 0.426, y: -0.595, z: -0.195}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3296647235805956459}
+  m_LocalEulerAnglesHint: {x: -32.355, y: 0, z: 0}
 --- !u!1 &4710676742187475085
 GameObject:
   m_ObjectHideFlags: 0
@@ -3020,84 +3223,62 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SequenceService
   daftarMasalahMotor:
-  - namaKerusakan: Ban Bocor
-    urutanLangkah:
-    - namaLangkah: Copot Baut
-      jenisAksi: 0
-      targetPartTag: Baut Depan
-      posisiKamera: {fileID: 4283834897445698989}
-      pakaiCrosshair: 0
-      idObjekTutorial: BautDepan
-    - namaLangkah: Copot As
-      jenisAksi: 1
-      targetPartTag: As Depan
-      posisiKamera: {fileID: 8708903813379401219}
-      pakaiCrosshair: 0
-      idObjekTutorial: AsDepan
-    - namaLangkah: Lepas Ban
-      jenisAksi: 2
-      targetPartTag: Ban Luar
-      posisiKamera: {fileID: 0}
-      pakaiCrosshair: 0
-      idObjekTutorial: MejaKerja
-    - namaLangkah: beli ban
-      jenisAksi: 4
-      targetPartTag: Velg Depan
-      posisiKamera: {fileID: 0}
-      pakaiCrosshair: 0
-      idObjekTutorial: 
-    - namaLangkah: pasang ban
-      jenisAksi: 5
-      targetPartTag: Velg Depan
-      posisiKamera: {fileID: 0}
-      pakaiCrosshair: 0
-      idObjekTutorial: 
-    - namaLangkah: pasang ban
-      jenisAksi: 5
-      targetPartTag: Velg Depan
-      posisiKamera: {fileID: 0}
-      pakaiCrosshair: 0
-      idObjekTutorial: 
-    - namaLangkah: pasang ban
-      jenisAksi: 5
-      targetPartTag: Velg Depan
-      posisiKamera: {fileID: 0}
-      pakaiCrosshair: 0
-      idObjekTutorial: 
-    - namaLangkah: pasang ban
-      jenisAksi: 5
-      targetPartTag: Velg Depan
-      posisiKamera: {fileID: 0}
-      pakaiCrosshair: 0
-      idObjekTutorial: 
-    - namaLangkah: pasang ban
-      jenisAksi: 5
-      targetPartTag: Velg Depan
-      posisiKamera: {fileID: 0}
-      pakaiCrosshair: 0
-      idObjekTutorial: 
-  - namaKerusakan: Ban Bocor
-    urutanLangkah:
-    - namaLangkah: Copot Baut
-      jenisAksi: 0
-      targetPartTag: As Depan
-      posisiKamera: {fileID: 1979783722292613864, guid: 9cfa75fe5955c5f46ad247e09917a9a3, type: 3}
-      pakaiCrosshair: 0
-      idObjekTutorial: AsDepanPasang
-    - namaLangkah: Copot As
-      jenisAksi: 0
-      targetPartTag: Baut Depan
-      posisiKamera: {fileID: 2882596698940883865, guid: 9cfa75fe5955c5f46ad247e09917a9a3, type: 3}
-      pakaiCrosshair: 0
-      idObjekTutorial: BautDepanPasang
   - namaKerusakan: Ganti Oli
     urutanLangkah:
-    - namaLangkah: Copot Baut
+    - namaLangkah: lepas tutup
       jenisAksi: 0
-      targetPartTag: As Depan
-      posisiKamera: {fileID: 1979783722292613864, guid: 9cfa75fe5955c5f46ad247e09917a9a3, type: 3}
+      targetPartTag: 
+      posisiKamera: {fileID: 593547513693453093}
+      pakaiCrosshair: 1
+      idObjekTutorial: 
+    - namaLangkah: taruh tray
+      jenisAksi: 0
+      targetPartTag: 
+      posisiKamera: {fileID: 8446746204938944379}
+      pakaiCrosshair: 1
+      idObjekTutorial: 
+    - namaLangkah: lepas baut
+      jenisAksi: 0
+      targetPartTag: 
+      posisiKamera: {fileID: 6834197742347043956}
       pakaiCrosshair: 0
-      idObjekTutorial: AsDepanPasang
+      idObjekTutorial: 
+    - namaLangkah: taruh corong
+      jenisAksi: 0
+      targetPartTag: 
+      posisiKamera: {fileID: 593547513693453093}
+      pakaiCrosshair: 1
+      idObjekTutorial: 
+    - namaLangkah: pasang baut tap
+      jenisAksi: 0
+      targetPartTag: 
+      posisiKamera: {fileID: 6834197742347043956}
+      pakaiCrosshair: 0
+      idObjekTutorial: 
+    - namaLangkah: masukkan oli
+      jenisAksi: 0
+      targetPartTag: 
+      posisiKamera: {fileID: 593547513693453093}
+      pakaiCrosshair: 0
+      idObjekTutorial: 
+    - namaLangkah: ambil corong
+      jenisAksi: 0
+      targetPartTag: 
+      posisiKamera: {fileID: 593547513693453093}
+      pakaiCrosshair: 0
+      idObjekTutorial: 
+    - namaLangkah: pasang tutup
+      jenisAksi: 0
+      targetPartTag: 
+      posisiKamera: {fileID: 593547513693453093}
+      pakaiCrosshair: 0
+      idObjekTutorial: 
+    - namaLangkah: ambil tray
+      jenisAksi: 0
+      targetPartTag: 
+      posisiKamera: {fileID: 8446746204938944379}
+      pakaiCrosshair: 0
+      idObjekTutorial: 
   sedangTransisi: 0
   indexLangkahSaatIni: 0
   motorYangSedangDiservis: 1
@@ -3166,8 +3347,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1.9647274, z: 3.3791952}
-  m_Center: {x: 0, y: 0.48236382, z: 0.45558304}
+  m_Size: {x: 1, y: 1.2932402, z: 3.3791952}
+  m_Center: {x: 0, y: 0.8181074, z: 0.4555831}
 --- !u!65 &-5280019103850431675
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3201,6 +3382,7 @@ GameObject:
   - component: {fileID: 8266435661587325719}
   - component: {fileID: 692575927638771475}
   - component: {fileID: 6630075265504163022}
+  - component: {fileID: 1895450515701569648}
   m_Layer: 0
   m_Name: bautBawah
   m_TagString: Untagged
@@ -3294,14 +3476,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BautOli
   durasiBuka: 1.5
   jarakKeluar: 0.1
-  arahKeluar: {x: 0, y: 0, z: 1}
+  arahKeluar: {x: 0, y: -1, z: 0}
   sumbuPutar: {x: 0, y: 0, z: 1}
   kecepatanPutar: 500
+  modePasang: 0
   audioBaut: {fileID: 0}
   sfxPutar: {fileID: 0}
   OnBautSelesaiDilepas:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 9017543936111361540}
+        m_TargetAssemblyTypeName: SequenceService, Assembly-CSharp
+        m_MethodName: SelesaikanLangkah
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 4584869373692359552}
         m_TargetAssemblyTypeName: OilChangeManager, Assembly-CSharp
         m_MethodName: BukaBautBawah
@@ -3314,9 +3509,57 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnBautSelesaiDipasang:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4584869373692359552}
+        m_TargetAssemblyTypeName: OilChangeManager, Assembly-CSharp
+        m_MethodName: TutupBautBawah
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 9017543936111361540}
+        m_TargetAssemblyTypeName: SequenceService, Assembly-CSharp
+        m_MethodName: SelesaikanLangkah
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnInteraksiDitolak:
     m_PersistentCalls:
       m_Calls: []
+--- !u!65 &1895450515701569648
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6329119488661293042}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.00038842479, y: 0.00038842467, z: 0.00018667249}
+  m_Center: {x: 1.8553692e-10, y: 0.0000000010040819, z: -0.000013745587}
 --- !u!1 &6345776292145289870
 GameObject:
   m_ObjectHideFlags: 0
@@ -3424,7 +3667,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5867786485937425560
 Transform:
   m_ObjectHideFlags: 0
@@ -3587,6 +3830,37 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &7174061508121013100
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8446746204938944379}
+  m_Layer: 0
+  m_Name: 1 tray
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8446746204938944379
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7174061508121013100}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.11432697, y: 0.48397604, z: -0.063950755, w: 0.8652208}
+  m_LocalPosition: {x: -0.878, y: -0.120000005, z: -0.32600003}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3296647235805956459}
+  m_LocalEulerAnglesHint: {x: 15.054, y: 58.442, z: 0}
 --- !u!1 &7225378747720291741
 GameObject:
   m_ObjectHideFlags: 0
@@ -4424,6 +4698,18 @@ MonoBehaviour:
   OnItemTerpasang:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 9017543936111361540}
+        m_TargetAssemblyTypeName: SequenceService, Assembly-CSharp
+        m_MethodName: SelesaikanLangkah
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 4584869373692359552}
         m_TargetAssemblyTypeName: OilChangeManager, Assembly-CSharp
         m_MethodName: PasangCorong
@@ -4438,10 +4724,35 @@ MonoBehaviour:
         m_CallState: 2
   OnItemDiambil:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 9017543936111361540}
+        m_TargetAssemblyTypeName: SequenceService, Assembly-CSharp
+        m_MethodName: SelesaikanLangkah
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4584869373692359552}
+        m_TargetAssemblyTypeName: OilChangeManager, Assembly-CSharp
+        m_MethodName: AmbilCorong
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnPasangDitolak:
     m_PersistentCalls:
       m_Calls: []
+  isTerpasang: 0
 --- !u!1 &8790788887298744709
 GameObject:
   m_ObjectHideFlags: 0
