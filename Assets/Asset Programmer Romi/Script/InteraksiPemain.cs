@@ -7,7 +7,13 @@ public class InteraksiPemain : MonoBehaviour
     public Camera kameraPemain;
     public Transform titikPegangan;
     public TextMeshProUGUI teksNamaUI;
-    public GameObject crosshairUI; 
+    public GameObject crosshairUI;
+
+    [Header("Referensi Sistem Oli")]
+    public string tagBotolOliRak = "BotolOliRak";
+
+    [Header("Pengaturan UI Kursor")]
+    public Vector2 offsetTeksKursor = new Vector2(0f, -35f);
 
     [Header("Pengaturan Interaksi")]
     public float jarakJangkauan = 3f;
@@ -27,17 +33,33 @@ public class InteraksiPemain : MonoBehaviour
     private BautOli bautOliDisorot;
     private botolOli botolOliDisorot;
     private penempatanItem areaItemDisorot;
+    private GameObject botolRakDisorot;
+
+    private bool sudahAmbilBotolOli = false;
+    private RectTransform rectTeksNama;
+    private Vector3 posisiAwalTeksUI;
+
+    void Start()
+    {
+        if (teksNamaUI != null)
+        {
+            rectTeksNama = teksNamaUI.GetComponent<RectTransform>();
+            posisiAwalTeksUI = rectTeksNama.position;
+            teksNamaUI.raycastTarget = false;
+        }
+    }
 
     void Update()
     {
         if (SequenceService.instance != null && SequenceService.instance.sedangTransisi)
         {
-            teksNamaUI.text = "";
+            if (teksNamaUI != null) teksNamaUI.text = "";
             if (crosshairUI != null) crosshairUI.SetActive(false);
             return;
         }
 
         AturModeBidik();
+        UpdatePosisiTeksUI();
         SorotBarang();
         CekInputPegang();
     }
@@ -77,7 +99,6 @@ public class InteraksiPemain : MonoBehaviour
             {
                 aktifkanCrosshair = langkah.pakaiCrosshair;
             }
-
             if (aktifkanCrosshair)
             {
                 Cursor.lockState = CursorLockMode.Locked;
@@ -108,10 +129,38 @@ public class InteraksiPemain : MonoBehaviour
         }
     }
 
+    void UpdatePosisiTeksUI()
+    {
+        if (rectTeksNama == null) return;
+
+        bool modeCrosshair = crosshairUI != null && crosshairUI.activeSelf;
+
+        if (modeCrosshair)
+        {
+            rectTeksNama.position = posisiAwalTeksUI;
+        }
+        else
+        {
+            rectTeksNama.position = Input.mousePosition + (Vector3)offsetTeksKursor;
+        }
+    }
+
+    void ResetSemuaSorotan()
+    {
+        partDisorot = null;
+        bautDisorot = null;
+        motorDisorot = null;
+        stationDisorot = null;
+        objekInteraksiDisorot = null;
+        bautOliDisorot = null;
+        botolOliDisorot = null;
+        areaItemDisorot = null;
+        botolRakDisorot = null;
+    }
+
     void SorotBarang()
     {
         Ray ray;
-
         if (crosshairUI != null && crosshairUI.activeSelf)
         {
             ray = kameraPemain.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
@@ -128,33 +177,40 @@ public class InteraksiPemain : MonoBehaviour
             langkah = SequenceService.instance.GetLangkahSaatIni();
         }
 
+        ResetSemuaSorotan();
+
         if (barangDipegang == null && Physics.Raycast(ray, out hit, jarakJangkauan, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide))
         {
+            if (!sudahAmbilBotolOli && hit.collider.CompareTag(tagBotolOliRak))
+            {
+                botolRakDisorot = hit.collider.gameObject;
+                if (teksNamaUI != null) teksNamaUI.text = "Ambil Botol Oli";
+                return;
+            }
+
             IInteraksi cekInteraksi = hit.collider.GetComponentInParent<IInteraksi>();
             if (cekInteraksi != null && !string.IsNullOrEmpty(cekInteraksi.DapatkanNamaPetunjuk()))
             {
                 objekInteraksiDisorot = cekInteraksi;
-                partDisorot = null;
-                bautDisorot = null;
-                motorDisorot = null;
-                stationDisorot = null;
                 if (teksNamaUI != null) teksNamaUI.text = objekInteraksiDisorot.DapatkanNamaPetunjuk();
                 return;
             }
 
             if (InteraksiMotor.instance != null && !InteraksiMotor.instance.sedangFokus)
             {
-                if (SequenceService.instance != null && SequenceService.instance.indexLangkahSaatIni <= 1)
+                InteraksiMotor cekMotor = hit.collider.GetComponentInParent<InteraksiMotor>();
+                if (cekMotor != null)
                 {
-                    InteraksiMotor cekMotor = hit.collider.GetComponentInParent<InteraksiMotor>();
-                    if (cekMotor != null)
+                    if (SequenceService.instance != null && SequenceService.instance.indexLangkahSaatIni <= 1)
                     {
                         motorDisorot = cekMotor;
-                        bautDisorot = null;
-                        partDisorot = null;
-                        stationDisorot = null;
-                        objekInteraksiDisorot = null;
                         if (teksNamaUI != null) teksNamaUI.text = "Mulai Servis";
+                        return;
+                    }
+                    else if (sudahAmbilBotolOli)
+                    {
+                        motorDisorot = cekMotor;
+                        if (teksNamaUI != null) teksNamaUI.text = "Fokus & Masukkan Oli";
                         return;
                     }
                 }
@@ -166,25 +222,18 @@ public class InteraksiPemain : MonoBehaviour
                 if (langkah != null && langkah.jenisAksi == cekBaut.tipeAksiDibutuhkan)
                 {
                     bautDisorot = cekBaut;
-                    partDisorot = null;
-                    motorDisorot = null;
-                    stationDisorot = null;
-                    objekInteraksiDisorot = null;
                     if (teksNamaUI != null) teksNamaUI.text = bautDisorot.namaObjek;
                     return;
                 }
             }
 
             DataSparepart cekPart = hit.collider.GetComponent<DataSparepart>();
+            if (cekPart == null) cekPart = hit.collider.GetComponentInParent<DataSparepart>();
             if (cekPart != null)
             {
                 if (cekPart.bisaDiambil)
                 {
                     partDisorot = cekPart;
-                    bautDisorot = null;
-                    motorDisorot = null;
-                    stationDisorot = null;
-                    objekInteraksiDisorot = null;
                     if (teksNamaUI != null) teksNamaUI.text = partDisorot.namaObjek;
                     return;
                 }
@@ -195,21 +244,17 @@ public class InteraksiPemain : MonoBehaviour
             {
                 if ((cekStation.CompareTag("Station") || hit.collider.CompareTag("Station")) && cekStation.BisaInteraksi())
                 {
-                    partDisorot = null;
-                    bautDisorot = null;
-                    motorDisorot = null;
                     stationDisorot = cekStation;
-                    objekInteraksiDisorot = null;
                     if (teksNamaUI != null) teksNamaUI.text = "Meja Kerja";
                     return;
                 }
             }
 
             BautOli cekBautOli = hit.collider.GetComponent<BautOli>();
+            if (cekBautOli == null) cekBautOli = hit.collider.GetComponentInParent<BautOli>();
             if (cekBautOli != null)
             {
                 bautOliDisorot = cekBautOli;
-                partDisorot = null; bautDisorot = null; motorDisorot = null; stationDisorot = null; objekInteraksiDisorot = null; botolOliDisorot = null; areaItemDisorot = null;
                 if (teksNamaUI != null) teksNamaUI.text = "Tahan untuk Putar Baut";
                 return;
             }
@@ -219,7 +264,6 @@ public class InteraksiPemain : MonoBehaviour
             if (cekbotolOli != null)
             {
                 botolOliDisorot = cekbotolOli;
-                partDisorot = null; bautDisorot = null; motorDisorot = null; stationDisorot = null; objekInteraksiDisorot = null; bautOliDisorot = null; areaItemDisorot = null;
                 if (teksNamaUI != null) teksNamaUI.text = "Tahan untuk Tuang Oli";
                 return;
             }
@@ -228,25 +272,25 @@ public class InteraksiPemain : MonoBehaviour
             if (cekAreaItem != null)
             {
                 areaItemDisorot = cekAreaItem;
-                partDisorot = null; bautDisorot = null; motorDisorot = null; stationDisorot = null; objekInteraksiDisorot = null; bautOliDisorot = null; botolOliDisorot = null;
                 if (teksNamaUI != null) teksNamaUI.text = "Klik untuk Pasang/Ambil Item";
                 return;
             }
         }
 
-        partDisorot = null;
-        bautDisorot = null;
-        motorDisorot = null;
-        stationDisorot = null;
-        objekInteraksiDisorot = null;
-        bautOliDisorot = null;     // Tambahan baru
-        botolOliDisorot = null;    // Tambahan baru
-        areaItemDisorot = null;    // Tambahan baru
         if (teksNamaUI != null) teksNamaUI.text = "";
     }
 
     void CekInputPegang()
     {
+        if (Input.GetMouseButtonDown(0) && botolRakDisorot != null)
+        {
+            sudahAmbilBotolOli = true;
+            botolRakDisorot.SetActive(false);
+            if (audioInteraksi != null && sfxPickup != null) audioInteraksi.PlayOneShot(sfxPickup);
+            botolRakDisorot = null;
+            return;
+        }
+
         if (Input.GetMouseButtonDown(0) && objekInteraksiDisorot != null)
         {
             objekInteraksiDisorot.EksekusiAksi();
@@ -262,7 +306,22 @@ public class InteraksiPemain : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && motorDisorot != null)
         {
-            GameManagerScript.instance.MulaiServis();
+            if (SequenceService.instance != null && SequenceService.instance.indexLangkahSaatIni <= 1)
+            {
+                GameManagerScript.instance.MulaiServis();
+            }
+            else if (sudahAmbilBotolOli)
+            {
+                sudahAmbilBotolOli = false;
+                if (OilChangeManager.instance != null)
+                {
+                    OilChangeManager.instance.MunculkanBotolDiMotor();
+                }
+                if (SequenceService.instance != null)
+                {
+                    SequenceService.instance.SelesaikanLangkah();
+                }
+            }
             motorDisorot = null;
             return;
         }
@@ -281,14 +340,8 @@ public class InteraksiPemain : MonoBehaviour
                 {
                     rbTarget = partDisorot.GetComponentInChildren<Rigidbody>();
                 }
-
                 AmbilBarang(rbTarget, partDisorot.gameObject.tag);
             }
-        }
-
-        if (Input.GetMouseButtonUp(0) && barangDipegang != null)
-        {
-            LepasBarang();
         }
 
         if (Input.GetMouseButton(0) && bautOliDisorot != null)
@@ -300,46 +353,43 @@ public class InteraksiPemain : MonoBehaviour
         {
             botolOliDisorot.ProsesInteraksi();
         }
+
         if (Input.GetMouseButtonDown(0) && areaItemDisorot != null)
         {
             if (!areaItemDisorot.isTerpasang)
             {
                 areaItemDisorot.PasangItem();
             }
-            if (areaItemDisorot.isTerpasang && SequenceService.instance.indexLangkahSaatIni > 4)
+            else if (SequenceService.instance != null && SequenceService.instance.indexLangkahSaatIni > 4)
             {
-                areaItemDisorot.AmbilItem();    
-            } 
-            // Catatan: Jika ingin membuat sistem ambil/pasang satu tombol, 
-            // kamu bisa memodifikasi logika if/else sederhana di sini nantinya.
+                areaItemDisorot.AmbilItem();
+            }
             return;
         }
-        // --- INPUT LEPAS KLIK (SISTEM OLI & LAMA) ---
+
         if (Input.GetMouseButtonUp(0))
         {
-            // Hentikan animasi/suara baut oli dan botol oli jika klik dilepas
             if (bautOliDisorot != null) bautOliDisorot.HentikanInteraksiManual();
             if (botolOliDisorot != null) botolOliDisorot.HentikanInteraksi();
 
-            // Kode lamamu untuk melepas barang yang dipegang dengan Rigidbody
             if (barangDipegang != null)
             {
                 LepasBarang();
             }
         }
-
     }
 
     void AmbilBarang(Rigidbody rb, string partTag)
     {
         if (rb == null) return;
+
         barangDipegang = rb;
         barangDipegang.isKinematic = false;
         barangDipegang.useGravity = false;
         barangDipegang.linearDamping = 10f;
         barangDipegang.angularDamping = 10f;
 
-        if (audioInteraksi != null && sfxPickup != null) audioInteraksi.PlayOneShot(sfxPickup); // SFX AMBIL
+        if (audioInteraksi != null && sfxPickup != null) audioInteraksi.PlayOneShot(sfxPickup);
 
         DetailLangkah langkah = SequenceService.instance.GetLangkahSaatIni();
         if (langkah != null && langkah.jenisAksi == TipeAksi.LepasBanLuar && partTag == langkah.targetPartTag)
@@ -350,8 +400,8 @@ public class InteraksiPemain : MonoBehaviour
 
     void LepasBarang()
     {
-        if (audioInteraksi != null && sfxDrop != null) audioInteraksi.PlayOneShot(sfxDrop); // SFX LEPAS
-        
+        if (audioInteraksi != null && sfxDrop != null) audioInteraksi.PlayOneShot(sfxDrop);
+
         barangDipegang.useGravity = true;
         barangDipegang.linearDamping = 0f;
         barangDipegang.angularDamping = 0.05f;

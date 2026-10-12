@@ -17,6 +17,7 @@ TagManager:
   - BanLuarBaru
   - Ban Luar Pasang
   - Motor
+  - BotolOliRak
   layers:
   - Default
   - TransparentFX

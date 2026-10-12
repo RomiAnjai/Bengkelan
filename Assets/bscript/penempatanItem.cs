@@ -29,11 +29,10 @@ public class penempatanItem : MonoBehaviour
     private void Start()
     {
         areaCollider = GetComponent<Collider>();
-        objekItemTarget.SetActive(false);
-        // Pastikan saat game mulai, objek fisiknya disembunyikan terlebih dahulu
+        
         if (objekItemTarget != null)
         {
-            
+            objekItemTarget.SetActive(false);
         }
         else
         {
