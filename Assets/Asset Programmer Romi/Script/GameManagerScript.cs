@@ -144,15 +144,20 @@ public class GameManagerScript : MonoBehaviour
             case GameState.MotorSelesai:
                 if (!rewardSudahDiberikan)
                 {
+                    // PINDAHKAN KUNCI KE ATAS SINI
+                    // Agar mau UI-nya error atau tidak, uang HANYA diberikan satu kali!
+                    rewardSudahDiberikan = true; 
+
                     if (ObjectiveHUD.instance != null)
                     {
                         ObjectiveHUD.instance.AddMoney(60000);
-                        
                         ObjectiveHUD.instance.TampilkanPesanManual("Selamat! Anda mendapatkan Rp 60.000 sebagai reward servis motor \nTAB untuk keluar game");
-                        dropdown.SetActive(false);
-                        acceptbutton.SetActive(false);
+                        
+                        // TAMBAHKAN PENGAMAN (Null Check)
+                        // Kalau di Inspector lupa diisi, game tidak akan error/rusak
+                        if (dropdown != null) dropdown.SetActive(false);
+                        if (acceptbutton != null) acceptbutton.SetActive(false);
                     }
-                    rewardSudahDiberikan = true;
                 }
                 break;
         }

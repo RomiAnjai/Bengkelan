@@ -2018,8 +2018,8 @@ MonoBehaviour:
     indexMasalahSequence: 0
     prefabMotor: {fileID: 6325564831444919644, guid: 6314cbe193af25b42aa2ebbf9be32a46, type: 3}
   dropdownPesananUI: {fileID: 1551411351}
-  acceptbutton: {fileID: 0}
-  dropdown: {fileID: 0}
+  acceptbutton: {fileID: 2127534878}
+  dropdown: {fileID: 1551411349}
   posisiSpawn: {fileID: 1695399074}
   posisiParkir: {fileID: 1386280055}
   jedaSebelumJalan: 2

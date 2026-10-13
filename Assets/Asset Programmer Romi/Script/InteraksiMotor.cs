@@ -11,6 +11,7 @@ public class InteraksiMotor : MonoBehaviour
     [Header("Pengaturan FreeCam")]
     public float speedFreeCam = 5f;
     public float sensKamera = 200f;
+
     private GameObject kamera;
     private GameObject kamerapos;
     private MekanikController mc;
@@ -68,6 +69,7 @@ public class InteraksiMotor : MonoBehaviour
 
             xRot -= mouseY;
             yRot += mouseX;
+
             kamera.transform.rotation = Quaternion.Euler(xRot, yRot, 0f);
         }
 
@@ -98,29 +100,65 @@ public class InteraksiMotor : MonoBehaviour
         }
     }
 
+    private Transform CariTargetKameraAktifAtauBerikutnya()
+    {
+        if (SequenceService.instance == null) return null;
+
+        DetailLangkah langkah = SequenceService.instance.GetLangkahSaatIni();
+        if (langkah != null && langkah.posisiKamera != null)
+        {
+            return langkah.posisiKamera;
+        }
+
+        if (SequenceService.instance.masalahAktif != null)
+        {
+            for (int i = SequenceService.instance.indexLangkahSaatIni + 1; i < SequenceService.instance.masalahAktif.urutanLangkah.Count; i++)
+            {
+                if (SequenceService.instance.masalahAktif.urutanLangkah[i].posisiKamera != null)
+                {
+                    return SequenceService.instance.masalahAktif.urutanLangkah[i].posisiKamera;
+                }
+            }
+        }
+
+        return null;
+    }
+
     public void FokusKeMotor()
     {
         DetailLangkah langkah = SequenceService.instance.GetLangkahSaatIni();
         if (langkah == null || langkah.posisiKamera == null) return;
 
+        JalankanTransisiFokus(langkah.posisiKamera);
+    }
+
+    public void FokusKeMotorPaksa()
+    {
+        Transform targetKamera = CariTargetKameraAktifAtauBerikutnya();
+        if (targetKamera == null) return;
+
+        JalankanTransisiFokus(targetKamera);
+    }
+
+    private void JalankanTransisiFokus(Transform targetKamera)
+    {
         posisiAwalKamera = kamerapos.transform.position;
         rotasiAwalKamera = kamerapos.transform.rotation;
 
-        if (audioMotor != null && sfxInspeksi != null) audioMotor.PlayOneShot(sfxInspeksi); // SFX INSPEKSI
+        if (audioMotor != null && sfxInspeksi != null) audioMotor.PlayOneShot(sfxInspeksi);
 
         mc.bisaGerak = false;
         mc.bisaRotasiKamera = false;
         modeFreeCamAktif = false;
 
         if (transisiKameraRoutine != null) StopCoroutine(transisiKameraRoutine);
-        transisiKameraRoutine = StartCoroutine(PindahKameraSmooth(langkah.posisiKamera.position, langkah.posisiKamera.rotation));
+        transisiKameraRoutine = StartCoroutine(PindahKameraSmooth(targetKamera.position, targetKamera.rotation));
         
         sedangFokus = true;
     }
 
     public void UpdateFokusKamera()
     {
-        if (sedangFokus == false) return;
         StartCoroutine(ProsesJedaKamera());
     }
 
@@ -130,11 +168,17 @@ public class InteraksiMotor : MonoBehaviour
         yield return new WaitForSeconds(jedaPindahKamera);
 
         DetailLangkah langkah = SequenceService.instance.GetLangkahSaatIni();
-
         if (langkah != null && langkah.posisiKamera != null)
         {
-            if (transisiKameraRoutine != null) StopCoroutine(transisiKameraRoutine);
-            transisiKameraRoutine = StartCoroutine(PindahKameraSmooth(langkah.posisiKamera.position, langkah.posisiKamera.rotation));
+            if (!sedangFokus)
+            {
+                JalankanTransisiFokus(langkah.posisiKamera);
+            }
+            else
+            {
+                if (transisiKameraRoutine != null) StopCoroutine(transisiKameraRoutine);
+                transisiKameraRoutine = StartCoroutine(PindahKameraSmooth(langkah.posisiKamera.position, langkah.posisiKamera.rotation));
+            }
         }
         else
         {
@@ -156,7 +200,6 @@ public class InteraksiMotor : MonoBehaviour
             
             kamera.transform.position = Vector3.Lerp(startPos, targetPos, t);
             kamera.transform.rotation = Quaternion.Slerp(startRot, targetRot, t);
-
             yield return null;
         }
 
@@ -175,7 +218,6 @@ public class InteraksiMotor : MonoBehaviour
         if (sedangFokus == false) return;
         
         modeFreeCamAktif = false;
-
         if (transisiKameraRoutine != null) StopCoroutine(transisiKameraRoutine);
         transisiKameraRoutine = StartCoroutine(PindahKameraSmoothKeAwal(posisiAwalKamera, rotasiAwalKamera));
 
@@ -197,7 +239,6 @@ public class InteraksiMotor : MonoBehaviour
             
             kamera.transform.position = Vector3.Lerp(startPos, targetPos, t);
             kamera.transform.rotation = Quaternion.Slerp(startRot, targetRot, t);
-
             yield return null;
         }
 

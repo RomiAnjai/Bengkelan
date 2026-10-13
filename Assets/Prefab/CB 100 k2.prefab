@@ -51,12 +51,14 @@ MonoBehaviour:
   isOldOilDrained: 0
   isNewOilFilled: 0
   waktuKurasOli: 5
+  waktuTuangOli: 3
   kapasitasOliMaksimal: 1
   volumeOliBaruSaatIni: 0
-  areaDrainTray: {fileID: 0}
+  areaDrainTray: {fileID: 6378325116342362688}
   areaCorong: {fileID: 6378325116342362688}
   objekAreaCorong: {fileID: 8614176125880842652}
   bautTapBawah: {fileID: 6630075265504163022}
+  bautTutupAtas: {fileID: 5940476051521045783}
   botolOliDiMotor: {fileID: 6353197903363675600}
   OnOliKotorMulaiKeluar:
     m_PersistentCalls:
@@ -3348,7 +3350,7 @@ MonoBehaviour:
       jenisAksi: 0
       targetPartTag: 
       posisiKamera: {fileID: 6834197742347043956}
-      pakaiCrosshair: 1
+      pakaiCrosshair: 0
       idObjekTutorial: 
     - namaLangkah: ambil botol oli
       jenisAksi: 0
@@ -3628,6 +3630,18 @@ MonoBehaviour:
       - m_Target: {fileID: 9017543936111361540}
         m_TargetAssemblyTypeName: SequenceService, Assembly-CSharp
         m_MethodName: SelesaikanLangkah
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4584869373692359552}
+        m_TargetAssemblyTypeName: OilChangeManager, Assembly-CSharp
+        m_MethodName: TutupBautBawah
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4948,10 +4962,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5000001
+  m_Radius: 0.6285186
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  m_Center: {x: -0.1285185, y: -0.0000000042694173, z: -0.00000008206606}
 --- !u!114 &4030749782317697584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4968,18 +4982,6 @@ MonoBehaviour:
   OnItemTerpasang:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9017543936111361540}
-        m_TargetAssemblyTypeName: SequenceService, Assembly-CSharp
-        m_MethodName: SelesaikanLangkah
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 4584869373692359552}
         m_TargetAssemblyTypeName: OilChangeManager, Assembly-CSharp
         m_MethodName: PasangCorong
@@ -4995,18 +4997,6 @@ MonoBehaviour:
   OnItemDiambil:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9017543936111361540}
-        m_TargetAssemblyTypeName: SequenceService, Assembly-CSharp
-        m_MethodName: SelesaikanLangkah
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 4584869373692359552}
         m_TargetAssemblyTypeName: OilChangeManager, Assembly-CSharp
         m_MethodName: AmbilCorong

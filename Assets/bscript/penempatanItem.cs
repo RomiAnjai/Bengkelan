@@ -5,33 +5,33 @@ using UnityEngine.Events;
 public class penempatanItem : MonoBehaviour
 {
     [Header("Pengaturan Objek Fisik")]
-    [Tooltip("Masukkan objek 3D (Wadah Oli / Corong) yang sudah diposisikan pas di area ini. Objek ini akan otomatis disembunyikan saat game dimulai.")]
     [SerializeField] private GameObject objekItemTarget;
 
     [Header("Event Callback (Hubungkan ke Manager)")]
-    [Tooltip("Dipanggil saat item berhasil diletakkan (Misal: panggil fungsi PlaceDrainTray di Manager)")]
     public UnityEvent OnItemTerpasang;
-    
-    [Tooltip("Dipanggil jika item bisa diambil kembali (Misal: panggil fungsi RemoveFunnel di Manager)")]
     public UnityEvent OnItemDiambil;
-
-    [Tooltip("Dipanggil jika pemain mencoba menaruh item tapi syaratnya belum terpenuhi")]
     public UnityEvent OnPasangDitolak;
 
-    // --- Variabel Internal ---
     public bool isTerpasang = false;
     private Collider areaCollider;
 
-    // Delegate untuk mengecek prasyarat dari script luar (Decoupled)
-    // Contoh: Corong mengecek apakah tutup oli atas sudah dibuka.
     public System.Func<bool> CekSyaratPasang;
 
     private void Start()
     {
         areaCollider = GetComponent<Collider>();
-        
+
         if (objekItemTarget != null)
         {
+            Collider[] colliderTarget = objekItemTarget.GetComponentsInChildren<Collider>(true);
+            foreach (Collider col in colliderTarget)
+            {
+                if (col != areaCollider)
+                {
+                    col.enabled = false;
+                }
+            }
+
             objekItemTarget.SetActive(false);
         }
         else
@@ -40,15 +40,10 @@ public class penempatanItem : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Panggil fungsi ini via Raycast/InteraksiMotor saat pemain mengklik area penempatan.
-    /// </summary>
     public void PasangItem()
     {
-        // Cegah eksekusi ganda
         if (isTerpasang) return;
 
-        // Validasi prasyarat (Jika ada syarat, dan tidak terpenuhi, tolak interaksi)
         if (CekSyaratPasang != null && !CekSyaratPasang.Invoke())
         {
             OnPasangDitolak?.Invoke();
@@ -56,7 +51,6 @@ public class penempatanItem : MonoBehaviour
             return;
         }
 
-        // Munculkan objek fisik
         if (objekItemTarget != null)
         {
             objekItemTarget.SetActive(true);
@@ -64,23 +58,14 @@ public class penempatanItem : MonoBehaviour
         }
 
         isTerpasang = true;
-        areaCollider.enabled = false; 
-        
-        // Matikan area klik agar tidak bisa diklik berulang kali
-
-        // Beritahu OilChangeManager bahwa item sudah dipasang
         OnItemTerpasang?.Invoke();
     }
 
-    /// <summary>
-    /// Panggil fungsi ini jika pemain mengklik objek (seperti corong) untuk mengambilnya kembali ke inventory.
-    /// </summary>
     public void AmbilItem()
     {
         if (!isTerpasang) return;
-        Debug.Log("ambil");
 
-        // Sembunyikan objek fisik
+        Debug.Log("ambil");
         if (objekItemTarget != null)
         {
             objekItemTarget.SetActive(false);
@@ -88,9 +73,8 @@ public class penempatanItem : MonoBehaviour
         }
 
         isTerpasang = false;
-        areaCollider.enabled = true; // Hidupkan lagi area klik untuk penempatan di masa depan
+        if (areaCollider != null) areaCollider.enabled = true;
 
-        // Beritahu OilChangeManager bahwa item telah diambil
         OnItemDiambil?.Invoke();
     }
 }

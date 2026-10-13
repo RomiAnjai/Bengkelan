@@ -12,7 +12,6 @@ public enum TipeAksi
     PasangBanLuar,
     PasangBaut,
     PasangAsDepan,
-
     
     PasangDrainTray,
     BukaTutupOliAtas,
@@ -49,9 +48,7 @@ public class SequenceService : MonoBehaviour
 
     public List<MasalahMotor> daftarMasalahMotor;
     public bool sedangTransisi = false;
-
     public int indexLangkahSaatIni = 0;
-
     public JenisMotor motorYangSedangDiservis;
 
     [Header("Referensi Velg")]
@@ -66,6 +63,7 @@ public class SequenceService : MonoBehaviour
 
     [Header("Pengaturan Geser Velg")]
     public Vector3 jarakGeserVelg = new Vector3(0.5f, 0f, 0f);
+
     public MasalahMotor masalahAktif;
 
     void Awake()
@@ -79,7 +77,6 @@ public class SequenceService : MonoBehaviour
         if (daftarMasalahMotor.Count == 0 || indexMasalah < 0 || indexMasalah >= daftarMasalahMotor.Count) return;
 
         masalahAktif = daftarMasalahMotor[indexMasalah];
-
         indexLangkahSaatIni = 0;
         sedangTransisi = false;
         TampilkanLangkahSaatIni();
@@ -89,6 +86,23 @@ public class SequenceService : MonoBehaviour
     {
         if (masalahAktif == null || indexLangkahSaatIni >= masalahAktif.urutanLangkah.Count) return null;
         return masalahAktif.urutanLangkah[indexLangkahSaatIni];
+    }
+
+    public void MajukanLangkahTanpaJeda()
+    {
+        if (masalahAktif == null) return;
+
+        DetailLangkah langkahSelesai = GetLangkahSaatIni();
+        if (langkahSelesai != null)
+        {
+            TutorialHighlight.MatikanBerdasarkanID(langkahSelesai.idObjekTutorial);
+        }
+
+        if (indexLangkahSaatIni + 1 < masalahAktif.urutanLangkah.Count)
+        {
+            indexLangkahSaatIni++;
+            TampilkanLangkahSaatIni();
+        }
     }
 
     public void SelesaikanLangkah()
@@ -117,7 +131,6 @@ public class SequenceService : MonoBehaviour
         if (indexLangkahSaatIni >= masalahAktif.urutanLangkah.Count)
         {
             GameManagerScript.instance.currentState = GameState.MotorSelesai;
-
             if (InteraksiMotor.instance != null)
             {
                 InteraksiMotor.instance.SelesaiServisBebaskanKamera();
@@ -147,12 +160,12 @@ public class SequenceService : MonoBehaviour
             if (indexLangkahSaatIni == 4)
             {
                 TutorialHighlight.NyalakanBerdasarkanID("RakBan");
-            } else
+            }
+            else
             {
                 TutorialHighlight.MatikanBerdasarkanID("RakBan");
             }
         }
-
         TutorialHighlight.NyalakanBerdasarkanID(langkah.idObjekTutorial);
     }
 
@@ -162,12 +175,12 @@ public class SequenceService : MonoBehaviour
         {
             rbVelg.transform.SetParent(null);
         }
-
         rbVelg.isKinematic = false;
         colVelg.enabled = true;
         dataVelg.enabled = true;
         colVelgDalam.enabled = true;
         colTambahanPemental.enabled = true;
+
         rbVelg.AddForce(jarakGeserVelg, ForceMode.Impulse);
     }
 

@@ -269,10 +269,14 @@ public class InteraksiPemain : MonoBehaviour
             }
 
             penempatanItem cekAreaItem = hit.collider.GetComponent<penempatanItem>();
+            if (cekAreaItem == null) cekAreaItem = hit.collider.GetComponentInParent<penempatanItem>();
             if (cekAreaItem != null)
             {
                 areaItemDisorot = cekAreaItem;
-                if (teksNamaUI != null) teksNamaUI.text = "Klik untuk Pasang/Ambil Item";
+                if (teksNamaUI != null)
+                {
+                    teksNamaUI.text = cekAreaItem.isTerpasang ? "Klik untuk Ambil Item" : "Klik untuk Pasang Item";
+                }
                 return;
             }
         }
@@ -313,13 +317,24 @@ public class InteraksiPemain : MonoBehaviour
             else if (sudahAmbilBotolOli)
             {
                 sudahAmbilBotolOli = false;
+
+                if (SequenceService.instance != null)
+                {
+                    DetailLangkah langkahSekarang = SequenceService.instance.GetLangkahSaatIni();
+                    if (langkahSekarang != null && langkahSekarang.namaLangkah.ToLower().Contains("ambil botol"))
+                    {
+                        SequenceService.instance.MajukanLangkahTanpaJeda();
+                    }
+                }
+
+                if (InteraksiMotor.instance != null)
+                {
+                    InteraksiMotor.instance.FokusKeMotorPaksa();
+                }
+
                 if (OilChangeManager.instance != null)
                 {
                     OilChangeManager.instance.MunculkanBotolDiMotor();
-                }
-                if (SequenceService.instance != null)
-                {
-                    SequenceService.instance.SelesaikanLangkah();
                 }
             }
             motorDisorot = null;
@@ -360,7 +375,7 @@ public class InteraksiPemain : MonoBehaviour
             {
                 areaItemDisorot.PasangItem();
             }
-            else if (SequenceService.instance != null && SequenceService.instance.indexLangkahSaatIni > 4)
+            else
             {
                 areaItemDisorot.AmbilItem();
             }
