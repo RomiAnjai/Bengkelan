@@ -32,13 +32,17 @@ public class GameManagerScript : MonoBehaviour
     public TMP_Dropdown dropdownPesananUI;
     public GameObject acceptbutton;
     public GameObject dropdown;
+
     private DataPesanan pesananAktif;
 
     [Header("Spawn & Posisi")]
     public Transform posisiSpawn;
     public Transform posisiParkir;
+    public Transform posisiKeluar;
     public float jedaSebelumJalan = 2f;
     public float waktuPerjalanan = 3f;
+    public float waktuKeluar = 2f;
+
     public bool sudahAmbilHP = false;
     public TutorialHighlight[] tutorLight;
 
@@ -49,14 +53,15 @@ public class GameManagerScript : MonoBehaviour
     public float durasiSlideHP = 0.4f;
 
     [Header("Audio General")]
-    public AudioSource audioBGM; // Set looping = true di Inspector untuk BGM
+    public AudioSource audioBGM;
     public AudioSource audioHP;
     public AudioClip sfxOrderMasuk;
-
     public bool hpSedangBuka = false;
+
     private bool rewardSudahDiberikan = false;
     private Vector2 posisiHPTengah;
     private Coroutine animasiHPRoutine;
+    private GameObject motorAktif;
 
     void Awake()
     {
@@ -87,7 +92,6 @@ public class GameManagerScript : MonoBehaviour
         SiapkanDropdownUI();
     }
 
-
     void SiapkanDropdownUI()
     {
         if (dropdownPesananUI != null && daftarPesanan.Count > 0)
@@ -106,9 +110,9 @@ public class GameManagerScript : MonoBehaviour
 
     void Update()
     {
-        bool stateMengizinkanHP = (currentState == GameState.PemainKeliling || 
-                                   currentState == GameState.TungguPesanan || 
-                                   currentState == GameState.MotorSelesai);
+        bool stateMengizinkanHP = (currentState == GameState.PemainKeliling ||
+                                    currentState == GameState.TungguPesanan ||
+                                    currentState == GameState.MotorSelesai);
 
         if (sudahAmbilHP && Input.GetKeyDown(KeyCode.Tab))
         {
@@ -122,42 +126,32 @@ public class GameManagerScript : MonoBehaviour
         {
             case GameState.PemainKeliling:
                 break;
-            
             case GameState.TungguPesanan:
                 break;
-
             case GameState.MotorBelumDatang:
                 if (pesananAktif != null && pesananAktif.prefabMotor != null && posisiSpawn != null && posisiParkir != null)
                 {
-                    GameObject motorBaru = Instantiate(pesananAktif.prefabMotor, posisiSpawn.position, posisiSpawn.rotation);
+                    motorAktif = Instantiate(pesananAktif.prefabMotor, posisiSpawn.position, posisiSpawn.rotation);
                     currentState = GameState.MotorMasukBengkel;
-                    StartCoroutine(ProsesMotorParkir(motorBaru));
+                    StartCoroutine(ProsesMotorParkir(motorAktif));
                 }
                 break;
-
             case GameState.MotorMasukBengkel:
                 break;
-
             case GameState.MotorSedangServis:
                 break;
-
             case GameState.MotorSelesai:
                 if (!rewardSudahDiberikan)
                 {
-                    // PINDAHKAN KUNCI KE ATAS SINI
-                    // Agar mau UI-nya error atau tidak, uang HANYA diberikan satu kali!
-                    rewardSudahDiberikan = true; 
+                    rewardSudahDiberikan = true;
 
                     if (ObjectiveHUD.instance != null)
                     {
                         ObjectiveHUD.instance.AddMoney(60000);
-                        ObjectiveHUD.instance.TampilkanPesanManual("Selamat! Anda mendapatkan Rp 60.000 sebagai reward servis motor \nTAB untuk keluar game");
-                        
-                        // TAMBAHKAN PENGAMAN (Null Check)
-                        // Kalau di Inspector lupa diisi, game tidak akan error/rusak
-                        if (dropdown != null) dropdown.SetActive(false);
-                        if (acceptbutton != null) acceptbutton.SetActive(false);
+                        ObjectiveHUD.instance.TampilkanPesanManual("Selamat! Anda mendapatkan Rp 60.000\nMotor akan segera dikembalikan.");
                     }
+
+                    StartCoroutine(ProsesMotorKeluar());
                 }
                 break;
         }
@@ -166,7 +160,6 @@ public class GameManagerScript : MonoBehaviour
     public void ToggleHP()
     {
         hpSedangBuka = !hpSedangBuka;
-
         if (hpTangan != null) hpTangan.SetActive(hpSedangBuka);
 
         MekanikController mc = FindAnyObjectByType<MekanikController>();
@@ -188,8 +181,8 @@ public class GameManagerScript : MonoBehaviour
 
         Vector2 posisiAwal = hpUIPanel.anchoredPosition;
         Vector2 posisiTujuan = buka ? posisiHPTengah : posisiHPTengah + new Vector2(0f, -jarakSlideHP);
-        float elapsed = 0f;
 
+        float elapsed = 0f;
         while (elapsed < durasiSlideHP)
         {
             elapsed += Time.deltaTime;
@@ -199,7 +192,6 @@ public class GameManagerScript : MonoBehaviour
         }
 
         hpUIPanel.anchoredPosition = posisiTujuan;
-
         if (!buka) hpUIPanel.gameObject.SetActive(false);
     }
 
@@ -223,9 +215,9 @@ public class GameManagerScript : MonoBehaviour
         {
             if (audioHP != null && sfxOrderMasuk != null)
             {
-                audioHP.PlayOneShot(sfxOrderMasuk); // SFX ORDER
-                Debug.Log("aweksd");
+                audioHP.PlayOneShot(sfxOrderMasuk);
             }
+
             if (dropdownPesananUI != null && daftarPesanan.Count > 0)
             {
                 pesananAktif = daftarPesanan[dropdownPesananUI.value];
@@ -261,7 +253,6 @@ public class GameManagerScript : MonoBehaviour
 
             motor.transform.position = Vector3.Lerp(posisiAwal, posisiParkir.position, smoothT);
             motor.transform.rotation = Quaternion.Lerp(rotasiAwal, posisiParkir.rotation, smoothT);
-
             yield return null;
         }
 
@@ -273,14 +264,64 @@ public class GameManagerScript : MonoBehaviour
             SequenceService.instance.motorYangSedangDiservis = pesananAktif.jenisMotor;
             SequenceService.instance.MulaiServis(pesananAktif.indexMasalahSequence);
         }
-        
+
         currentState = GameState.MotorSedangServis;
+    }
+
+    private IEnumerator ProsesMotorKeluar()
+    {
+        yield return new WaitForSeconds(3.5f);
+
+        GameObject parentMotor = GameObject.FindWithTag("Motor");
+        GameObject childBan = GameObject.FindWithTag("Ban Luar Pasang");
+
+        if (motorAktif != null)
+        {
+            if (childBan != null)
+            {
+                childBan.transform.SetParent(parentMotor.transform);
+            }
+
+            float elapsed = 0f;
+            Vector3 startPos = motorAktif.transform.position;
+            Vector3 targetPos = posisiKeluar != null ? posisiKeluar.position : startPos + (motorAktif.transform.right * 25f) + (Vector3.up * 10f);
+            
+            Vector3 startRot = motorAktif.transform.eulerAngles;
+            Vector3 targetRot = startRot + new Vector3(Random.Range(360f, 720f), Random.Range(360f, 720f), Random.Range(360f, 720f));
+
+            while (elapsed < waktuKeluar)
+            {
+                elapsed += Time.deltaTime;
+                float t = elapsed / waktuKeluar;
+                
+                float parabola = Mathf.Sin(t * Mathf.PI) * 7f;
+                
+                motorAktif.transform.position = Vector3.Lerp(startPos, targetPos, t) + new Vector3(0, parabola, 0);
+                motorAktif.transform.rotation = Quaternion.Euler(Vector3.Lerp(startRot, targetRot, t));
+                
+                yield return null;
+            }
+
+            Destroy(motorAktif);
+        }
+
+        motorAktif = null;
+        rewardSudahDiberikan = false;
+        pesananAktif = null;
+        currentState = GameState.TungguPesanan;
+
+        if (dropdown != null) dropdown.SetActive(true);
+        if (acceptbutton != null) acceptbutton.SetActive(true);
+
+        if (ObjectiveHUD.instance != null)
+        {
+            ObjectiveHUD.instance.TampilkanPesanManual("Tekan TAB untuk buka HP dan terima pesanan baru");
+        }
     }
 
     public void MulaiServis()
     {
         InteraksiMotor.instance.FokusKeMotor();
-
         MekanikController mc = FindAnyObjectByType<MekanikController>();
         if (mc != null)
         {
