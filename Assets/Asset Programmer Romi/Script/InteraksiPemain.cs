@@ -17,6 +17,7 @@ public class InteraksiPemain : MonoBehaviour
 
     [Header("Pengaturan Interaksi")]
     public float jarakJangkauan = 3f;
+    public float jarakJangkauanKursor = 15f;
     public float kekuatanTarik = 10f;
 
     [Header("Audio Interaksi")]
@@ -133,9 +134,7 @@ public class InteraksiPemain : MonoBehaviour
     {
         if (rectTeksNama == null) return;
 
-        bool modeCrosshair = crosshairUI != null && crosshairUI.activeSelf;
-
-        if (modeCrosshair)
+        if (Cursor.lockState == CursorLockMode.Locked)
         {
             rectTeksNama.position = posisiAwalTeksUI;
         }
@@ -161,13 +160,17 @@ public class InteraksiPemain : MonoBehaviour
     void SorotBarang()
     {
         Ray ray;
-        if (crosshairUI != null && crosshairUI.activeSelf)
+        float jangkauanAktif;
+
+        if (Cursor.lockState == CursorLockMode.Locked)
         {
             ray = kameraPemain.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+            jangkauanAktif = jarakJangkauan;
         }
         else
         {
             ray = kameraPemain.ScreenPointToRay(Input.mousePosition);
+            jangkauanAktif = jarakJangkauanKursor;
         }
 
         RaycastHit hit;
@@ -179,7 +182,7 @@ public class InteraksiPemain : MonoBehaviour
 
         ResetSemuaSorotan();
 
-        if (barangDipegang == null && Physics.Raycast(ray, out hit, jarakJangkauan, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide))
+        if (barangDipegang == null && Physics.Raycast(ray, out hit, jangkauanAktif, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide))
         {
             if (!sudahAmbilBotolOli && hit.collider.CompareTag(tagBotolOliRak))
             {

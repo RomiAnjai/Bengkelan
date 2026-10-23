@@ -954,6 +954,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 132601709}
   m_CullTransparentMesh: 1
+--- !u!1 &135620976
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 135620977}
+  m_Layer: 0
+  m_Name: TembokGrup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &135620977
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 135620976}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -51.2, y: 1.8963, z: -20.4959}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2075336012}
+  - {fileID: 496146553}
+  - {fileID: 1704993400}
+  - {fileID: 1994281865}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &153278645
 GameObject:
   m_ObjectHideFlags: 0
@@ -1270,6 +1305,70 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &270095532
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 11ebf53f55f5c88499ae28281b60899a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.226
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 11ebf53f55f5c88499ae28281b60899a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.2523128
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 11ebf53f55f5c88499ae28281b60899a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.1386882
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 11ebf53f55f5c88499ae28281b60899a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 11ebf53f55f5c88499ae28281b60899a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 11ebf53f55f5c88499ae28281b60899a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 11ebf53f55f5c88499ae28281b60899a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 11ebf53f55f5c88499ae28281b60899a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 11ebf53f55f5c88499ae28281b60899a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 11ebf53f55f5c88499ae28281b60899a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 11ebf53f55f5c88499ae28281b60899a, type: 3}
+      propertyPath: m_Name
+      value: botolOlidanTutup
+      objectReference: {fileID: 0}
+    - target: {fileID: 6918388218591099550, guid: 11ebf53f55f5c88499ae28281b60899a, type: 3}
+      propertyPath: m_TagString
+      value: BotolOliRak
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6918388218591099550, guid: 11ebf53f55f5c88499ae28281b60899a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1917274740}
+  m_SourcePrefab: {fileID: 100100000, guid: 11ebf53f55f5c88499ae28281b60899a, type: 3}
 --- !u!1 &274322519
 GameObject:
   m_ObjectHideFlags: 0
@@ -2210,12 +2309,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 496146549}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.6667, y: 1.8963, z: -50.22}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 47.533302, y: 0, z: -29.724102}
   m_LocalScale: {x: 97.07517, y: 4.5038, z: 0.4055}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 135620977}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &557296093
 GameObject:
@@ -2252,6 +2351,10 @@ MonoBehaviour:
     jenisMotor: 1
     indexMasalahSequence: 0
     prefabMotor: {fileID: 2855420916814498178, guid: 9cfa75fe5955c5f46ad247e09917a9a3, type: 3}
+  - namaMasalah: Ganti Oli
+    jenisMotor: 1
+    indexMasalahSequence: 0
+    prefabMotor: {fileID: 6325564831444919644, guid: 6314cbe193af25b42aa2ebbf9be32a46, type: 3}
   dropdownPesananUI: {fileID: 1551411351}
   acceptbutton: {fileID: 2127534878}
   dropdown: {fileID: 1551411349}
@@ -2614,6 +2717,82 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 649812904}
   m_CullTransparentMesh: 1
+--- !u!1 &673307810
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 673307813}
+  - component: {fileID: 673307812}
+  - component: {fileID: 673307811}
+  m_Layer: 0
+  m_Name: botolOliP
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &673307811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673307810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c575d4c276be78543937f6b9603a3478, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::botolOli
+  oilManager: {fileID: 0}
+  kecepatanTuang: 0.25
+  modelVisualBotol: {fileID: 0}
+  rotasiMiring: {x: 0, y: 0, z: 90}
+  kecepatanAnimasi: 8
+  partikelOli: {fileID: 0}
+  audioTuang: {fileID: 0}
+  OnTuangDitolak:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!65 &673307812
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673307810}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &673307813
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673307810}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.28455, y: 0.15445, z: -11.65778}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &706019396
 GameObject:
   m_ObjectHideFlags: 0
@@ -4792,7 +4971,10 @@ MonoBehaviour:
   titikPegangan: {fileID: 1932580807}
   teksNamaUI: {fileID: 1720328636}
   crosshairUI: {fileID: 197326951}
+  tagBotolOliRak: BotolOliRak
+  offsetTeksKursor: {x: 0, y: -35}
   jarakJangkauan: 3
+  jarakJangkauanKursor: 15
   kekuatanTarik: 10
   audioInteraksi: {fileID: 2078211398}
   sfxPickup: {fileID: 8300000, guid: 1b26bcc8096bcb746817ec575b679a4f, type: 3}
@@ -6978,12 +7160,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1704993396}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 39, y: 1.8963, z: -20.4959}
-  m_LocalScale: {x: 59.559944, y: 4.5038, z: 0.4055}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 90.2, y: 0, z: 0}
+  m_LocalScale: {x: 59.559944, y: 4.5038, z: 0.40550002}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 135620977}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &1715581086
 GameObject:
@@ -7880,6 +8062,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Mask
   m_ShowMaskGraphic: 0
+--- !u!1 &1917274738 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6918388218591099550, guid: 11ebf53f55f5c88499ae28281b60899a, type: 3}
+  m_PrefabInstance: {fileID: 270095532}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1917274740
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1917274738}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6956047836577157797, guid: 11ebf53f55f5c88499ae28281b60899a, type: 3}
 --- !u!1 &1932580806
 GameObject:
   m_ObjectHideFlags: 0
@@ -8164,12 +8373,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1994281861}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -51.2, y: 1.8963, z: -20.4959}
-  m_LocalScale: {x: 59.559944, y: 4.5038, z: 0.4055}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 59.559944, y: 4.5038, z: 0.40550002}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 135620977}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &2046015061
 GameObject:
@@ -8413,12 +8622,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2075336008}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.6667, y: 1.8963, z: 8.2728}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 47.533302, y: 0, z: 28.7687}
   m_LocalScale: {x: 97.07517, y: 4.5038, z: 0.4055}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 135620977}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2078211397
 GameObject:
@@ -9433,7 +9642,6 @@ SceneRoots:
   - {fileID: 1440385845}
   - {fileID: 385972060}
   - {fileID: 5143115885610667170}
-  - {fileID: 2075336012}
-  - {fileID: 496146553}
-  - {fileID: 1704993400}
-  - {fileID: 1994281865}
+  - {fileID: 135620977}
+  - {fileID: 673307813}
+  - {fileID: 270095532}
