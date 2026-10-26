@@ -85,10 +85,17 @@ public class InteraksiPemain : MonoBehaviour
         bool motorFokus = InteraksiMotor.instance != null && InteraksiMotor.instance.sedangFokus;
         bool mejaFokus = StationInteraction.instance != null && StationInteraction.instance.sedangFokusMeja;
         bool hpBuka = GameManagerScript.instance != null && GameManagerScript.instance.hpSedangBuka;
+        bool sedangInspeksi = motorFokus && GameManagerScript.instance != null && !GameManagerScript.instance.sudahDiinspeksi;
 
         bool aktifkanCrosshair = true;
 
         if (hpBuka)
+        {
+            aktifkanCrosshair = false;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else if (sedangInspeksi)
         {
             aktifkanCrosshair = false;
             Cursor.lockState = CursorLockMode.None;
@@ -204,7 +211,13 @@ public class InteraksiPemain : MonoBehaviour
                 InteraksiMotor cekMotor = hit.collider.GetComponentInParent<InteraksiMotor>();
                 if (cekMotor != null)
                 {
-                    if (SequenceService.instance != null && SequenceService.instance.indexLangkahSaatIni <= 1)
+                    if (GameManagerScript.instance != null && !GameManagerScript.instance.sudahDiinspeksi)
+                    {
+                        motorDisorot = cekMotor;
+                        if (teksNamaUI != null) teksNamaUI.text = "Inspeksi Motor";
+                        return;
+                    }
+                    else if (SequenceService.instance != null && SequenceService.instance.indexLangkahSaatIni <= 1)
                     {
                         motorDisorot = cekMotor;
                         if (teksNamaUI != null) teksNamaUI.text = "Mulai Servis";
@@ -219,68 +232,71 @@ public class InteraksiPemain : MonoBehaviour
                 }
             }
 
-            Baut cekBaut = hit.collider.GetComponent<Baut>();
-            if (cekBaut != null)
+            if (GameManagerScript.instance != null && GameManagerScript.instance.sudahDiinspeksi)
             {
-                if (langkah != null && langkah.jenisAksi == cekBaut.tipeAksiDibutuhkan)
+                Baut cekBaut = hit.collider.GetComponent<Baut>();
+                if (cekBaut != null)
                 {
-                    bautDisorot = cekBaut;
-                    if (teksNamaUI != null) teksNamaUI.text = bautDisorot.namaObjek;
+                    if (langkah != null && langkah.jenisAksi == cekBaut.tipeAksiDibutuhkan)
+                    {
+                        bautDisorot = cekBaut;
+                        if (teksNamaUI != null) teksNamaUI.text = bautDisorot.namaObjek;
+                        return;
+                    }
+                }
+
+                DataSparepart cekPart = hit.collider.GetComponent<DataSparepart>();
+                if (cekPart == null) cekPart = hit.collider.GetComponentInParent<DataSparepart>();
+                if (cekPart != null)
+                {
+                    if (cekPart.bisaDiambil)
+                    {
+                        partDisorot = cekPart;
+                        if (teksNamaUI != null) teksNamaUI.text = partDisorot.namaObjek;
+                        return;
+                    }
+                }
+
+                StationInteraction cekStation = hit.collider.GetComponentInParent<StationInteraction>();
+                if (cekStation != null)
+                {
+                    if ((cekStation.CompareTag("Station") || hit.collider.CompareTag("Station")) && cekStation.BisaInteraksi())
+                    {
+                        stationDisorot = cekStation;
+                        if (teksNamaUI != null) teksNamaUI.text = "Meja Kerja";
+                        return;
+                    }
+                }
+
+                BautOli cekBautOli = hit.collider.GetComponent<BautOli>();
+                if (cekBautOli == null) cekBautOli = hit.collider.GetComponentInParent<BautOli>();
+                if (cekBautOli != null)
+                {
+                    bautOliDisorot = cekBautOli;
+                    if (teksNamaUI != null) teksNamaUI.text = "Tahan untuk Putar Baut";
                     return;
                 }
-            }
 
-            DataSparepart cekPart = hit.collider.GetComponent<DataSparepart>();
-            if (cekPart == null) cekPart = hit.collider.GetComponentInParent<DataSparepart>();
-            if (cekPart != null)
-            {
-                if (cekPart.bisaDiambil)
+                botolOli cekbotolOli = hit.collider.GetComponent<botolOli>();
+                if (cekbotolOli == null) cekbotolOli = hit.collider.GetComponentInParent<botolOli>();
+                if (cekbotolOli != null)
                 {
-                    partDisorot = cekPart;
-                    if (teksNamaUI != null) teksNamaUI.text = partDisorot.namaObjek;
+                    botolOliDisorot = cekbotolOli;
+                    if (teksNamaUI != null) teksNamaUI.text = "Tahan untuk Tuang Oli";
                     return;
                 }
-            }
 
-            StationInteraction cekStation = hit.collider.GetComponentInParent<StationInteraction>();
-            if (cekStation != null)
-            {
-                if ((cekStation.CompareTag("Station") || hit.collider.CompareTag("Station")) && cekStation.BisaInteraksi())
+                penempatanItem cekAreaItem = hit.collider.GetComponent<penempatanItem>();
+                if (cekAreaItem == null) cekAreaItem = hit.collider.GetComponentInParent<penempatanItem>();
+                if (cekAreaItem != null)
                 {
-                    stationDisorot = cekStation;
-                    if (teksNamaUI != null) teksNamaUI.text = "Meja Kerja";
+                    areaItemDisorot = cekAreaItem;
+                    if (teksNamaUI != null)
+                    {
+                        teksNamaUI.text = cekAreaItem.isTerpasang ? "Klik untuk Ambil Item" : "Klik untuk Pasang Item";
+                    }
                     return;
                 }
-            }
-
-            BautOli cekBautOli = hit.collider.GetComponent<BautOli>();
-            if (cekBautOli == null) cekBautOli = hit.collider.GetComponentInParent<BautOli>();
-            if (cekBautOli != null)
-            {
-                bautOliDisorot = cekBautOli;
-                if (teksNamaUI != null) teksNamaUI.text = "Tahan untuk Putar Baut";
-                return;
-            }
-
-            botolOli cekbotolOli = hit.collider.GetComponent<botolOli>();
-            if (cekbotolOli == null) cekbotolOli = hit.collider.GetComponentInParent<botolOli>();
-            if (cekbotolOli != null)
-            {
-                botolOliDisorot = cekbotolOli;
-                if (teksNamaUI != null) teksNamaUI.text = "Tahan untuk Tuang Oli";
-                return;
-            }
-
-            penempatanItem cekAreaItem = hit.collider.GetComponent<penempatanItem>();
-            if (cekAreaItem == null) cekAreaItem = hit.collider.GetComponentInParent<penempatanItem>();
-            if (cekAreaItem != null)
-            {
-                areaItemDisorot = cekAreaItem;
-                if (teksNamaUI != null)
-                {
-                    teksNamaUI.text = cekAreaItem.isTerpasang ? "Klik untuk Ambil Item" : "Klik untuk Pasang Item";
-                }
-                return;
             }
         }
 
@@ -313,9 +329,13 @@ public class InteraksiPemain : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && motorDisorot != null)
         {
-            if (SequenceService.instance != null && SequenceService.instance.indexLangkahSaatIni <= 1)
+            if (GameManagerScript.instance != null && !GameManagerScript.instance.sudahDiinspeksi)
             {
-                GameManagerScript.instance.MulaiServis();
+                GameManagerScript.instance.ProsesKlikMotor();
+            }
+            else if (SequenceService.instance != null && SequenceService.instance.indexLangkahSaatIni <= 1)
+            {
+                GameManagerScript.instance.ProsesKlikMotor();
             }
             else if (sudahAmbilBotolOli)
             {

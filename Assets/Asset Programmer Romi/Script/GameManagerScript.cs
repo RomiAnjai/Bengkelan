@@ -32,8 +32,14 @@ public class GameManagerScript : MonoBehaviour
     public TMP_Dropdown dropdownPesananUI;
     public GameObject acceptbutton;
     public GameObject dropdown;
+    public GameObject tombolInspeksi;
 
     private DataPesanan pesananAktif;
+
+    [Header("Sistem Inspeksi")]
+    public GameObject tombolSelesaiInspeksiUI;
+    public bool sudahDiinspeksi = false;
+    private bool sequenceSudahMulai = false;
 
     [Header("Spawn & Posisi")]
     public Transform posisiSpawn;
@@ -81,6 +87,7 @@ public class GameManagerScript : MonoBehaviour
         TutorialHighlight.NyalakanBerdasarkanID("HP Awal");
 
         if (hpTangan != null) hpTangan.SetActive(false);
+        if (tombolSelesaiInspeksiUI != null) tombolSelesaiInspeksiUI.SetActive(false);
 
         if (hpUIPanel != null)
         {
@@ -90,21 +97,19 @@ public class GameManagerScript : MonoBehaviour
         }
 
         SiapkanDropdownUI();
+
+        if (tombolInspeksi != null)
+        {
+            tombolInspeksi.SetActive(false);
+        }
     }
 
     void SiapkanDropdownUI()
     {
-        if (dropdownPesananUI != null && daftarPesanan.Count > 0)
+        if (dropdownPesananUI != null)
         {
             dropdownPesananUI.ClearOptions();
-            List<string> opsiList = new List<string>();
-
-            foreach (DataPesanan pesanan in daftarPesanan)
-            {
-                opsiList.Add(pesanan.jenisMotor.ToString() + " - " + pesanan.namaMasalah);
-            }
-
-            dropdownPesananUI.AddOptions(opsiList);
+            dropdownPesananUI.AddOptions(new List<string> { "Pesanan Servis Motor Umum" });
         }
     }
 
@@ -218,12 +223,14 @@ public class GameManagerScript : MonoBehaviour
                 audioHP.PlayOneShot(sfxOrderMasuk);
             }
 
-            if (dropdownPesananUI != null && daftarPesanan.Count > 0)
+            if (daftarPesanan.Count > 0)
             {
-                pesananAktif = daftarPesanan[dropdownPesananUI.value];
+                pesananAktif = daftarPesanan[Random.Range(0, daftarPesanan.Count)];
             }
 
             currentState = GameState.MotorBelumDatang;
+            sudahDiinspeksi = false;
+            sequenceSudahMulai = false; 
 
             if (ObjectiveHUD.instance != null)
             {
@@ -259,29 +266,15 @@ public class GameManagerScript : MonoBehaviour
         motor.transform.position = posisiParkir.position;
         motor.transform.rotation = posisiParkir.rotation;
 
-        if (SequenceService.instance != null && pesananAktif != null)
-        {
-            SequenceService.instance.motorYangSedangDiservis = pesananAktif.jenisMotor;
-            SequenceService.instance.MulaiServis(pesananAktif.indexMasalahSequence);
-        }
-
         currentState = GameState.MotorSedangServis;
     }
 
     private IEnumerator ProsesMotorKeluar()
     {
-        yield return new WaitForSeconds(3.5f);
-
-        GameObject parentMotor = GameObject.FindWithTag("Motor");
-        GameObject childBan = GameObject.FindWithTag("Ban Luar Pasang");
+        yield return new WaitForSeconds(2f);
 
         if (motorAktif != null)
         {
-            if (childBan != null)
-            {
-                childBan.transform.SetParent(parentMotor.transform);
-            }
-
             float elapsed = 0f;
             Vector3 startPos = motorAktif.transform.position;
             Vector3 targetPos = posisiKeluar != null ? posisiKeluar.position : startPos + (motorAktif.transform.right * 25f) + (Vector3.up * 10f);
@@ -308,6 +301,7 @@ public class GameManagerScript : MonoBehaviour
         motorAktif = null;
         rewardSudahDiberikan = false;
         pesananAktif = null;
+        sudahDiinspeksi = false;
         currentState = GameState.TungguPesanan;
 
         if (dropdown != null) dropdown.SetActive(true);
@@ -319,8 +313,84 @@ public class GameManagerScript : MonoBehaviour
         }
     }
 
+    public void ProsesKlikMotor()
+    {
+        if (!sudahDiinspeksi)
+        {
+            MulaiInspeksi();
+        }
+        else
+        {
+            MulaiServis();
+        }
+    }
+
+    private void MulaiInspeksi()
+    {
+        if (tombolInspeksi != null)
+        {
+            tombolInspeksi.SetActive(true);
+        }
+
+        if (motorAktif != null)
+        {
+            TutorialHighlight.NyalakanInspeksiMotor(motorAktif);
+        }
+
+        if (InteraksiMotor.instance != null)
+        {
+            InteraksiMotor.instance.FokusKeInspeksi();
+        }
+
+        MekanikController mc = FindAnyObjectByType<MekanikController>();
+        if (mc != null)
+        {
+            mc.KunciKursor(false);
+        }
+
+        if (tombolSelesaiInspeksiUI != null) tombolSelesaiInspeksiUI.SetActive(true);
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    public void SelesaiInspeksi()
+    {
+        if (tombolInspeksi != null)
+        {
+            tombolInspeksi.SetActive(false);
+        }
+
+        if (motorAktif != null)
+        {
+            TutorialHighlight.MatikanInspeksiMotor(motorAktif);
+        }
+
+        if (tombolSelesaiInspeksiUI != null) tombolSelesaiInspeksiUI.SetActive(false);
+
+        sudahDiinspeksi = true;
+
+        if (InteraksiMotor.instance != null)
+        {
+            InteraksiMotor.instance.KembaliKePemain();
+        }
+
+        MekanikController mc = FindAnyObjectByType<MekanikController>();
+        if (mc != null)
+        {
+            mc.KunciKursor(true);
+        }
+    }
+
     public void MulaiServis()
     {
+        if (!sequenceSudahMulai && SequenceService.instance != null && pesananAktif != null)
+        {
+            SequenceService.instance.motorYangSedangDiservis = pesananAktif.jenisMotor;
+            SequenceService.instance.MulaiServis(pesananAktif.indexMasalahSequence);
+            sequenceSudahMulai = true;
+        }
+
         InteraksiMotor.instance.FokusKeMotor();
         MekanikController mc = FindAnyObjectByType<MekanikController>();
         if (mc != null)

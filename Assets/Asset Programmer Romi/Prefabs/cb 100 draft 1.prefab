@@ -921,6 +921,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TutorialHighlight
   idTutorial: AsDepanPasang
+  isRusak: 0
   targetRenderer: {fileID: 7844842310717477388}
   warnaHighlight: {r: 1, g: 0.6392157, b: 0.85882354, a: 1}
   intensitasGlow: 2.5
@@ -1268,6 +1269,7 @@ Transform:
   - {fileID: 288122507249969377}
   - {fileID: 3974353279318564337}
   - {fileID: 5692056529132254718}
+  - {fileID: 6470652804886250488}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &3505756922734739991
@@ -1430,6 +1432,7 @@ MonoBehaviour:
   waktuPerpindahanKamera: 1
   speedFreeCam: 5
   sensKamera: 200
+  titikKameraInspeksi: {fileID: 6470652804886250488}
   audioMotor: {fileID: 3175574463181835377}
   sfxInspeksi: {fileID: 8300000, guid: d6515a78c50ed5c4cbf45a2950b0fe25, type: 3}
   sedangFokus: 0
@@ -1747,10 +1750,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TutorialHighlight
   idTutorial: AsDepan
+  isRusak: 0
   targetRenderer: {fileID: 732981473443684163}
   warnaHighlight: {r: 1, g: 0.6392157, b: 0.85882354, a: 0.39215687}
   intensitasGlow: 2.5
   kecepatanKedip: 4
+--- !u!1 &3446386861975248673
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6470652804886250488}
+  m_Layer: 0
+  m_Name: Titik kamera inspeksi
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6470652804886250488
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3446386861975248673}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.356, y: 2.846, z: -4.477}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1443238043360380421}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3876388988267883686
 GameObject:
   m_ObjectHideFlags: 0
@@ -2139,7 +2174,7 @@ Transform:
   m_GameObject: {fileID: 4412443630160347496}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071069, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0.018357754, y: -0.21199983, z: 0.1212244}
+  m_LocalPosition: {x: -0.018357754, y: -0.422, z: 0.1212244}
   m_LocalScale: {x: 109.580864, y: 109.580864, z: 109.580864}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2661,6 +2696,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TutorialHighlight
   idTutorial: BautDepanPasang
+  isRusak: 0
   targetRenderer: {fileID: 2628059826870525808}
   warnaHighlight: {r: 1, g: 0.6392157, b: 0.85882354, a: 1}
   intensitasGlow: 2.5
@@ -2799,6 +2835,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TutorialHighlight
   idTutorial: BautDepan
+  isRusak: 0
   targetRenderer: {fileID: 9107443898423520627}
   warnaHighlight: {r: 1, g: 0.6392157, b: 0.85882354, a: 0.3882353}
   intensitasGlow: 2.5
@@ -3047,6 +3084,7 @@ GameObject:
   - component: {fileID: 5560224717266426764}
   - component: {fileID: 1489174564438845483}
   - component: {fileID: 6615831040850102474}
+  - component: {fileID: 1414271624965720700}
   m_Layer: 0
   m_Name: ban depan
   m_TagString: Ban Luar
@@ -3148,6 +3186,24 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -7359250656909356205, guid: c4f740337d8dc9746953cbe627095db1, type: 3}
+--- !u!114 &1414271624965720700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6674253739573098397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35b741290f35a594eab49f862adf72b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TutorialHighlight
+  idTutorial: 
+  isRusak: 1
+  targetRenderer: {fileID: 0}
+  warnaHighlight: {r: 1, g: 0.015686274, b: 0.03627827, a: 1}
+  intensitasGlow: 2.5
+  kecepatanKedip: 4
 --- !u!1 &6890432413666815206
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ public class InteraksiMotor : MonoBehaviour
     [Header("Pengaturan FreeCam")]
     public float speedFreeCam = 5f;
     public float sensKamera = 200f;
+    public Transform titikKameraInspeksi;
 
     private GameObject kamera;
     private GameObject kamerapos;
@@ -122,6 +123,25 @@ public class InteraksiMotor : MonoBehaviour
         }
 
         return null;
+    }
+
+    public void FokusKeInspeksi()
+    {
+        posisiAwalKamera = kamerapos.transform.position;
+        rotasiAwalKamera = kamerapos.transform.rotation;
+        
+        if (audioMotor != null && sfxInspeksi != null) audioMotor.PlayOneShot(sfxInspeksi);
+        
+        mc.bisaGerak = false;
+        mc.bisaRotasiKamera = false;
+        modeFreeCamAktif = false;
+        
+        Transform target = titikKameraInspeksi != null ? titikKameraInspeksi : kamerapos.transform;
+        
+        if (transisiKameraRoutine != null) StopCoroutine(transisiKameraRoutine);
+        transisiKameraRoutine = StartCoroutine(PindahKameraSmooth(target.position, target.rotation));
+        
+        sedangFokus = true;
     }
 
     public void FokusKeMotor()
