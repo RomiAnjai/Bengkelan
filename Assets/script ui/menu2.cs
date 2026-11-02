@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
 
 public class menu2 : MonoBehaviour
@@ -13,6 +14,9 @@ public class menu2 : MonoBehaviour
     [SerializeField] private Slider sfxVolumeSlider;
     [SerializeField] private Toggle fullscreenToggle;
 
+    [Header("Exit Confirmation Panel")]
+    [SerializeField] private GameObject exitConfirmPanel;
+
     [Header("Audio Mixer")]
     [SerializeField] private AudioMixer audioMixer;
 
@@ -23,6 +27,7 @@ public class menu2 : MonoBehaviour
     void Start()
     {
         optionsPanel.SetActive(false);
+        exitConfirmPanel.SetActive(false);
         LoadOptions();
     }
 
@@ -80,6 +85,20 @@ public class menu2 : MonoBehaviour
         );
 
         PlayerPrefs.Save();
+    }
+    public void OpenExitConfirmation()
+    {
+        exitConfirmPanel.SetActive(true);
+    }
+
+    public void CancelExit()
+    {
+        exitConfirmPanel.SetActive(false);
+    }
+
+    public void ExitGame()
+    {
+        SceneManager.LoadScene("Start Screen");
     }
 
         private void LoadOptions()

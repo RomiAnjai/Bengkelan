@@ -261,6 +261,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 13087424}
   m_CullTransparentMesh: 1
+--- !u!1 &14847373 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6918388218591099550, guid: 11ebf53f55f5c88499ae28281b60899a, type: 3}
+  m_PrefabInstance: {fileID: 370105770}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &14847375
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 14847373}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6956047836577157797, guid: 11ebf53f55f5c88499ae28281b60899a, type: 3}
 --- !u!1 &43480513
 GameObject:
   m_ObjectHideFlags: 0
@@ -1379,6 +1406,70 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1001 &370105770
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 11ebf53f55f5c88499ae28281b60899a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.226
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 11ebf53f55f5c88499ae28281b60899a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.2523128
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 11ebf53f55f5c88499ae28281b60899a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.1386882
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 11ebf53f55f5c88499ae28281b60899a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 11ebf53f55f5c88499ae28281b60899a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 11ebf53f55f5c88499ae28281b60899a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 11ebf53f55f5c88499ae28281b60899a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 11ebf53f55f5c88499ae28281b60899a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 11ebf53f55f5c88499ae28281b60899a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 11ebf53f55f5c88499ae28281b60899a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 11ebf53f55f5c88499ae28281b60899a, type: 3}
+      propertyPath: m_Name
+      value: botolOlidanTutup
+      objectReference: {fileID: 0}
+    - target: {fileID: 6918388218591099550, guid: 11ebf53f55f5c88499ae28281b60899a, type: 3}
+      propertyPath: m_TagString
+      value: BotolOliRak
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6918388218591099550, guid: 11ebf53f55f5c88499ae28281b60899a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 14847375}
+  m_SourcePrefab: {fileID: 100100000, guid: 11ebf53f55f5c88499ae28281b60899a, type: 3}
 --- !u!1 &371978689
 GameObject:
   m_ObjectHideFlags: 0
@@ -1920,13 +2011,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79b29d0d9d0dfb54b855a0bc3ce35f3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  currentState: 0
+  currentState: 1
   daftarPesanan:
-  - namaMasalah: Ganti Ban Luar
+  - namaMasalah: Ganti Oli
     jenisMotor: 1
     indexMasalahSequence: 0
     prefabMotor: {fileID: 6325564831444919644, guid: 6314cbe193af25b42aa2ebbf9be32a46, type: 3}
   dropdownPesananUI: {fileID: 1551411351}
+  acceptbutton: {fileID: 2127534878}
+  dropdown: {fileID: 1551411349}
   posisiSpawn: {fileID: 1695399074}
   posisiParkir: {fileID: 1386280055}
   jedaSebelumJalan: 2
@@ -2223,6 +2316,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 649812904}
   m_CullTransparentMesh: 1
+--- !u!1 &694964459 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3682560155411423452, guid: 19bd82324cc8c964b81cf44465289a1e, type: 3}
+  m_PrefabInstance: {fileID: 5930702240882861197}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &694964464
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694964459}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &694964465
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694964459}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.10374676, y: 4.358073, z: 0.044938676}
+  m_Center: {x: 0.0008092403, y: 0.08780215, z: -0.16111133}
 --- !u!1 &706019396
 GameObject:
   m_ObjectHideFlags: 0
@@ -4390,6 +4536,8 @@ MonoBehaviour:
   titikPegangan: {fileID: 1932580807}
   teksNamaUI: {fileID: 1720328636}
   crosshairUI: {fileID: 197326951}
+  tagBotolOliRak: BotolOliRak
+  offsetTeksKursor: {x: 0, y: -35}
   jarakJangkauan: 3
   kekuatanTarik: 10
   audioInteraksi: {fileID: 2078211398}
@@ -5031,9 +5179,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::menu2
   optionsPanel: {fileID: 1339008432}
   masterVolumeSlider: {fileID: 1800075078}
-  musicVolumeSlider: {fileID: 0}
-  sfxVolumeSlider: {fileID: 0}
+  musicVolumeSlider: {fileID: 471114439}
+  sfxVolumeSlider: {fileID: 322446532}
   fullscreenToggle: {fileID: 707913646}
+  exitConfirmPanel: {fileID: 0}
   audioMixer: {fileID: 24100000, guid: e9c7e03461b789e45ad0fad4c288242c, type: 2}
 --- !u!1 &1386280054
 GameObject:
@@ -6245,7 +6394,7 @@ Transform:
   m_GameObject: {fileID: 1695399073}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.12, y: 0.809, z: -10.567}
+  m_LocalPosition: {x: 6.12, y: 1, z: -10.567}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7652,6 +7801,14 @@ PrefabInstance:
       propertyPath: sfxTaruhMeja
       value: 
       objectReference: {fileID: 8300000, guid: 9c7b419b80612b34ca3c7b3173766685, type: 3}
+    - target: {fileID: 4052339900553734789, guid: 19bd82324cc8c964b81cf44465289a1e, type: 3}
+      propertyPath: fasePasangBan
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4052339900553734789, guid: 19bd82324cc8c964b81cf44465289a1e, type: 3}
+      propertyPath: prefabBanMenyatu
+      value: 
+      objectReference: {fileID: 4949157929108016148, guid: edde49137e2c6cf488befdd7df048392, type: 3}
     - target: {fileID: 4441048725749974716, guid: 19bd82324cc8c964b81cf44465289a1e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.9893556
@@ -7699,6 +7856,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 706019397}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3682560155411423452, guid: 19bd82324cc8c964b81cf44465289a1e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 694964464}
+    - targetCorrespondingSourceObject: {fileID: 3682560155411423452, guid: 19bd82324cc8c964b81cf44465289a1e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 694964465}
     - targetCorrespondingSourceObject: {fileID: 7109313087118131187, guid: 19bd82324cc8c964b81cf44465289a1e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5930702240882861201}
@@ -7735,6 +7898,82 @@ MonoBehaviour:
   warnaHighlight: {r: 1, g: 0.6392157, b: 0.85882354, a: 1}
   intensitasGlow: 2.5
   kecepatanKedip: 4
+--- !u!1 &6931673523379965374
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7744380414415558404}
+  - component: {fileID: 7744380414415558406}
+  - component: {fileID: 7744380414415558405}
+  m_Layer: 0
+  m_Name: botolOliP
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7744380414415558404
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6931673523379965374}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.28455, y: 0.15445, z: -11.65778}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7744380414415558405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6931673523379965374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c575d4c276be78543937f6b9603a3478, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::botolOli
+  oilManager: {fileID: 0}
+  kecepatanTuang: 0.25
+  modelVisualBotol: {fileID: 0}
+  rotasiMiring: {x: 0, y: 0, z: 90}
+  kecepatanAnimasi: 8
+  partikelOli: {fileID: 0}
+  audioTuang: {fileID: 0}
+  OnTuangDitolak:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!65 &7744380414415558406
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6931673523379965374}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &7762067042178753566
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7891,3 +8130,5 @@ SceneRoots:
   - {fileID: 1629078036}
   - {fileID: 1440385845}
   - {fileID: 385972060}
+  - {fileID: 7744380414415558404}
+  - {fileID: 370105770}
