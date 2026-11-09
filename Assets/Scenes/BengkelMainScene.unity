@@ -2791,7 +2791,7 @@ Transform:
   m_GameObject: {fileID: 673307810}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.28455, y: 0.15445, z: -11.65778}
+  m_LocalPosition: {x: 3.28455, y: 5.65, z: -11.65778}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3297,6 +3297,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1133960661}
   - {fileID: 1367926837}
   - {fileID: 197326952}
   - {fileID: 1720328635}
@@ -4957,6 +4958,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1091808687}
   m_CullTransparentMesh: 1
+--- !u!1 &1133960660
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1133960661}
+  - component: {fileID: 1133960663}
+  - component: {fileID: 1133960662}
+  m_Layer: 5
+  m_Name: Cincin Progress
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1133960661
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133960660}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 779395302}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 70, y: 70}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1133960662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133960660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 2498517b29c1c3a4b94a924c0e3d2bc7, type: 3}
+  m_Type: 3
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 2
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1133960663
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133960660}
+  m_CullTransparentMesh: 1
 --- !u!1 &1156795797
 GameObject:
   m_ObjectHideFlags: 0
@@ -4998,6 +5074,9 @@ MonoBehaviour:
   audioLangkah: {fileID: 2078211398}
   sfxFootstep: {fileID: 8300000, guid: aad63f45a2706574fbd8c38b042d66db, type: 3}
   jedaLangkah: 5
+  kecepatanBobbing: 7.68
+  intensitasBobbing: 0.1
+  faktorKetidakseimbangan: 0.3
 --- !u!143 &1156795799
 CharacterController:
   m_ObjectHideFlags: 0
@@ -9529,6 +9608,14 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e71bb46e90bb114e921610e89813b9b, type: 3}
+--- !u!33 &4875548219223977166
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9173100715170429393}
+  m_Mesh: {fileID: -5495902117074765545, guid: ac2aa48779a2f8b42811224b7e0284f3, type: 3}
 --- !u!4 &5143115885610667170
 Transform:
   m_ObjectHideFlags: 0
@@ -9651,9 +9738,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 4056265e784b27e4599ac9329341faa6, type: 3}
     - target: {fileID: 4052339900553734789, guid: 19bd82324cc8c964b81cf44465289a1e, type: 3}
+      propertyPath: objekLinggis
+      value: 
+      objectReference: {fileID: 9173100715170429393}
+    - target: {fileID: 4052339900553734789, guid: 19bd82324cc8c964b81cf44465289a1e, type: 3}
       propertyPath: sfxTaruhMeja
       value: 
       objectReference: {fileID: 8300000, guid: 9c7b419b80612b34ca3c7b3173766685, type: 3}
+    - target: {fileID: 4052339900553734789, guid: 19bd82324cc8c964b81cf44465289a1e, type: 3}
+      propertyPath: rotasiAwalLinggis.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4052339900553734789, guid: 19bd82324cc8c964b81cf44465289a1e, type: 3}
+      propertyPath: uiLingkaranProgress
+      value: 
+      objectReference: {fileID: 1133960662}
     - target: {fileID: 4441048725749974716, guid: 19bd82324cc8c964b81cf44465289a1e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.9893556
@@ -9764,6 +9863,56 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5938034326553539965}
   m_Mesh: {fileID: -1950909561134696945, guid: 70804033163712e4087049c7c7df2392, type: 3}
+--- !u!23 &7227602370076792836
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9173100715170429393}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: -876546973899608171, guid: ac2aa48779a2f8b42811224b7e0284f3, type: 3}
+  - {fileID: -6478536213147159724, guid: ac2aa48779a2f8b42811224b7e0284f3, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!23 &7762067042178753566
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9813,6 +9962,21 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!4 &8360570776858731371
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9173100715170429393}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalPosition: {x: 3.446, y: 1.594, z: -3.892}
+  m_LocalScale: {x: 3.5170138, y: 1.8308566, z: 3.5170138}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8416272007846954986
 GameObject:
   m_ObjectHideFlags: 0
@@ -9901,6 +10065,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &9173100715170429393
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8360570776858731371}
+  - component: {fileID: 4875548219223977166}
+  - component: {fileID: 7227602370076792836}
+  m_Layer: 0
+  m_Name: linggis
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -9925,3 +10107,4 @@ SceneRoots:
   - {fileID: 135620977}
   - {fileID: 673307813}
   - {fileID: 270095532}
+  - {fileID: 8360570776858731371}
