@@ -1,17 +1,31 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class StationInteraction : MonoBehaviour
 {
     public static StationInteraction instance;
+
     public Transform titikKameraMeja;
     public GameObject grupTitikMinigame;
     public float waktuPerpindahan = 1f;
     public string idHighlightMeja = "Meja Kerja";
 
+    [Header("Pengaturan Hold & UI Lingkaran")]
+    public Image uiLingkaranProgress;
+    public float durasiTahanCongkel = 3f;
+
+    [Header("Pengaturan Animasi 3D Linggis")]
+    public GameObject objekLinggis;
+    public float durasiAnimasiLinggis = 0.6f;
+    public Vector3 offsetPosisiLinggis = new Vector3(0f, 0.05f, 0f);
+    public Vector3 rotasiAwalLinggis = new Vector3(15f, 0f, 0f);
+    public Vector3 rotasiCongkelLinggis = new Vector3(-55f, 0f, 0f);
+
     [Header("Fase Pasang Ban")]
     public GameObject prefabBanMenyatu;
     public bool fasePasangBan = false;
+
     public bool adaBan = false;
     public bool sedangFokusMeja = false;
     public bool minigameSelesai = false;
@@ -32,6 +46,12 @@ public class StationInteraction : MonoBehaviour
     private Vector3 posisiAwalKamera;
     private Quaternion rotasiAwalKamera;
     private Coroutine transisiRoutine;
+
+    private float timerCongkel = 0f;
+    private bool sedangAnimasiLinggis = false;
+
+    private Camera kameraUtama;
+    private GameObject titikDitahanSaatIni = null;
 
     void Awake()
     {
@@ -58,7 +78,73 @@ public class StationInteraction : MonoBehaviour
     void Start()
     {
         kamera = GameObject.FindWithTag("MainCamera");
+        kameraUtama = kamera.GetComponent<Camera>();
         mc = FindAnyObjectByType<MekanikController>();
+
+        if (uiLingkaranProgress != null)
+        {
+            uiLingkaranProgress.raycastTarget = false;
+            uiLingkaranProgress.fillAmount = 0f;
+            uiLingkaranProgress.gameObject.SetActive(false);
+        }
+
+        if (objekLinggis != null)
+        {
+            Collider[] colLinggis = objekLinggis.GetComponentsInChildren<Collider>(true);
+            foreach (Collider c in colLinggis)
+            {
+                c.enabled = false;
+            }
+            objekLinggis.SetActive(false);
+        }
+    }
+
+    void Update()
+    {
+        if (uiLingkaranProgress != null && uiLingkaranProgress.gameObject.activeSelf)
+        {
+            uiLingkaranProgress.rectTransform.position = Input.mousePosition;
+        }
+
+        if (sedangFokusMeja && !sedangAnimasiLinggis)
+        {
+            if (Input.GetMouseButton(0))
+            {
+                MendeteksiTitikCongkelViaRaycast();
+            }
+            else if (timerCongkel > 0f)
+            {
+                ResetProgressCongkel();
+            }
+        }
+    }
+
+    private void MendeteksiTitikCongkelViaRaycast()
+    {
+        if (kameraUtama == null) return;
+
+        Ray ray = kameraUtama.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 10f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide))
+        {
+            TitikCongkelBan titik = hit.collider.GetComponent<TitikCongkelBan>();
+            if (titik == null) titik = hit.collider.GetComponentInParent<TitikCongkelBan>();
+
+            if (titik != null)
+            {
+                titikDitahanSaatIni = titik.gameObject;
+                ProsesTahanTitik(titikDitahanSaatIni);
+            }
+            else
+            {
+                ResetProgressCongkel();
+            }
+        }
+        else
+        {
+            ResetProgressCongkel();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -130,9 +216,10 @@ public class StationInteraction : MonoBehaviour
 
     void KunciKeMeja(GameObject obj)
     {
-        if (audioMeja != null && sfxTaruhMeja != null) audioMeja.PlayOneShot(sfxTaruhMeja); // SFX MEJA
+        if (audioMeja != null && sfxTaruhMeja != null) audioMeja.PlayOneShot(sfxTaruhMeja);
+
         obj.transform.position = transform.position + new Vector3(0, 0.7f, 0);
-        if(obj.CompareTag("Velg Depan"))
+        if (obj.CompareTag("Velg Depan"))
         {
             obj.transform.position = transform.position + new Vector3(0, 0.85f, 0);
         }
@@ -189,6 +276,7 @@ public class StationInteraction : MonoBehaviour
     {
         posisiAwalKamera = kamera.transform.position;
         rotasiAwalKamera = kamera.transform.rotation;
+
         mc.bisaGerak = false;
         mc.bisaRotasiKamera = false;
 
@@ -196,10 +284,13 @@ public class StationInteraction : MonoBehaviour
         transisiRoutine = StartCoroutine(PindahKameraSmooth(titikKameraMeja.position, titikKameraMeja.rotation));
 
         sedangFokusMeja = true;
+        sedangAnimasiLinggis = false;
+        ResetProgressCongkel();
+
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        if (grupTitikMinigame != null) 
+        if (grupTitikMinigame != null)
         {
             grupTitikMinigame.SetActive(true);
             sisaTitik = grupTitikMinigame.transform.childCount;
@@ -217,10 +308,89 @@ public class StationInteraction : MonoBehaviour
         }
     }
 
+    public void ProsesTahanTitik(GameObject titik)
+    {
+        if (!sedangFokusMeja || sedangAnimasiLinggis) return;
+
+        if (uiLingkaranProgress != null)
+        {
+            if (!uiLingkaranProgress.gameObject.activeSelf)
+            {
+                uiLingkaranProgress.gameObject.SetActive(true);
+            }
+            uiLingkaranProgress.rectTransform.position = Input.mousePosition;
+        }
+
+        timerCongkel += Time.deltaTime;
+
+        if (uiLingkaranProgress != null)
+        {
+            uiLingkaranProgress.fillAmount = Mathf.Clamp01(timerCongkel / durasiTahanCongkel);
+        }
+
+        if (timerCongkel >= durasiTahanCongkel)
+        {
+            StartCoroutine(ProsesAnimasiCongkel(titik));
+        }
+    }
+
+    public void ResetProgressCongkel()
+    {
+        timerCongkel = 0f;
+        titikDitahanSaatIni = null;
+        if (uiLingkaranProgress != null)
+        {
+            uiLingkaranProgress.fillAmount = 0f;
+            if (uiLingkaranProgress.gameObject.activeSelf)
+            {
+                uiLingkaranProgress.gameObject.SetActive(false);
+            }
+        }
+    }
+
+    private IEnumerator ProsesAnimasiCongkel(GameObject titik)
+    {
+        sedangAnimasiLinggis = true;
+        ResetProgressCongkel();
+
+        if (audioMeja != null && sfxCongkel != null)
+        {
+            audioMeja.PlayOneShot(sfxCongkel);
+        }
+
+        if (objekLinggis != null && titik != null)
+        {
+            objekLinggis.SetActive(true);
+            objekLinggis.transform.position = titik.transform.position + titik.transform.TransformDirection(offsetPosisiLinggis);
+
+            Quaternion rotAwal = titik.transform.rotation * Quaternion.Euler(rotasiAwalLinggis);
+            Quaternion rotAkhir = titik.transform.rotation * Quaternion.Euler(rotasiCongkelLinggis);
+
+            objekLinggis.transform.rotation = rotAwal;
+
+            float elapsed = 0f;
+            while (elapsed < durasiAnimasiLinggis)
+            {
+                elapsed += Time.deltaTime;
+                float t = Mathf.SmoothStep(0f, 1f, elapsed / durasiAnimasiLinggis);
+                objekLinggis.transform.rotation = Quaternion.Slerp(rotAwal, rotAkhir, t);
+                yield return null;
+            }
+
+            objekLinggis.SetActive(false);
+        }
+        else
+        {
+            yield return new WaitForSeconds(durasiAnimasiLinggis);
+        }
+
+        TitikDitekan(titik);
+        sedangAnimasiLinggis = false;
+    }
+
     public void TitikDitekan(GameObject titik)
     {
-        if (audioMeja != null && sfxCongkel != null) audioMeja.PlayOneShot(sfxCongkel); // SFX CONGKEL
-        titik.SetActive(false);
+        if (titik != null) titik.SetActive(false);
         sisaTitik--;
 
         if (sisaTitik > 0)
@@ -239,6 +409,8 @@ public class StationInteraction : MonoBehaviour
 
     void SelesaiMinigame()
     {
+        ResetProgressCongkel();
+        if (objekLinggis != null) objekLinggis.SetActive(false);
         if (grupTitikMinigame != null) grupTitikMinigame.SetActive(false);
         minigameSelesai = true;
 
@@ -268,6 +440,7 @@ public class StationInteraction : MonoBehaviour
                     r.isKinematic = false;
                 }
             }
+
             velgDiMeja = null;
         }
         else
@@ -282,6 +455,7 @@ public class StationInteraction : MonoBehaviour
             }
 
             ObjectiveHUD.instance.UpdateHUD(SequenceService.instance.motorYangSedangDiservis, SequenceService.instance.masalahAktif.namaKerusakan, 6);
+
             fasePasangBan = false;
         }
 
@@ -312,6 +486,7 @@ public class StationInteraction : MonoBehaviour
             mc.bisaGerak = true;
             mc.bisaRotasiKamera = true;
             sedangFokusMeja = false;
+
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }

@@ -273,6 +273,11 @@ public class GameManagerScript : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
 
+        GameObject parentBan = GameObject.FindWithTag("Ban Luar");
+        GameObject childBan = GameObject.FindWithTag("Ban Luar Pasang");
+
+        childBan.transform.SetParent(parentBan.transform);
+
         if (motorAktif != null)
         {
             float elapsed = 0f;
