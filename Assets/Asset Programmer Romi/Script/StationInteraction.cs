@@ -50,6 +50,9 @@ public class StationInteraction : MonoBehaviour
     private float timerCongkel = 0f;
     private bool sedangAnimasiLinggis = false;
 
+    private Camera kameraUtama;
+    private GameObject titikDitahanSaatIni = null;
+
     void Awake()
     {
         if (instance == null)
@@ -75,6 +78,7 @@ public class StationInteraction : MonoBehaviour
     void Start()
     {
         kamera = GameObject.FindWithTag("MainCamera");
+        kameraUtama = kamera.GetComponent<Camera>();
         mc = FindAnyObjectByType<MekanikController>();
 
         if (uiLingkaranProgress != null)
@@ -102,7 +106,42 @@ public class StationInteraction : MonoBehaviour
             uiLingkaranProgress.rectTransform.position = Input.mousePosition;
         }
 
-        if (sedangFokusMeja && !Input.GetMouseButton(0) && timerCongkel > 0f && !sedangAnimasiLinggis)
+        if (sedangFokusMeja && !sedangAnimasiLinggis)
+        {
+            if (Input.GetMouseButton(0))
+            {
+                MendeteksiTitikCongkelViaRaycast();
+            }
+            else if (timerCongkel > 0f)
+            {
+                ResetProgressCongkel();
+            }
+        }
+    }
+
+    private void MendeteksiTitikCongkelViaRaycast()
+    {
+        if (kameraUtama == null) return;
+
+        Ray ray = kameraUtama.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 10f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide))
+        {
+            TitikCongkelBan titik = hit.collider.GetComponent<TitikCongkelBan>();
+            if (titik == null) titik = hit.collider.GetComponentInParent<TitikCongkelBan>();
+
+            if (titik != null)
+            {
+                titikDitahanSaatIni = titik.gameObject;
+                ProsesTahanTitik(titikDitahanSaatIni);
+            }
+            else
+            {
+                ResetProgressCongkel();
+            }
+        }
+        else
         {
             ResetProgressCongkel();
         }
@@ -298,6 +337,7 @@ public class StationInteraction : MonoBehaviour
     public void ResetProgressCongkel()
     {
         timerCongkel = 0f;
+        titikDitahanSaatIni = null;
         if (uiLingkaranProgress != null)
         {
             uiLingkaranProgress.fillAmount = 0f;
