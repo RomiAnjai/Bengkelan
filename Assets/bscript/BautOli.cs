@@ -36,6 +36,7 @@ public class BautOli : MonoBehaviour
     {
         posisiAwal = transform.localPosition;
         posisiAkhir = posisiAwal + (arahKeluar.normalized * jarakKeluar);
+        TampilkanBaut();
 
         if (modePasang)
         {
@@ -105,6 +106,23 @@ public class BautOli : MonoBehaviour
         }
     }
 
+    public void TampilkanBaut()
+    {
+        GetComponent<MeshRenderer>().enabled = true;
+        GetComponent<BoxCollider>().enabled = true;
+    }
+
+    public void SembunyikanBaut()
+    {
+        GetComponent<MeshRenderer>().enabled = false;
+        GetComponent<BoxCollider>().enabled = false;
+    }
+
+    public void nonaktifBaut()
+    {
+        GetComponent<BoxCollider>().enabled = false;
+    }
+
     private void SelesaiBuka()
     {
         if (audioBaut != null) audioBaut.Stop();
@@ -113,6 +131,7 @@ public class BautOli : MonoBehaviour
         progres = 0f;
         modePasang = true;
         butuhLepasKlik = true;
+        SembunyikanBaut();
 
         OnBautSelesaiDilepas?.Invoke();
     }
@@ -124,6 +143,7 @@ public class BautOli : MonoBehaviour
         transform.localPosition = posisiAwal;
         progres = 0f;
         selesaiSemua = true;
+        GetComponent<BoxCollider>().enabled = false;
 
         OnBautSelesaiDipasang?.Invoke();
     }

@@ -1820,17 +1820,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 27f29a5b1ae7c32458ef895693e2b45c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1621398438}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27f29a5b1ae7c32458ef895693e2b45c, type: 3}
---- !u!4 &385972061 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 27f29a5b1ae7c32458ef895693e2b45c, type: 3}
-  m_PrefabInstance: {fileID: 385972060}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &404143842
 GameObject:
   m_ObjectHideFlags: 0
@@ -7246,10 +7238,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   currentState: 0
   daftarPesanan:
-  - namaMasalah: Ganti Ban Luar
-    jenisMotor: 1
-    indexMasalahSequence: 0
-    prefabMotor: {fileID: 2855420916814498178, guid: 9cfa75fe5955c5f46ad247e09917a9a3, type: 3}
   - namaMasalah: Ganti Oli
     jenisMotor: 1
     indexMasalahSequence: 0
@@ -12668,14 +12656,14 @@ Transform:
   m_GameObject: {fileID: 1621398437}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.8500004, y: -1.1455493, z: -26.040817}
+  m_LocalPosition: {x: 4.86033, y: -0.048715696, z: -1.5942345}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 899094066}
   - {fileID: 110529853}
   - {fileID: 766410304}
-  m_Father: {fileID: 385972061}
+  m_Father: {fileID: 5143115885610667170}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1629078034
 GameObject:
@@ -15781,6 +15769,7 @@ Transform:
   - {fileID: 1287503477}
   - {fileID: 1688355895}
   - {fileID: 1346653633}
+  - {fileID: 1621398438}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &5185499378758041711
@@ -15922,6 +15911,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4441048725749974716, guid: 19bd82324cc8c964b81cf44465289a1e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7828197514516685041, guid: 19bd82324cc8c964b81cf44465289a1e, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

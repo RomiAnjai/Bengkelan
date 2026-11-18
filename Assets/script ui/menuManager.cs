@@ -17,6 +17,10 @@ public class MainMenuController : MonoBehaviour
     [Header("Load Game Panel")]
     [SerializeField] private GameObject loadGamePanel;
 
+    [Header("Credit Game Panel")]
+    [SerializeField] private GameObject creditPanel;
+    public bool isCredit;
+
     [Header("Exit Confirmation Panel")]
     [SerializeField] private GameObject exitConfirmPanel;
 
@@ -106,6 +110,19 @@ public class MainMenuController : MonoBehaviour
     {
         PlayerPrefs.Save();
         optionsPanel.SetActive(false);
+    }
+
+    public void CreditOption()
+    {
+        if (!isCredit)
+        {
+            creditPanel.SetActive(true);
+            isCredit = true;
+        } else
+        {
+            creditPanel.SetActive(false);
+            isCredit = false;
+        }
     }
 
     // =========================

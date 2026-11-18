@@ -157,7 +157,7 @@ public class SequenceService : MonoBehaviour
         {
             ObjectiveHUD.instance.UpdateHUD(motorYangSedangDiservis, masalahAktif.namaKerusakan, indexLangkahSaatIni);
 
-            if (indexLangkahSaatIni == 4)
+            if (indexLangkahSaatIni == 4 && masalahAktif.namaKerusakan == "Ganti Ban Luar")
             {
                 TutorialHighlight.NyalakanBerdasarkanID("RakBan");
             }
