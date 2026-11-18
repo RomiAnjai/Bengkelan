@@ -86,10 +86,17 @@ public class InteraksiPemain : MonoBehaviour
         bool mejaFokus = StationInteraction.instance != null && StationInteraction.instance.sedangFokusMeja;
         bool hpBuka = GameManagerScript.instance != null && GameManagerScript.instance.hpSedangBuka;
         bool sedangInspeksi = motorFokus && GameManagerScript.instance != null && !GameManagerScript.instance.sudahDiinspeksi;
+        bool laporanBuka = DailyReportManager.instance != null && DailyReportManager.instance.laporanTerbuka;
 
         bool aktifkanCrosshair = true;
 
-        if (hpBuka)
+        if (laporanBuka)
+        {
+            aktifkanCrosshair = false;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else if (hpBuka)
         {
             aktifkanCrosshair = false;
             Cursor.lockState = CursorLockMode.None;

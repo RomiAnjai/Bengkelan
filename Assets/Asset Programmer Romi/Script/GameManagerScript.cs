@@ -97,7 +97,6 @@ public class GameManagerScript : MonoBehaviour
         }
 
         SiapkanDropdownUI();
-
         if (tombolInspeksi != null)
         {
             tombolInspeksi.SetActive(false);
@@ -154,6 +153,11 @@ public class GameManagerScript : MonoBehaviour
                     {
                         ObjectiveHUD.instance.AddMoney(60000);
                         ObjectiveHUD.instance.TampilkanPesanManual("Selamat! Anda mendapatkan Rp 60.000\nMotor akan segera dikembalikan.");
+                    }
+
+                    if (DailyReportManager.instance != null)
+                    {
+                        DailyReportManager.instance.TambahMotorSelesai(60000);
                     }
 
                     StartCoroutine(ProsesMotorKeluar());
@@ -272,11 +276,13 @@ public class GameManagerScript : MonoBehaviour
     private IEnumerator ProsesMotorKeluar()
     {
         yield return new WaitForSeconds(2f);
-
+        
         GameObject parentBan = GameObject.FindWithTag("Ban Luar");
         GameObject childBan = GameObject.FindWithTag("Ban Luar Pasang");
-
-        childBan.transform.SetParent(parentBan.transform);
+        if (parentBan != null && childBan != null)
+        {
+            childBan.transform.SetParent(parentBan.transform);
+        }
 
         if (motorAktif != null)
         {

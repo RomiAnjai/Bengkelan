@@ -4,10 +4,9 @@ public class TombolBeliBan : MonoBehaviour, IInteraksi
 {
     public GameObject prefabBanLuarBaru;
     public Transform titikMunculBan;
-    public int batasBeli = 1;
-    public int beliSaatIni = 0;
     
     public string idHighlightMeja = "Meja Kerja";
+    public int hargaBeliBan = 15000; 
 
     public string DapatkanNamaPetunjuk()
     {
@@ -15,27 +14,39 @@ public class TombolBeliBan : MonoBehaviour, IInteraksi
         {
             return "";
         }
-        if (beliSaatIni >= batasBeli)
+
+        if (ObjectiveHUD.instance != null && ObjectiveHUD.instance.GetBalance() < hargaBeliBan)
         {
-            return "Stok Ban Habis";
+            return "Uang Tidak Cukup! (Butuh Rp " + hargaBeliBan.ToString("N0") + ")";
         }
-        return "Beli Ban Luar";
+
+        return "Beli Ban Luar (Rp " + hargaBeliBan.ToString("N0") + ")";
     }
 
     public void EksekusiAksi()
     {
         if (prefabBanLuarBaru == null || titikMunculBan == null) return;
+
         if (SequenceService.instance != null && SequenceService.instance.indexLangkahSaatIni > 2)
         {
-            if (beliSaatIni < batasBeli)
+            if (ObjectiveHUD.instance != null && ObjectiveHUD.instance.GetBalance() >= hargaBeliBan)
             {
+                ObjectiveHUD.instance.RemoveMoney(hargaBeliBan);
+
+                if (DailyReportManager.instance != null)
+                {
+                    DailyReportManager.instance.CatatPengeluaran(hargaBeliBan);
+                }
+
                 Instantiate(prefabBanLuarBaru, titikMunculBan.position, titikMunculBan.rotation);
-                beliSaatIni++;
                 
                 TutorialHighlight.NyalakanBerdasarkanID(idHighlightMeja);
                 
-                SequenceService.instance.SelesaikanLangkah();
+                if (SequenceService.instance.indexLangkahSaatIni == 4)
+                {
+                    SequenceService.instance.SelesaikanLangkah();
+                }
             }
         }
     }
-}
+}   

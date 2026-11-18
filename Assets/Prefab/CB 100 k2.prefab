@@ -1128,6 +1128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TutorialHighlight
   idTutorial: as1
+  isRusak: 0
   targetRenderer: {fileID: 6651752571404421364}
   warnaHighlight: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   intensitasGlow: 2.5
@@ -2900,6 +2901,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TutorialHighlight
   idTutorial: baut1
+  isRusak: 0
   targetRenderer: {fileID: 4185621538366435136}
   warnaHighlight: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   intensitasGlow: 2.5
@@ -3297,7 +3299,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4283834897445698989}
   - {fileID: 8708903813379401219}
@@ -3326,19 +3328,19 @@ MonoBehaviour:
       jenisAksi: 0
       targetPartTag: 
       posisiKamera: {fileID: 593547513693453093}
-      pakaiCrosshair: 1
+      pakaiCrosshair: 0
       idObjekTutorial: 
     - namaLangkah: taruh tray
       jenisAksi: 0
       targetPartTag: 
       posisiKamera: {fileID: 8446746204938944379}
-      pakaiCrosshair: 1
+      pakaiCrosshair: 0
       idObjekTutorial: 
     - namaLangkah: lepas baut
       jenisAksi: 0
       targetPartTag: 
       posisiKamera: {fileID: 6834197742347043956}
-      pakaiCrosshair: 1
+      pakaiCrosshair: 0
       idObjekTutorial: 
     - namaLangkah: taruh corong
       jenisAksi: 0
@@ -3411,6 +3413,7 @@ MonoBehaviour:
   waktuPerpindahanKamera: 1
   speedFreeCam: 5
   sensKamera: 200
+  titikKameraInspeksi: {fileID: 0}
   audioMotor: {fileID: 0}
   sfxInspeksi: {fileID: 0}
   sedangFokus: 0

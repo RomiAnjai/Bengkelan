@@ -749,6 +749,7 @@ Transform:
   m_Children:
   - {fileID: 1577636740512629243}
   - {fileID: 2685709472402241945}
+  - {fileID: 6213269780102542186}
   m_Father: {fileID: 4441048725749974716}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1708303479097390660
@@ -865,11 +866,22 @@ MonoBehaviour:
   titikKameraMeja: {fileID: 1577636740512629243}
   grupTitikMinigame: {fileID: 3406371377861794746}
   waktuPerpindahan: 1
+  idHighlightMeja: Meja Kerja
+  uiLingkaranProgress: {fileID: 0}
+  durasiTahanCongkel: 1
+  objekLinggis: {fileID: 0}
+  durasiAnimasiLinggis: 0.6
+  offsetPosisiLinggis: {x: 0, y: 0.05, z: 0}
+  rotasiAwalLinggis: {x: 15, y: 90, z: 0}
+  rotasiCongkelLinggis: {x: -55, y: 0, z: 0}
   prefabBanMenyatu: {fileID: 7500285076508638422, guid: e85d3012443a3b94c958b322501ba806, type: 3}
   fasePasangBan: 0
   adaBan: 0
   sedangFokusMeja: 0
   minigameSelesai: 0
+  audioMeja: {fileID: 7796697833952542470}
+  sfxTaruhMeja: {fileID: 8300000, guid: 9c7b419b80612b34ca3c7b3173766685, type: 3}
+  sfxCongkel: {fileID: 8300000, guid: 4056265e784b27e4599ac9329341faa6, type: 3}
   velgDiMeja: {fileID: 0}
   banBaruDiMeja: {fileID: 0}
 --- !u!114 &2523241949707805746
@@ -885,6 +897,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TutorialHighlight
   idTutorial: MejaKerja
+  isRusak: 0
   targetRenderer: {fileID: 0}
   warnaHighlight: {r: 1, g: 0.6392157, b: 0.85882354, a: 1}
   intensitasGlow: 2.5
@@ -1309,6 +1322,135 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &3052251248943199180
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6213269780102542186}
+  - component: {fileID: 7796697833952542470}
+  m_Layer: 0
+  m_Name: mejaAudio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6213269780102542186
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3052251248943199180}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6290461446568832393}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &7796697833952542470
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3052251248943199180}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -6568574820855466810, guid: e9c7e03461b789e45ad0fad4c288242c, type: 2}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &3154571380653585915
 GameObject:
   m_ObjectHideFlags: 0
@@ -2269,6 +2411,7 @@ GameObject:
   - component: {fileID: 7517527818050344368}
   - component: {fileID: 7828197514516685041}
   - component: {fileID: 2916389610839862315}
+  - component: {fileID: 1500718107869420537}
   m_Layer: 0
   m_Name: rak ban
   m_TagString: Untagged
@@ -2385,8 +2528,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   prefabBanLuarBaru: {fileID: 4721456053097520098, guid: 68e2b672d97d7204ca0606952fca5b7b, type: 3}
   titikMunculBan: {fileID: 1940226697663117348}
-  batasBeli: 1
-  beliSaatIni: 0
+  idHighlightMeja: Meja Kerja
+  hargaBeliBan: 15000
+--- !u!114 &1500718107869420537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7109313087118131187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35b741290f35a594eab49f862adf72b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TutorialHighlight
+  idTutorial: RakBan
+  isRusak: 0
+  targetRenderer: {fileID: 7517527818050344368}
+  warnaHighlight: {r: 1, g: 0.6392157, b: 0.85882354, a: 1}
+  intensitasGlow: 2.5
+  kecepatanKedip: 4
 --- !u!1 &7199768983479041073
 GameObject:
   m_ObjectHideFlags: 0
