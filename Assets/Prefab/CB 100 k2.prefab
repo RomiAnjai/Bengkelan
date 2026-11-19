@@ -65,7 +65,19 @@ MonoBehaviour:
       m_Calls: []
   OnOliKotorHabis:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4030749782317697584}
+        m_TargetAssemblyTypeName: penempatanItem, Assembly-CSharp
+        m_MethodName: aktifItem
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnOilServiceCompleted:
     m_PersistentCalls:
       m_Calls: []
@@ -317,7 +329,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BautOli
   durasiBuka: 1.5
   jarakKeluar: 0.1
-  arahKeluar: {x: 0, y: 0, z: 1}
+  arahKeluar: {x: 0, y: 0.34, z: 0.94}
   sumbuPutar: {x: 0, y: 0, z: 1}
   kecepatanPutar: 500
   modePasang: 0
@@ -350,6 +362,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 6378325116342362688}
+        m_TargetAssemblyTypeName: penempatanItem, Assembly-CSharp
+        m_MethodName: aktifItem
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnBautSelesaiDipasang:
     m_PersistentCalls:
       m_Calls:
@@ -368,6 +392,18 @@ MonoBehaviour:
       - m_Target: {fileID: 4584869373692359552}
         m_TargetAssemblyTypeName: OilChangeManager, Assembly-CSharp
         m_MethodName: TutupTutupAtas
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6378325116342362688}
+        m_TargetAssemblyTypeName: penempatanItem, Assembly-CSharp
+        m_MethodName: aktifItem
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3348,6 +3384,12 @@ MonoBehaviour:
       posisiKamera: {fileID: 593547513693453093}
       pakaiCrosshair: 0
       idObjekTutorial: 
+    - namaLangkah: jeda
+      jenisAksi: 0
+      targetPartTag: 
+      posisiKamera: {fileID: 593547513693453093}
+      pakaiCrosshair: 0
+      idObjekTutorial: 
     - namaLangkah: pasang baut tap
       jenisAksi: 0
       targetPartTag: 
@@ -3642,9 +3684,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 4584869373692359552}
-        m_TargetAssemblyTypeName: OilChangeManager, Assembly-CSharp
-        m_MethodName: TutupBautBawah
+      - m_Target: {fileID: 4030749782317697584}
+        m_TargetAssemblyTypeName: penempatanItem, Assembly-CSharp
+        m_MethodName: aktifItem
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4997,12 +5039,36 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 6630075265504163022}
+        m_TargetAssemblyTypeName: BautOli, Assembly-CSharp
+        m_MethodName: TampilkanBaut
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnItemDiambil:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4584869373692359552}
         m_TargetAssemblyTypeName: OilChangeManager, Assembly-CSharp
         m_MethodName: AmbilCorong
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5940476051521045783}
+        m_TargetAssemblyTypeName: BautOli, Assembly-CSharp
+        m_MethodName: TampilkanBaut
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

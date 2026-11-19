@@ -33,6 +33,7 @@ public class penempatanItem : MonoBehaviour
             }
 
             objekItemTarget.SetActive(false);
+            nonaktifItem();
         }
         else
         {
@@ -59,6 +60,7 @@ public class penempatanItem : MonoBehaviour
 
         isTerpasang = true;
         OnItemTerpasang?.Invoke();
+        nonaktifItem();
     }
 
     public void AmbilItem()
@@ -73,8 +75,19 @@ public class penempatanItem : MonoBehaviour
         }
 
         isTerpasang = false;
-        if (areaCollider != null) areaCollider.enabled = true;
+        if (areaCollider != null) areaCollider.enabled = false;
 
         OnItemDiambil?.Invoke();
+    }
+
+    public void aktifItem()
+    {
+        areaCollider.enabled = true;
+        Debug.Log("corrrr");
+    }
+
+    public void nonaktifItem()
+    {
+        areaCollider.enabled = false;
     }
 }
