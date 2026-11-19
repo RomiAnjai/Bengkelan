@@ -2414,7 +2414,7 @@ GameObject:
   - component: {fileID: 1500718107869420537}
   m_Layer: 0
   m_Name: rak ban
-  m_TagString: Untagged
+  m_TagString: RakBan
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

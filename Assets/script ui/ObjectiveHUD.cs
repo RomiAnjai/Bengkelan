@@ -25,7 +25,7 @@ public class ObjectiveHUD : MonoBehaviour
     public AudioClip sfxObjektifBaru;
     public AudioClip sfxWin;
 
-    private int balance = 0;
+    private int balance = 15000;
     private const string BalanceKey = "CTAS_Balance";
     private bool sudahSelesai = false;
     private Vector2 posisiNormalLayar;

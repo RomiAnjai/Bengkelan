@@ -1358,7 +1358,7 @@ MonoBehaviour:
       targetPartTag: Velg Depan
       posisiKamera: {fileID: 0}
       pakaiCrosshair: 0
-      idObjekTutorial: 
+      idObjekTutorial: RakBan
     - namaLangkah: pasang ban
       jenisAksi: 5
       targetPartTag: Velg Depan
