@@ -19,6 +19,7 @@ TagManager:
   - Motor
   - BotolOliRak
   - RakBan
+  - OilManager
   layers:
   - Default
   - TransparentFX

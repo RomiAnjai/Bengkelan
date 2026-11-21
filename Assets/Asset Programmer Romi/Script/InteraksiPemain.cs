@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using TMPro;
 
 public class InteraksiPemain : MonoBehaviour
@@ -11,6 +12,9 @@ public class InteraksiPemain : MonoBehaviour
 
     [Header("Referensi Sistem Oli")]
     public string tagBotolOliRak = "BotolOliRak";
+    public GameObject prefabBotolOliRak;
+    public Transform titikSpawnBotolOli;
+    public float jedaRespawnBotol = 1.5f;
 
     [Header("Pengaturan UI Kursor")]
     public Vector2 offsetTeksKursor = new Vector2(0f, -35f);
@@ -35,6 +39,7 @@ public class InteraksiPemain : MonoBehaviour
     private botolOli botolOliDisorot;
     private penempatanItem areaItemDisorot;
     private GameObject botolRakDisorot;
+    private GameObject botolRakAktif;
 
     private bool sudahAmbilBotolOli = false;
     private RectTransform rectTeksNama;
@@ -48,6 +53,12 @@ public class InteraksiPemain : MonoBehaviour
             posisiAwalTeksUI = rectTeksNama.position;
             teksNamaUI.raycastTarget = false;
         }
+
+        botolRakAktif = GameObject.FindWithTag(tagBotolOliRak);
+        if (botolRakAktif == null)
+        {
+            SpawnBotolOliDiRak();
+        }
     }
 
     void Update()
@@ -60,6 +71,16 @@ public class InteraksiPemain : MonoBehaviour
         }
 
         AturModeBidik();
+
+        bool tutorialBuka = TutorialPopupManager.instance != null && TutorialPopupManager.instance.tutorialTerbuka;
+        bool laporanBuka = DailyReportManager.instance != null && DailyReportManager.instance.laporanTerbuka;
+
+        if (tutorialBuka || laporanBuka)
+        {
+            if (teksNamaUI != null) teksNamaUI.text = "";
+            return;
+        }
+
         UpdatePosisiTeksUI();
         SorotBarang();
         CekInputPegang();
@@ -72,6 +93,21 @@ public class InteraksiPemain : MonoBehaviour
             Vector3 arahTarik = (titikPegangan.position - barangDipegang.position);
             barangDipegang.linearVelocity = arahTarik * kekuatanTarik;
         }
+    }
+
+    public void SpawnBotolOliDiRak()
+    {
+        if (prefabBotolOliRak == null || titikSpawnBotolOli == null) return;
+        if (botolRakAktif != null) return;
+
+        botolRakAktif = Instantiate(prefabBotolOliRak, titikSpawnBotolOli.position, titikSpawnBotolOli.rotation);
+        botolRakAktif.tag = tagBotolOliRak;
+    }
+
+    private IEnumerator ProsesRespawnBotolOli()
+    {
+        yield return new WaitForSeconds(jedaRespawnBotol);
+        SpawnBotolOliDiRak();
     }
 
     void AturModeBidik()
@@ -87,10 +123,11 @@ public class InteraksiPemain : MonoBehaviour
         bool hpBuka = GameManagerScript.instance != null && GameManagerScript.instance.hpSedangBuka;
         bool sedangInspeksi = motorFokus && GameManagerScript.instance != null && !GameManagerScript.instance.sudahDiinspeksi;
         bool laporanBuka = DailyReportManager.instance != null && DailyReportManager.instance.laporanTerbuka;
+        bool tutorialBuka = TutorialPopupManager.instance != null && TutorialPopupManager.instance.tutorialTerbuka;
 
         bool aktifkanCrosshair = true;
 
-        if (laporanBuka)
+        if (tutorialBuka || laporanBuka)
         {
             aktifkanCrosshair = false;
             Cursor.lockState = CursorLockMode.None;
@@ -315,7 +352,8 @@ public class InteraksiPemain : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && botolRakDisorot != null)
         {
             sudahAmbilBotolOli = true;
-            botolRakDisorot.SetActive(false);
+            Destroy(botolRakDisorot);
+            botolRakAktif = null;
             if (audioInteraksi != null && sfxPickup != null) audioInteraksi.PlayOneShot(sfxPickup);
             botolRakDisorot = null;
             return;
@@ -347,6 +385,7 @@ public class InteraksiPemain : MonoBehaviour
             else if (sudahAmbilBotolOli)
             {
                 sudahAmbilBotolOli = false;
+                StartCoroutine(ProsesRespawnBotolOli());
 
                 if (SequenceService.instance != null)
                 {

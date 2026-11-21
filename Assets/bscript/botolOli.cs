@@ -36,10 +36,20 @@ public class botolOli : MonoBehaviour
         if (modelVisualBotol != null)
         {
             rotasiAwal = modelVisualBotol.localEulerAngles;
+            if (oilManager == null)
+            {
+                GameObject oilChangeOBJ = GameObject.FindWithTag("OilManager");
+                oilManager = oilChangeOBJ.GetComponent<OilChangeManager>();
+            }
         }
         else
         {
             Debug.LogWarning("Model Visual Botol belum diisi di Inspector!");
+            if (oilManager == null)
+            {
+                GameObject oilChangeOBJ = GameObject.FindWithTag("OilManager");
+                oilManager = oilChangeOBJ.GetComponent<OilChangeManager>();
+            }
         }
     }
 
@@ -49,7 +59,11 @@ public class botolOli : MonoBehaviour
     /// </summary>
     public void ProsesInteraksi()
     {
-        if (oilManager == null) return;
+        if (oilManager == null)
+        {
+            GameObject oilChangeOBJ = GameObject.FindWithTag("OilManager");
+            oilManager = oilChangeOBJ.GetComponent<OilChangeManager>();
+        }
 
         // Validasi: Apakah corong sudah terpasang? Dan apakah oli belum penuh?
         if (!oilManager.isFunnelPlaced || oilManager.isNewOilFilled)

@@ -50,8 +50,9 @@ public class MekanikController : MonoBehaviour
         bool fokusMeja = StationInteraction.instance != null && StationInteraction.instance.sedangFokusMeja;
         bool hpBuka = GameManagerScript.instance != null && GameManagerScript.instance.hpSedangBuka;
         bool laporanBuka = DailyReportManager.instance != null && DailyReportManager.instance.laporanTerbuka;
+        bool tutorialBuka = TutorialPopupManager.instance != null && TutorialPopupManager.instance.tutorialTerbuka;
 
-        if (fokusMotor || fokusMeja || hpBuka || laporanBuka)
+        if (fokusMotor || fokusMeja || hpBuka || laporanBuka || tutorialBuka)
         {
             bisaGerak = false;
             bisaRotasiKamera = false;
